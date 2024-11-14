@@ -23,9 +23,9 @@ public class Initializer {
 
     GroupEntity group1 = new GroupEntity("family");
 
-    purchaseRepository.save(new PurchaseEntity(null, "Pyaterochka", new Date(),
-        new BigDecimal(423), group1 ));
-
+//    purchaseRepository.save(new PurchaseEntity(null, "Pyaterochka", new Date(),
+//        new BigDecimal(423), group1 ));
+//
     }
 
 

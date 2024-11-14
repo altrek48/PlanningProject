@@ -27,7 +27,9 @@ public class GroupEntity {
     private String name;
 
     @OneToMany(mappedBy = "group")
-    List<PurchaseEntity> purchases;
+    private List<PurchaseEntity> purchases;
 
+    @OneToMany(mappedBy = "group")
+    private List<TaskEntity> tasks;
 
 }

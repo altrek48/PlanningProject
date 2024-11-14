@@ -30,8 +30,15 @@ public class PurchaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "group_id", nullable = false)
-    GroupEntity group;
+    private GroupEntity group;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "task_id", nullable = true)
+    private TaskEntity task;
 
+    @OneToMany(mappedBy = "purchase")
+    List<ProductEntity> products;
 
+//    public PurchaseEntity(Object o, String pyaterochka, Date date, BigDecimal bigDecimal, GroupEntity group1) {
+//    }
 }

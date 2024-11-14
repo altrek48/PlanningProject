@@ -22,7 +22,9 @@ public class ProductInPlaneEntity {
 
     private Boolean completeness;
 
-
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "task_id", nullable = false)
+    private TaskEntity task;
 
 
 

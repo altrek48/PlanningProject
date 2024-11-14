@@ -27,6 +27,10 @@ public class ProductEntity {
 
     private BigDecimal price;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "purchase_id", nullable = false)
+    PurchaseEntity purchase;
+
 
 
 
