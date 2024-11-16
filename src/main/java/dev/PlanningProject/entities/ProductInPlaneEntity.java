@@ -14,6 +14,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ProductInPlaneEntity {
 
+    public ProductInPlaneEntity(String name) {
+        this.name = name;
+        this.completeness = false;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

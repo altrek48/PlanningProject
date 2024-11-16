@@ -1,17 +1,14 @@
-package dev.PlanningProject;
+package dev.PlanningProject.services;
 
 import dev.PlanningProject.entities.GroupEntity;
 import dev.PlanningProject.entities.PurchaseEntity;
 import dev.PlanningProject.repositories.GroupRepository;
 import dev.PlanningProject.repositories.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
-@Component
-public class Initializer {
+@Service
+public class PurchaseService {
 
     @Autowired
     GroupRepository groupRepository;
@@ -19,14 +16,10 @@ public class Initializer {
     @Autowired
     PurchaseRepository purchaseRepository;
 
-    public void initial() {
-
-//    GroupEntity group1 = new GroupEntity("family");
-
-//    purchaseRepository.save(new PurchaseEntity(null, "Pyaterochka", new Date(),
-//        new BigDecimal(423), group1 ));
-//
+    public PurchaseEntity createPurchase(PurchaseEntity newPurchase, Long group_id) {
+        GroupEntity group = groupRepository.getReferenceById(group_id);
+        newPurchase.setGroup(group);
+        return purchaseRepository.save(newPurchase);
     }
-
 
 }

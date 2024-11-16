@@ -1,12 +1,14 @@
 package dev.PlanningProject.controllers;
 
 import dev.PlanningProject.entities.GroupEntity;
+import dev.PlanningProject.entities.PurchaseEntity;
 import dev.PlanningProject.services.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/base/group")

@@ -17,6 +17,17 @@ import java.util.List;
 @NoArgsConstructor
 public class TaskEntity {
 
+    public TaskEntity(String name, String comment, List<ProductInPlaneEntity> products) {
+        this.name = name;
+        this.comment = comment;
+        this.products = products;
+    }
+
+    public TaskEntity(String name, String comment) {
+        this.name = name;
+        this.comment = comment;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

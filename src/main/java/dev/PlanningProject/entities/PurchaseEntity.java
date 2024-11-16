@@ -18,13 +18,26 @@ import java.util.List;
 @NoArgsConstructor
 public class PurchaseEntity {
 
+    public PurchaseEntity(String storeName /*, Date date*/, BigDecimal amount) {
+        this.storeName = storeName;
+       // this.date = date;
+        this.amount = amount;
+    }
+
+    public PurchaseEntity(Long id, String storeName, BigDecimal amount, List<ProductEntity> products) {
+        this.id = id;
+        this.storeName = storeName;
+        this.amount = amount;
+        this.products = products;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String storeName;
 
-    private Date date;
+    //private Date date;
 
     private BigDecimal amount;
 
