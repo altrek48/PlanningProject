@@ -21,10 +21,10 @@ public class TaskController {
         return taskService.createTask(task, group_id);
     }
 
-    @PutMapping(value = "change/{task_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    TaskEntity changeTask(@RequestBody TaskEntity task,@PathVariable("task_id") Long task_id ) {
+    @PutMapping(value = "change", produces = MediaType.APPLICATION_JSON_VALUE)
+    TaskEntity changeTask(@RequestBody TaskEntity task) {
         log.info("Zapros prinyat");
-        return  taskService.changeTask(task, task_id);
+        return  taskService.changeTask(task);
     }
 
 

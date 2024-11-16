@@ -1,5 +1,6 @@
 package dev.PlanningProject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -44,7 +45,7 @@ public class TaskEntity {
     @OneToMany(mappedBy = "task")
     private List<PurchaseEntity> purchases;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id", nullable = false)
     private GroupEntity group;
 

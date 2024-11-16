@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Slf4j
@@ -34,17 +35,38 @@ public class TaskService {
                 productInPlaneService.createProduct(product, task_id);
             }
         }
-        else {taskRepository.save(newTask);}
+        else {
+            log.info("No products in task");
+            taskRepository.save(newTask);
+        }
             return newTask;
         }
 
-        public TaskEntity changeTask(TaskEntity task,Long task_id) {
-            log.info("TaskEntity changeTask");
-            TaskEntity changingTask = taskRepository.getReferenceById(task_id);
-            changingTask.setComment(task.getComment());
-            changingTask.setName(task.getName());
-            changingTask.setProducts(productInPlaneService.changeAllProducts(task));
-            return taskRepository.save(changingTask);
+        public TaskEntity changeTask(TaskEntity task) {
+            TaskEntity newTask = taskRepository.getReferenceById(task.getId());
+            if(!Objects.equals(newTask.getName(), task.getName())) {
+                newTask.setName(task.getName());
+                log.info("names not equals");
+            }
+            if(!Objects.equals(newTask.getComment(), task.getComment())) {
+                newTask.setComment(task.getComment());
+                log.info("comments not equals");
+            }
+            if(task.getProducts() == null) {
+                productInPlaneService.deleteAllProductsInPlane(newTask);
+                newTask.setProducts(null);
+            }
+
+            //потом поменять(возможно через Map)
+            else {
+                productInPlaneService.deleteAllProductsInPlane(newTask);
+                List<ProductInPlaneEntity> newProducts = task.getProducts();
+                for(ProductInPlaneEntity product : newProducts) {
+                    product.setTask(newTask);
+                }
+                newTask.setProducts(newProducts);
+            }
+            return taskRepository.save(newTask);
         }
 
 }

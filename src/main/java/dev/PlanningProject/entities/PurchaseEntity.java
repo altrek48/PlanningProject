@@ -31,6 +31,11 @@ public class PurchaseEntity {
         this.products = products;
     }
 
+    public PurchaseEntity(String storeName, GroupEntity group) {
+        this.storeName = storeName;
+        this.group = group;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

@@ -42,4 +42,11 @@ public class ProductInPlaneService {
          return returnableProducts;
      }
 
+     public void deleteAllProductsInPlane(TaskEntity task) {
+         if(task.getProducts() != null) {
+             productInPlaneRepository.deleteAll(task.getProducts());
+         }
+         task.setProducts(null);
+     }
+
 }

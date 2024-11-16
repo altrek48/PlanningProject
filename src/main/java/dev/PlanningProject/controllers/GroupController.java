@@ -22,6 +22,7 @@ public class GroupController {
         return groupService.createGroup(group);
     }
 
+
     @DeleteMapping(value = "delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Long deleteGroup(@PathVariable("id") Long id) {
         return groupService.deleteGroupById(id);
