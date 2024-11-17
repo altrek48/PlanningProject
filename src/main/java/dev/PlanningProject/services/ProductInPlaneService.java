@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -42,7 +43,8 @@ public class ProductInPlaneService {
          return returnableProducts;
      }
 
-     public void deleteAllProductsInPlane(TaskEntity task) {
+     public void deleteAllProductsInPlane(Long task_id) {
+         TaskEntity task = taskRepository.getReferenceById(task_id);
          if(task.getProducts() != null) {
              productInPlaneRepository.deleteAll(task.getProducts());
          }

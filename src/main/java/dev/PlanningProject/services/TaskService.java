@@ -1,5 +1,7 @@
 package dev.PlanningProject.services;
 
+import dev.PlanningProject.dtos.ProductInPlaneDto;
+import dev.PlanningProject.dtos.TaskDto;
 import dev.PlanningProject.entities.GroupEntity;
 import dev.PlanningProject.entities.ProductInPlaneEntity;
 import dev.PlanningProject.entities.TaskEntity;
@@ -9,8 +11,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -42,7 +46,16 @@ public class TaskService {
             return newTask;
         }
 
-        public TaskEntity changeTask(TaskEntity task) {
+
+    public Long deleteTask(Long task_id) {
+        productInPlaneService.deleteAllProductsInPlane(task_id);
+        taskRepository.deleteById(task_id);
+        return task_id;
+    }
+
+        //todo
+        //пофиксить создание продуктов вместо изменения старых
+        public TaskDto changeTask(TaskDto task) {
             TaskEntity newTask = taskRepository.getReferenceById(task.getId());
             if(!Objects.equals(newTask.getName(), task.getName())) {
                 newTask.setName(task.getName());
@@ -52,21 +65,48 @@ public class TaskService {
                 newTask.setComment(task.getComment());
                 log.info("comments not equals");
             }
-            if(task.getProducts() == null) {
-                productInPlaneService.deleteAllProductsInPlane(newTask);
-                newTask.setProducts(null);
-            }
 
-            //потом поменять(возможно через Map)
-            else {
-                productInPlaneService.deleteAllProductsInPlane(newTask);
-                List<ProductInPlaneEntity> newProducts = task.getProducts();
-                for(ProductInPlaneEntity product : newProducts) {
-                    product.setTask(newTask);
-                }
+                productInPlaneService.deleteAllProductsInPlane(newTask.getId());
+                newTask.setProducts(null);
+
+            if(task.getProducts()!= null) {
+                log.info("new products not null");
+                List<ProductInPlaneEntity> newProducts = task.getProducts().stream()
+                        .map(productDto -> {
+                            ProductInPlaneEntity productEntity = new ProductInPlaneEntity();
+                            productEntity.setName(productDto.getName());
+                            productEntity.setCompleteness(productDto.getCompleteness());
+                            productEntity.setTask(newTask);
+                            productInPlaneService.createProduct(productEntity, newTask.getId());
+                            return productEntity;
+                        }).collect(Collectors.toList());
+
                 newTask.setProducts(newProducts);
             }
-            return taskRepository.save(newTask);
+            taskRepository.save(newTask);
+            return toTaskDto(newTask);
+        }
+
+        //todo
+        public TaskDto toTaskDto(TaskEntity taskEntity) {
+            TaskDto taskDto = new TaskDto();
+            taskDto.setId(taskEntity.getId());
+            taskDto.setName(taskEntity.getName());
+            taskDto.setComment(taskEntity.getComment());
+            if(taskEntity.getProducts() != null) {
+                List<ProductInPlaneDto> productDtos = taskEntity.getProducts().stream()
+                        .map(product -> {
+                            ProductInPlaneDto productDto = new ProductInPlaneDto();
+                            productDto.setId(product.getId());
+                            productDto.setName(product.getName());
+                            productDto.setCompleteness(product.getCompleteness());
+                            return productDto;
+                        }).collect(Collectors.toList());
+                taskDto.setProducts(productDtos);
+            } else {
+                taskDto.setProducts(null);
+            }
+            return taskDto;
         }
 
 }

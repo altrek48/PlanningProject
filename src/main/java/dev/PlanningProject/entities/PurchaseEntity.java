@@ -36,6 +36,12 @@ public class PurchaseEntity {
         this.group = group;
     }
 
+    public PurchaseEntity(String storeName, List<ProductEntity> products) {
+        this.storeName = storeName;
+        this.products = products;
+
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -57,6 +63,4 @@ public class PurchaseEntity {
     @OneToMany(mappedBy = "purchase")
     List<ProductEntity> products;
 
-//    public PurchaseEntity(Object o, String pyaterochka, Date date, BigDecimal bigDecimal, GroupEntity group1) {
-//    }
 }

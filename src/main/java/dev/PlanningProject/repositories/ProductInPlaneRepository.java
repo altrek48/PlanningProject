@@ -13,6 +13,4 @@ public interface ProductInPlaneRepository extends JpaRepository<ProductInPlaneEn
     @Query("SELECT s FROM ProductInPlaneEntity s WHERE s.task.id = :taskId")
     List<ProductInPlaneEntity> getProductsInPlaneByTaskId(@Param("taskId") Long taskId);
 
-    //дописать
-    void deleteProductInPlaneByTaskId(@Param("taskId") Long taskId);
 }
