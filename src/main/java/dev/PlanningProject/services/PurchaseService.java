@@ -16,9 +16,14 @@ public class PurchaseService {
     @Autowired
     PurchaseRepository purchaseRepository;
 
+    @Autowired
+    ProductService productService;
+
     public PurchaseEntity createPurchase(PurchaseEntity newPurchase, Long group_id) {
         GroupEntity group = groupRepository.getReferenceById(group_id);
         newPurchase.setGroup(group);
+        productService.createProducts(newPurchase.getProducts(), newPurchase);
+
         return purchaseRepository.save(newPurchase);
     }
 

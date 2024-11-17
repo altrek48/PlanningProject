@@ -53,11 +53,11 @@ public class PurchaseEntity {
     private BigDecimal amount;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "group_id", nullable = false)
+    @JoinColumn(name = "group_id")
     private GroupEntity group;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "task_id", nullable = true)
+    @JoinColumn(name = "task_id")
     private TaskEntity task;
 
     @OneToMany(mappedBy = "purchase")
