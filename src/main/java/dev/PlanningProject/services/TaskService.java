@@ -53,6 +53,13 @@ public class TaskService {
         return task_id;
     }
 
+    public void deleteAllTasksInGroup(GroupEntity group) {
+        List<TaskEntity> tasks = group.getTasks();
+        for(TaskEntity task : tasks) {
+            deleteTask(task.getId());
+        }
+    }
+
         //todo
         //пофиксить создание продуктов вместо изменения старых
         public TaskDto changeTask(TaskDto task) {

@@ -13,11 +13,24 @@ public class GroupService {
     @Autowired
     GroupRepository groupRepository;
 
+    @Autowired
+    TaskService taskService;
+
+    @Autowired
+    PurchaseService purchaseService;
+
     public GroupEntity createGroup(GroupEntity group) {
         return groupRepository.save(group);
     }
 
     public Long deleteGroupById(Long id) {
+        GroupEntity group = groupRepository.getReferenceById(id);
+        if (group.getTasks() != null) {
+            taskService.deleteAllTasksInGroup(group);
+        }
+        if (group.getPurchases() != null) {
+            purchaseService.deleteAllPurchasesInGroup(group);
+        }
         groupRepository.deleteById(id);
         return id;
     }

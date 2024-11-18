@@ -17,6 +17,11 @@ import java.security.PrivateKey;
 @NoArgsConstructor
 public class ProductEntity {
 
+    public ProductEntity(String name, BigDecimal price) {
+        this.name = name;
+        this.price = price;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -27,8 +32,8 @@ public class ProductEntity {
 
     private BigDecimal price;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "purchase_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "purchase_id")
     PurchaseEntity purchase;
 
 
