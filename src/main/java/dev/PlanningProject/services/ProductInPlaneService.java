@@ -21,10 +21,10 @@ public class ProductInPlaneService {
     @Autowired
     ProductInPlaneRepository productInPlaneRepository;
 
-     public ProductInPlaneEntity createProduct(ProductInPlaneEntity newProduct, Long task_id) {
+     public void createProduct(ProductInPlaneEntity newProduct, Long task_id) {
          TaskEntity task = taskRepository.getReferenceById(task_id);
          newProduct.setTask(task);
-         return productInPlaneRepository.save(newProduct);
+         productInPlaneRepository.save(newProduct);
      }
 
      public List<ProductInPlaneEntity> changeAllProducts(TaskEntity newTask) {
