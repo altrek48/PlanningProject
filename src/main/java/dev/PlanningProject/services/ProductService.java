@@ -1,7 +1,10 @@
 package dev.PlanningProject.services;
 
+import dev.PlanningProject.dtos.PurchaseDto;
 import dev.PlanningProject.entities.ProductEntity;
 import dev.PlanningProject.entities.PurchaseEntity;
+import dev.PlanningProject.mappers.ListProductMapper;
+import dev.PlanningProject.mappers.PurchaseMapper;
 import dev.PlanningProject.repositories.ProductRepository;
 import dev.PlanningProject.repositories.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +21,19 @@ public class ProductService {
     @Autowired
     PurchaseRepository purchaseRepository;
 
-    public List<ProductEntity> createProducts(List<ProductEntity> newProducts, PurchaseEntity purchase) {
+    @Autowired
+    PurchaseMapper purchaseMapper;
+
+    @Autowired
+    ListProductMapper listProductMapper;
+
+    public void createProducts(PurchaseDto purchase, Long savedPurchase_id) {
+        List<ProductEntity> newProducts = listProductMapper.toListProductEntity(purchase.getProducts());
+        PurchaseEntity savedPurchase = purchaseRepository.getReferenceById(savedPurchase_id);
         for(ProductEntity product : newProducts) {
-            product.setPurchase(purchase);
+            product.setPurchase(savedPurchase);
             productRepository.save(product);
         }
-
-        return newProducts;
     }
 
     public void deleteAllProducts(Long purchase_id) {

@@ -1,5 +1,6 @@
 package dev.PlanningProject.controllers;
 
+import dev.PlanningProject.dtos.PurchaseDto;
 import dev.PlanningProject.entities.ProductEntity;
 import dev.PlanningProject.entities.PurchaseEntity;
 import dev.PlanningProject.entities.TaskEntity;
@@ -19,14 +20,14 @@ public class PurchaseController {
 
     //Добавления покупки вне плана
     @PostMapping(value = "create/{group_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public PurchaseEntity createPurchase(@RequestBody PurchaseEntity purchase, @PathVariable("group_id") Long group_id) {
+    public PurchaseDto createPurchase(@RequestBody PurchaseDto purchase, @PathVariable("group_id") Long group_id) {
         return purchaseService.createPurchase(purchase, group_id);
     }
 
-    //Добавление покупки через план
-    @PostMapping(value = "create/{group_id}/{task_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public PurchaseEntity createPurchaseByPlan(@RequestBody PurchaseEntity purchase, @PathVariable("group_id") Long group_id, @PathVariable("task_id") Long task_id) {
-        return purchaseService.createPurchaseInTask(purchase, group_id, task_id);
-    }
+//    //Добавление покупки через план
+//    @PostMapping(value = "create/{group_id}/{task_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+//    public PurchaseEntity createPurchaseByPlan(@RequestBody PurchaseEntity purchase, @PathVariable("group_id") Long group_id, @PathVariable("task_id") Long task_id) {
+//        return purchaseService.createPurchaseInTask(purchase, group_id, task_id);
+//    }
 
 }

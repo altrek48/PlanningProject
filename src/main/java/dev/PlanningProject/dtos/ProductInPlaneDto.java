@@ -26,5 +26,5 @@ public class ProductInPlaneDto {
 
     private Boolean completeness;
 
-    private TaskDto task;
+    private Long task_id;
 }

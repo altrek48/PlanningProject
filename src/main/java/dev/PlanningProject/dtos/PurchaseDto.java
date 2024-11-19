@@ -26,9 +26,9 @@ public class PurchaseDto {
 
     private BigDecimal amount;
 
-    private GroupDto group;
+    private Long group_id;
 
-    private TaskDto task;
+    private Long task_id;
 
     List<ProductDto> products;
 

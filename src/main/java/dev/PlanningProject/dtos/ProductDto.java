@@ -1,5 +1,6 @@
 package dev.PlanningProject.dtos;
 
+import dev.PlanningProject.entities.ProductInPlaneEntity;
 import dev.PlanningProject.entities.PurchaseEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
@@ -26,6 +27,7 @@ public class ProductDto {
 
     private BigDecimal price;
 
-    private PurchaseDto purchase;
+    private Long purchase_id;
 
+    private Long productInPlane_id;
 }
