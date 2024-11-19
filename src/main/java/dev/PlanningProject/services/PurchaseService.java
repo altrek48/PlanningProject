@@ -30,6 +30,14 @@ public class PurchaseService {
         return newPurchase;
     }
 
+    public PurchaseEntity createPurchaseInTask(PurchaseEntity newPurchase, Long group_id, Long task_id) {
+        GroupEntity group = groupRepository.getReferenceById(group_id);
+        newPurchase.setGroup(group);
+        purchaseRepository.save(newPurchase);
+        productService.createProducts(newPurchase.getProducts(), newPurchase);
+        return newPurchase;
+    }
+
     public Long deletePurchase(Long purchase_id) {
         productService.deleteAllProducts(purchase_id);
         purchaseRepository.deleteById(purchase_id);

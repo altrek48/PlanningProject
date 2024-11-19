@@ -1,5 +1,6 @@
 package dev.PlanningProject.controllers;
 
+import dev.PlanningProject.dtos.GroupDto;
 import dev.PlanningProject.entities.GroupEntity;
 import dev.PlanningProject.entities.PurchaseEntity;
 import dev.PlanningProject.services.GroupService;
@@ -18,7 +19,7 @@ public class GroupController {
     GroupService groupService;
 
     @PostMapping(value = "create", produces = MediaType.APPLICATION_JSON_VALUE)
-    public GroupEntity createGroup(@RequestBody GroupEntity group) {
+    public GroupDto createGroup(@RequestBody GroupDto group) {
         return groupService.createGroup(group);
     }
 

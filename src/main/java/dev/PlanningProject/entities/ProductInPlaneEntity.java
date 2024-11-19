@@ -32,6 +32,9 @@ public class ProductInPlaneEntity {
     @JoinColumn(name = "task_id")
     private TaskEntity task;
 
+    @OneToOne
+    @JoinColumn(name = "product_id")
+    private ProductEntity linkedProduct;
 
 
 }

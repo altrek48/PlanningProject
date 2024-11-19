@@ -36,7 +36,8 @@ public class ProductEntity {
     @JoinColumn(name = "purchase_id")
     PurchaseEntity purchase;
 
-
+    @OneToOne(mappedBy = "linkedProduct")
+    ProductInPlaneEntity productInPlane;
 
 
 
