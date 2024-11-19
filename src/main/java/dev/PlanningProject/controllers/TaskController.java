@@ -18,7 +18,7 @@ public class TaskController {
 
     //Создание плана
     @PostMapping(value = "create/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    TaskEntity createTask(@RequestBody TaskEntity task, @PathVariable("id") Long group_id ) {
+    TaskDto createTask(@RequestBody TaskDto task, @PathVariable("id") Long group_id ) {
         log.info("Succesful");
         return taskService.createTask(task, group_id);
     }

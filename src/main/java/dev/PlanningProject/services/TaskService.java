@@ -5,6 +5,7 @@ import dev.PlanningProject.dtos.TaskDto;
 import dev.PlanningProject.entities.GroupEntity;
 import dev.PlanningProject.entities.ProductInPlaneEntity;
 import dev.PlanningProject.entities.TaskEntity;
+import dev.PlanningProject.mappers.TaskMapper;
 import dev.PlanningProject.repositories.GroupRepository;
 import dev.PlanningProject.repositories.TaskRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -29,8 +30,12 @@ public class TaskService {
     @Autowired
     ProductInPlaneService productInPlaneService;
 
-    public TaskEntity createTask(TaskEntity newTask,Long group_id ) {
+    @Autowired
+    TaskMapper taskMapper;
+
+    public TaskDto createTask(TaskDto task,Long group_id ) {
         GroupEntity group = groupRepository.getReferenceById(group_id);
+        TaskEntity newTask = taskMapper.toTaskEntity(task);
         newTask.setGroup(group);
         if(newTask.getProducts() != null) {
             taskRepository.save(newTask);
@@ -41,9 +46,8 @@ public class TaskService {
         }
         else {
             log.info("No products in task");
-            taskRepository.save(newTask);
         }
-            return newTask;
+            return taskMapper.toTaskDto(newTask);
         }
 
 

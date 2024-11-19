@@ -1,5 +1,6 @@
 package dev.PlanningProject.dtos;
 
+import dev.PlanningProject.entities.ProductEntity;
 import dev.PlanningProject.entities.TaskEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,4 +28,6 @@ public class ProductInPlaneDto {
     private Boolean completeness;
 
     private Long task_id;
+
+    private Long linkedProduct_id;
 }
