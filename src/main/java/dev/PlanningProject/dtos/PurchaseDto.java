@@ -26,10 +26,10 @@ public class PurchaseDto {
 
     private BigDecimal amount;
 
-    private Long group_id;
+    private Long groupId;
 
-    private Long task_id;
+    private Long taskId;
 
-    List<ProductDto> products;
+    private List<ProductDto> products;
 
 }

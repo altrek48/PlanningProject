@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-11-23T01:44:29+0300",
+    date = "2024-11-23T23:44:13+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.10.2.jar, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
@@ -38,7 +38,7 @@ public class ProductInPlaneMapperImpl implements ProductInPlaneMapper {
 
         ProductInPlaneDto productInPlaneDto = new ProductInPlaneDto();
 
-        productInPlaneDto.setTask_id( productInPlaneEntityTaskId( productInPlaneEntity ) );
+        productInPlaneDto.setTaskId( productInPlaneEntityTaskId( productInPlaneEntity ) );
         productInPlaneDto.setId( productInPlaneEntity.getId() );
         productInPlaneDto.setName( productInPlaneEntity.getName() );
         productInPlaneDto.setCompleteness( productInPlaneEntity.getCompleteness() );
@@ -53,7 +53,7 @@ public class ProductInPlaneMapperImpl implements ProductInPlaneMapper {
 
         TaskEntity taskEntity = new TaskEntity();
 
-        taskEntity.setId( productInPlaneDto.getTask_id() );
+        taskEntity.setId( productInPlaneDto.getTaskId() );
 
         return taskEntity;
     }

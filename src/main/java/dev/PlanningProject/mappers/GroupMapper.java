@@ -13,8 +13,8 @@ public interface GroupMapper {
     @Mapping(target = "purchases", ignore = true)
     GroupEntity toGroupEntity(GroupDto groupDto);
 
-    @Mapping(target = "tasks_ids", ignore = true)
-    @Mapping(target = "purchases_ids", ignore = true)
+    @Mapping(target = "tasksIds", ignore = true)
+    @Mapping(target = "purchasesIds", ignore = true)
     GroupDto toGroupDto(GroupEntity groupEntity);
 
 }

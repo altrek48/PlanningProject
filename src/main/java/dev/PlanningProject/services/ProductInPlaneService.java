@@ -4,6 +4,7 @@ import dev.PlanningProject.entities.ProductInPlaneEntity;
 import dev.PlanningProject.entities.TaskEntity;
 import dev.PlanningProject.repositories.ProductInPlaneRepository;
 import dev.PlanningProject.repositories.TaskRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,15 +14,17 @@ import java.util.List;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ProductInPlaneService {
 
-    @Autowired
-    TaskRepository taskRepository;
+    //todo allargsconstructor inject
 
-    @Autowired
-    ProductInPlaneRepository productInPlaneRepository;
+    private final TaskRepository taskRepository;
 
-     public void createProduct(ProductInPlaneEntity newProduct, Long task_id) {
+
+    private final ProductInPlaneRepository productInPlaneRepository;
+
+    public void createProduct(ProductInPlaneEntity newProduct, Long task_id) {
          TaskEntity task = taskRepository.getReferenceById(task_id);
          newProduct.setTask(task);
          productInPlaneRepository.save(newProduct);
@@ -43,8 +46,10 @@ public class ProductInPlaneService {
          return returnableProducts;
      }
 
+     //todo snake case -> camel case everywhere
      public void deleteAllProductsInPlane(Long task_id) {
          TaskEntity task = taskRepository.getReferenceById(task_id);
+         //todo delete where task_id = <task_id>
          if(task.getProducts() != null) {
              List<ProductInPlaneEntity> products = task.getProducts();
              for(ProductInPlaneEntity product: products) {

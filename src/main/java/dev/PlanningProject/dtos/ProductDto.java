@@ -27,7 +27,7 @@ public class ProductDto {
 
     private BigDecimal price;
 
-    private Long purchase_id;
+    private Long purchaseId;
 
-    private Long productInPlane_id;
+    private Long productInPlaneId;
 }

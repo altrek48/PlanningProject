@@ -26,7 +26,7 @@ public class ProductInPlaneDto {
 
     private Boolean completeness = false;
 
-    private Long task_id;
+    private Long taskId;
 
-    private Long linkedProduct_id;
+    private Long linkedProductId;
 }

@@ -9,6 +9,7 @@ import org.mapstruct.MappingConstants;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ProductMapper {
 
+    //todo переделать
     @Mapping(target = "purchase", ignore = true)
     @Mapping(target = "productInPlane", ignore = true)
     ProductEntity toProductEntity(ProductDto productDto);

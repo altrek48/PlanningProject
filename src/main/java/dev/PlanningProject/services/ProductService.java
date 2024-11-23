@@ -9,26 +9,28 @@ import dev.PlanningProject.mappers.PurchaseMapper;
 import dev.PlanningProject.repositories.ProductInPlaneRepository;
 import dev.PlanningProject.repositories.ProductRepository;
 import dev.PlanningProject.repositories.PurchaseRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ProductService {
 
-    @Autowired
-    ProductRepository productRepository;
 
-    @Autowired
-    PurchaseRepository purchaseRepository;
-
-    @Autowired
-    ProductInPlaneRepository productInPlaneRepository;
+    private final ProductRepository productRepository;
 
 
-    @Autowired
-    ListProductMapper listProductMapper;
+    private final PurchaseRepository purchaseRepository;
+
+
+    private final ProductInPlaneRepository productInPlaneRepository;
+
+
+
+    private final ListProductMapper listProductMapper;
 
     public void createProducts(PurchaseDto purchase, Long savedPurchase_id) {
         List<ProductEntity> newProducts = listProductMapper.toListProductEntity(purchase.getProducts());

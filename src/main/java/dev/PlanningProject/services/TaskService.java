@@ -8,6 +8,7 @@ import dev.PlanningProject.entities.TaskEntity;
 import dev.PlanningProject.mappers.TaskMapper;
 import dev.PlanningProject.repositories.GroupRepository;
 import dev.PlanningProject.repositories.TaskRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,22 +20,26 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class TaskService {
 
-    @Autowired
-    TaskRepository taskRepository;
 
-    @Autowired
-    GroupRepository groupRepository;
+    private final TaskRepository taskRepository;
 
-    @Autowired
-    ProductInPlaneService productInPlaneService;
 
-    @Autowired
-    TaskMapper taskMapper;
+    private final GroupRepository groupRepository;
+
+
+    private final ProductInPlaneService productInPlaneService;
+
+
+    private final TaskMapper taskMapper;
 
     public TaskDto createTask(TaskDto task,Long group_id ) {
+        //todo fix
         GroupEntity group = groupRepository.getReferenceById(group_id);
+        //todo save through group_id
+
         TaskEntity newTask = taskMapper.toTaskEntity(task);
         newTask.setGroup(group);
         if(newTask.getProducts() != null) {
@@ -47,6 +52,7 @@ public class TaskService {
         else {
             log.info("No products in task");
         }
+        //todo ??
             return taskMapper.toTaskDto(newTask);
         }
 
@@ -77,7 +83,7 @@ public class TaskService {
                 log.info("check new comments");
             }
 
-                productInPlaneService.deleteAllProductsInPlane(newTask.getId());
+            productInPlaneService.deleteAllProductsInPlane(newTask.getId());
                 newTask.setProducts(null);
 
             if(task.getProducts()!= null) {

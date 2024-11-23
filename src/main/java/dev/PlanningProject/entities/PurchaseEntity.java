@@ -56,11 +56,12 @@ public class PurchaseEntity {
     @JoinColumn(name = "group_id")
     private GroupEntity group;
 
+    //todo lazy everywhere, join fetch? jpql
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id")
     private TaskEntity task;
 
-    @OneToMany(mappedBy = "purchase")
+    @OneToMany(mappedBy = "purchase", fetch = FetchType.LAZY)
     List<ProductEntity> products;
 
 }

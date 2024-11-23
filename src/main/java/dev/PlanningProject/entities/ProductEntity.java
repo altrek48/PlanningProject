@@ -36,7 +36,7 @@ public class ProductEntity {
     @JoinColumn(name = "purchase_id")
     PurchaseEntity purchase;
 
-    @OneToOne(mappedBy = "linkedProduct")
+    @OneToOne(mappedBy = "linkedProduct", fetch = FetchType.LAZY)
     ProductInPlaneEntity productInPlane;
 
 

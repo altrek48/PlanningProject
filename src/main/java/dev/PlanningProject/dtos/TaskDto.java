@@ -29,8 +29,8 @@ public class TaskDto {
 
     private List<ProductInPlaneDto> products;
 
-    private List<Long> purchases_ids;
+    private List<Long> purchasesIds;
 
-    private Long group_id;
+    private Long groupId;
 
 }

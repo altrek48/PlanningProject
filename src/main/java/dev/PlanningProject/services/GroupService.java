@@ -4,25 +4,26 @@ import dev.PlanningProject.dtos.GroupDto;
 import dev.PlanningProject.entities.GroupEntity;
 import dev.PlanningProject.mappers.GroupMapper;
 import dev.PlanningProject.repositories.GroupRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 @Service
+@RequiredArgsConstructor
 public class GroupService {
 
-    @Autowired
-    GroupRepository groupRepository;
+    private final GroupRepository groupRepository;
 
-    @Autowired
-    TaskService taskService;
 
-    @Autowired
-    PurchaseService purchaseService;
+    private final TaskService taskService;
 
-    @Autowired
-    GroupMapper groupMapper;
+
+    private final PurchaseService purchaseService;
+
+
+    private final GroupMapper groupMapper;
 
     public GroupDto createGroup(GroupDto group) {
         GroupEntity newGroup = groupMapper.toGroupEntity(group);

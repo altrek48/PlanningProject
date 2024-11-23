@@ -31,7 +31,7 @@ public class ProductInPlaneEntity {
     @JoinColumn(name = "task_id")
     private TaskEntity task;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private ProductEntity linkedProduct;
 

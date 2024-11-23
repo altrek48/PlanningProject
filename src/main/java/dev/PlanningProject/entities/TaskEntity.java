@@ -39,14 +39,16 @@ public class TaskEntity {
 
     private BigDecimal amount;
 
-    @OneToMany(mappedBy = "task")
+    @OneToMany(mappedBy = "task", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ProductInPlaneEntity> products;
 
-    @OneToMany(mappedBy = "task")
+    @OneToMany(mappedBy = "task", fetch = FetchType.LAZY )
     private List<PurchaseEntity> purchases;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id", nullable = false)
     private GroupEntity group;
+
+    //todo save through group_id
 
 }

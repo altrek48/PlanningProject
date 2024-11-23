@@ -10,12 +10,13 @@ import org.mapstruct.MappingConstants;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ProductInPlaneMapper {
 
+    //todo переделать
     @Mapping(target = "linkedProduct", ignore = true)
-    @Mapping(target = "task.id", source = "task_id")
+    @Mapping(target = "task.id", source = "taskId")
     ProductInPlaneEntity toProductInPlaneEntity(ProductInPlaneDto productInPlaneDto);
 
-    @Mapping(target = "linkedProduct_id", ignore = true)
-    @Mapping(target = "task_id", source = "task.id")
+    @Mapping(target = "linkedProductId", ignore = true)
+    @Mapping(target = "taskId", source = "task.id")
     ProductInPlaneDto toProductInPLaneDto(ProductInPlaneEntity productInPlaneEntity);
 
 }

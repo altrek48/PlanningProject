@@ -24,8 +24,8 @@ public class GroupDto {
 
     private String name;
 
-    private List<Long> purchases_ids;
+    private List<Long> purchasesIds;
 
-    private List<Long> tasks_ids;
+    private List<Long> tasksIds;
 
 }
