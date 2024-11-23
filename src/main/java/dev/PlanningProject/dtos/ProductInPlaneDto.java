@@ -18,14 +18,13 @@ public class ProductInPlaneDto {
 
     public ProductInPlaneDto(String name) {
         this.name = name;
-        this.completeness = false;
     }
 
     private Long id;
 
     private String name;
 
-    private Boolean completeness;
+    private Boolean completeness = false;
 
     private Long task_id;
 

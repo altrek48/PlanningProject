@@ -46,9 +46,18 @@ public class ProductInPlaneService {
      public void deleteAllProductsInPlane(Long task_id) {
          TaskEntity task = taskRepository.getReferenceById(task_id);
          if(task.getProducts() != null) {
-             productInPlaneRepository.deleteAll(task.getProducts());
+             List<ProductInPlaneEntity> products = task.getProducts();
+             for(ProductInPlaneEntity product: products) {
+                 if(product.getLinkedProduct() != null) {
+                     product.setLinkedProduct(null);
+                     productInPlaneRepository.save(product);
+                 }
+                 productInPlaneRepository.delete(product);
+             }
          }
+         task.setPurchases(null);
          task.setProducts(null);
+         taskRepository.save(task);
      }
 
 }

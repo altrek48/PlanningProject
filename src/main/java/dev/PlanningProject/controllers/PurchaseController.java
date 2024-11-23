@@ -24,10 +24,10 @@ public class PurchaseController {
         return purchaseService.createPurchase(purchase, group_id);
     }
 
-//    //Добавление покупки через план
-//    @PostMapping(value = "create/{group_id}/{task_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public PurchaseEntity createPurchaseByPlan(@RequestBody PurchaseEntity purchase, @PathVariable("group_id") Long group_id, @PathVariable("task_id") Long task_id) {
-//        return purchaseService.createPurchaseInTask(purchase, group_id, task_id);
-//    }
+    //Добавление покупки через план
+    @PostMapping(value = "create/{group_id}/{task_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public PurchaseDto createPurchaseByPlan(@RequestBody PurchaseDto purchase, @PathVariable("group_id") Long group_id, @PathVariable("task_id") Long task_id) {
+        return purchaseService.createPurchaseInTask(purchase, group_id, task_id);
+    }
 
 }

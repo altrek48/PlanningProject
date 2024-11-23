@@ -65,23 +65,23 @@ public class TaskService {
     }
 
         //todo
-        //пофиксить создание продуктов вместо изменения старых
+        //возможно пофиксить создание продуктов вместо изменения старых
         public TaskDto changeTask(TaskDto task) {
             TaskEntity newTask = taskRepository.getReferenceById(task.getId());
             if(!Objects.equals(newTask.getName(), task.getName())) {
                 newTask.setName(task.getName());
-                log.info("names not equals");
+                log.info("check new name");
             }
             if(!Objects.equals(newTask.getComment(), task.getComment())) {
                 newTask.setComment(task.getComment());
-                log.info("comments not equals");
+                log.info("check new comments");
             }
 
                 productInPlaneService.deleteAllProductsInPlane(newTask.getId());
                 newTask.setProducts(null);
 
             if(task.getProducts()!= null) {
-                log.info("new products not null");
+                log.info("check new products not null");
                 List<ProductInPlaneEntity> newProducts = task.getProducts().stream()
                         .map(productDto -> {
                             ProductInPlaneEntity productEntity = new ProductInPlaneEntity();
@@ -95,29 +95,7 @@ public class TaskService {
                 newTask.setProducts(newProducts);
             }
             taskRepository.save(newTask);
-            return toTaskDto(newTask);
-        }
-
-        //todo
-        public TaskDto toTaskDto(TaskEntity taskEntity) {
-            TaskDto taskDto = new TaskDto();
-            taskDto.setId(taskEntity.getId());
-            taskDto.setName(taskEntity.getName());
-            taskDto.setComment(taskEntity.getComment());
-            if(taskEntity.getProducts() != null) {
-                List<ProductInPlaneDto> productDtos = taskEntity.getProducts().stream()
-                        .map(product -> {
-                            ProductInPlaneDto productDto = new ProductInPlaneDto();
-                            productDto.setId(product.getId());
-                            productDto.setName(product.getName());
-                            productDto.setCompleteness(product.getCompleteness());
-                            return productDto;
-                        }).collect(Collectors.toList());
-                taskDto.setProducts(productDtos);
-            } else {
-                taskDto.setProducts(null);
-            }
-            return taskDto;
+            return taskMapper.toTaskDto(newTask);
         }
 
 }

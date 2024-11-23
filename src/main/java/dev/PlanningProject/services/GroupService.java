@@ -32,11 +32,11 @@ public class GroupService {
 
     public Long deleteGroupById(Long id) {
         GroupEntity group = groupRepository.getReferenceById(id);
-        if (group.getTasks() != null) {
-            taskService.deleteAllTasksInGroup(group);
-        }
         if (group.getPurchases() != null) {
             purchaseService.deleteAllPurchasesInGroup(group);
+        }
+        if (group.getTasks() != null) {
+            taskService.deleteAllTasksInGroup(group);
         }
         groupRepository.deleteById(id);
         return id;

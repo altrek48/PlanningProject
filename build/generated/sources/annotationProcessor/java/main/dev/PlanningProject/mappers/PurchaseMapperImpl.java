@@ -5,6 +5,7 @@ import dev.PlanningProject.dtos.PurchaseDto;
 import dev.PlanningProject.entities.GroupEntity;
 import dev.PlanningProject.entities.ProductEntity;
 import dev.PlanningProject.entities.PurchaseEntity;
+import dev.PlanningProject.entities.TaskEntity;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-11-19T15:45:52+0300",
+    date = "2024-11-23T01:44:29+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.10.2.jar, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
@@ -46,6 +47,24 @@ public class PurchaseMapperImpl implements PurchaseMapper {
 
         PurchaseDto purchaseDto = new PurchaseDto();
 
+        purchaseDto.setGroup_id( purchaseEntityGroupId( purchaseEntity ) );
+        purchaseDto.setId( purchaseEntity.getId() );
+        purchaseDto.setStoreName( purchaseEntity.getStoreName() );
+        purchaseDto.setAmount( purchaseEntity.getAmount() );
+        purchaseDto.setProducts( productEntityListToProductDtoList( purchaseEntity.getProducts() ) );
+
+        return purchaseDto;
+    }
+
+    @Override
+    public PurchaseDto toPurchaseDtoWithPlane(PurchaseEntity purchaseEntity) {
+        if ( purchaseEntity == null ) {
+            return null;
+        }
+
+        PurchaseDto purchaseDto = new PurchaseDto();
+
+        purchaseDto.setTask_id( purchaseEntityTaskId( purchaseEntity ) );
         purchaseDto.setGroup_id( purchaseEntityGroupId( purchaseEntity ) );
         purchaseDto.setId( purchaseEntity.getId() );
         purchaseDto.setStoreName( purchaseEntity.getStoreName() );
@@ -89,5 +108,13 @@ public class PurchaseMapperImpl implements PurchaseMapper {
         }
 
         return list1;
+    }
+
+    private Long purchaseEntityTaskId(PurchaseEntity purchaseEntity) {
+        TaskEntity task = purchaseEntity.getTask();
+        if ( task == null ) {
+            return null;
+        }
+        return task.getId();
     }
 }

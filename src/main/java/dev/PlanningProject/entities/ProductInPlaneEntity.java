@@ -17,7 +17,6 @@ public class ProductInPlaneEntity {
 
     public ProductInPlaneEntity(String name) {
         this.name = name;
-        this.completeness = false;
     }
 
     @Id
@@ -26,7 +25,7 @@ public class ProductInPlaneEntity {
 
     private String name;
 
-    private Boolean completeness;
+    private Boolean completeness = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id")

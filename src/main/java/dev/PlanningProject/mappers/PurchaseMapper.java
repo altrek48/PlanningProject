@@ -16,4 +16,8 @@ public interface PurchaseMapper {
     @Mapping(target = "task_id", ignore = true)
     @Mapping(target = "group_id", source = "group.id")
     PurchaseDto toPurchaseDto(PurchaseEntity purchaseEntity);
+
+    @Mapping(target = "task_id", source = "task.id")
+    @Mapping(target = "group_id", source = "group.id")
+    PurchaseDto toPurchaseDtoWithPlane(PurchaseEntity purchaseEntity);
 }
