@@ -3,6 +3,7 @@ package dev.PlanningProject.controllers;
 import dev.PlanningProject.dtos.TaskDto;
 import dev.PlanningProject.entities.TaskEntity;
 import dev.PlanningProject.services.TaskService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -11,16 +12,16 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "api/base/task")
 @Slf4j
+@RequiredArgsConstructor
 public class TaskController {
 
-    @Autowired
-    TaskService taskService;
+    private final TaskService taskService;
 
     //Создание плана
     @PostMapping(value = "create/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    TaskDto createTask(@RequestBody TaskDto task, @PathVariable("id") Long group_id ) {
+    TaskDto createTask(@RequestBody TaskDto task, @PathVariable("id") Long groupId ) {
         log.info("Succesful");
-        return taskService.createTask(task, group_id);
+        return taskService.createTask(task, groupId);
     }
 
     //Изменение плана

@@ -23,42 +23,28 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TaskService {
 
-
     private final TaskRepository taskRepository;
-
-
     private final GroupRepository groupRepository;
-
-
     private final ProductInPlaneService productInPlaneService;
-
-
     private final TaskMapper taskMapper;
 
-    public TaskDto createTask(TaskDto task,Long group_id ) {
-        //todo fix
-        GroupEntity group = groupRepository.getReferenceById(group_id);
-        //todo save through group_id
 
+    public TaskDto createTask(TaskDto task,Long groupId ) {
         TaskEntity newTask = taskMapper.toTaskEntity(task);
-        newTask.setGroup(group);
-        if(newTask.getProducts() != null) {
-            taskRepository.save(newTask);
-            Long task_id = newTask.getId();
-            for(ProductInPlaneEntity product : newTask.getProducts()) {
-                productInPlaneService.createProduct(product, task_id);
-            }
+        newTask.setGroupId(groupId);
+        if(task.getProducts() != null) {
+            tuneProducts(newTask);
         }
         else {
             log.info("No products in task");
         }
-        //todo ??
-            return taskMapper.toTaskDto(newTask);
-        }
+        TaskEntity savedTask = taskRepository.save(newTask);
+        return taskMapper.toTaskDto(savedTask);
+    }
 
 
     public Long deleteTask(Long task_id) {
-        productInPlaneService.deleteAllProductsInPlane(task_id);
+        //productInPlaneService.deleteAllProductsInPlane(task_id);
         taskRepository.deleteById(task_id);
         return task_id;
     }
@@ -104,4 +90,10 @@ public class TaskService {
             return taskMapper.toTaskDto(newTask);
         }
 
+    public void tuneProducts(TaskEntity task) {
+        List<ProductInPlaneEntity> products = task.getProducts();
+        for(ProductInPlaneEntity product : products) {
+            product.setTask(task);
+        }
+    }
 }

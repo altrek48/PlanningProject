@@ -4,6 +4,7 @@ import dev.PlanningProject.dtos.GroupDto;
 import dev.PlanningProject.entities.GroupEntity;
 import dev.PlanningProject.entities.PurchaseEntity;
 import dev.PlanningProject.services.GroupService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +14,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/base/group")
+@RequiredArgsConstructor
 public class GroupController {
 
-    @Autowired
-    GroupService groupService;
+    private final GroupService groupService;
 
     @PostMapping(value = "create", produces = MediaType.APPLICATION_JSON_VALUE)
     public GroupDto createGroup(@RequestBody GroupDto group) {

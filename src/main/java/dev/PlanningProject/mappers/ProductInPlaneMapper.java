@@ -11,11 +11,9 @@ import org.mapstruct.MappingConstants;
 public interface ProductInPlaneMapper {
 
     //todo переделать
-    @Mapping(target = "linkedProduct", ignore = true)
     @Mapping(target = "task.id", source = "taskId")
     ProductInPlaneEntity toProductInPlaneEntity(ProductInPlaneDto productInPlaneDto);
 
-    @Mapping(target = "linkedProductId", ignore = true)
     @Mapping(target = "taskId", source = "task.id")
     ProductInPlaneDto toProductInPLaneDto(ProductInPlaneEntity productInPlaneEntity);
 

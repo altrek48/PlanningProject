@@ -4,6 +4,7 @@ import dev.PlanningProject.entities.GroupEntity;
 import dev.PlanningProject.entities.PurchaseEntity;
 import dev.PlanningProject.repositories.GroupRepository;
 import dev.PlanningProject.repositories.PurchaseRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,13 +12,12 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Component
+@RequiredArgsConstructor
 public class Initializer {
 
-    @Autowired
-    GroupRepository groupRepository;
+    private final GroupRepository groupRepository;
 
-    @Autowired
-    PurchaseRepository purchaseRepository;
+    private final PurchaseRepository purchaseRepository;
 
     public void initial() {
 

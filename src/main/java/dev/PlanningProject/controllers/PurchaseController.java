@@ -5,6 +5,7 @@ import dev.PlanningProject.entities.ProductEntity;
 import dev.PlanningProject.entities.PurchaseEntity;
 import dev.PlanningProject.entities.TaskEntity;
 import dev.PlanningProject.services.PurchaseService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +14,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/base/purchase")
+@RequiredArgsConstructor
 public class PurchaseController {
 
-    @Autowired
-    PurchaseService purchaseService;
+    private final PurchaseService purchaseService;
 
     //Добавления покупки вне плана
     @PostMapping(value = "create/{group_id}", produces = MediaType.APPLICATION_JSON_VALUE)
