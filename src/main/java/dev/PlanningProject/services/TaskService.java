@@ -44,7 +44,6 @@ public class TaskService {
 
 
     public Long deleteTask(Long task_id) {
-        //productInPlaneService.deleteAllProductsInPlane(task_id);
         taskRepository.deleteById(task_id);
         return task_id;
     }
@@ -56,39 +55,15 @@ public class TaskService {
         }
     }
 
-        //todo
-        //возможно пофиксить создание продуктов вместо изменения старых
-        public TaskDto changeTask(TaskDto task) {
-            TaskEntity newTask = taskRepository.getReferenceById(task.getId());
-            if(!Objects.equals(newTask.getName(), task.getName())) {
-                newTask.setName(task.getName());
-                log.info("check new name");
-            }
-            if(!Objects.equals(newTask.getComment(), task.getComment())) {
-                newTask.setComment(task.getComment());
-                log.info("check new comments");
-            }
-
-            productInPlaneService.deleteAllProductsInPlane(newTask.getId());
-                newTask.setProducts(null);
-
-            if(task.getProducts()!= null) {
-                log.info("check new products not null");
-                List<ProductInPlaneEntity> newProducts = task.getProducts().stream()
-                        .map(productDto -> {
-                            ProductInPlaneEntity productEntity = new ProductInPlaneEntity();
-                            productEntity.setName(productDto.getName());
-                            productEntity.setCompleteness(productDto.getCompleteness());
-                            productEntity.setTask(newTask);
-                            productInPlaneService.createProduct(productEntity, newTask.getId());
-                            return productEntity;
-                        }).collect(Collectors.toList());
-
-                newTask.setProducts(newProducts);
-            }
-            taskRepository.save(newTask);
-            return taskMapper.toTaskDto(newTask);
+    public TaskDto changeTask(TaskDto task) {
+        TaskEntity changingTask = taskMapper.toTaskEntity(task);
+        if(task.getProducts() != null) {
+            tuneProducts(changingTask);
         }
+        TaskEntity changedTask = taskRepository.save(changingTask);
+        return taskMapper.toTaskDto(changedTask);
+    }
+
 
     public void tuneProducts(TaskEntity task) {
         List<ProductInPlaneEntity> products = task.getProducts();
