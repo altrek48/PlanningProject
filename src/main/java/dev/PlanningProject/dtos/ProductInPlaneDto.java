@@ -1,8 +1,5 @@
 package dev.PlanningProject.dtos;
 
-import dev.PlanningProject.entities.ProductEntity;
-import dev.PlanningProject.entities.TaskEntity;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

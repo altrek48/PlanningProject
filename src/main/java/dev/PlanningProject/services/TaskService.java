@@ -1,22 +1,14 @@
 package dev.PlanningProject.services;
 
-import dev.PlanningProject.dtos.ProductInPlaneDto;
 import dev.PlanningProject.dtos.TaskDto;
-import dev.PlanningProject.entities.GroupEntity;
 import dev.PlanningProject.entities.ProductInPlaneEntity;
 import dev.PlanningProject.entities.TaskEntity;
 import dev.PlanningProject.mappers.TaskMapper;
-import dev.PlanningProject.repositories.GroupRepository;
 import dev.PlanningProject.repositories.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -24,8 +16,6 @@ import java.util.stream.Collectors;
 public class TaskService {
 
     private final TaskRepository taskRepository;
-    private final GroupRepository groupRepository;
-    private final ProductInPlaneService productInPlaneService;
     private final TaskMapper taskMapper;
 
 
@@ -48,13 +38,6 @@ public class TaskService {
         return task_id;
     }
 
-    public void deleteAllTasksInGroup(GroupEntity group) {
-        List<TaskEntity> tasks = group.getTasks();
-        for(TaskEntity task : tasks) {
-            deleteTask(task.getId());
-        }
-    }
-
     public TaskDto changeTask(TaskDto task) {
         TaskEntity changingTask = taskMapper.toTaskEntity(task);
         if(task.getProducts() != null) {
@@ -71,4 +54,5 @@ public class TaskService {
             product.setTask(task);
         }
     }
+
 }

@@ -1,10 +1,5 @@
 package dev.PlanningProject.dtos;
 
-import com.sun.source.util.TaskListener;
-import dev.PlanningProject.entities.GroupEntity;
-import dev.PlanningProject.entities.ProductInPlaneEntity;
-import dev.PlanningProject.entities.PurchaseEntity;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-11-24T18:29:48+0300",
+    date = "2024-11-29T23:57:53+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.10.2.jar, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
@@ -28,6 +28,20 @@ public class ListProductMapperImpl implements ListProductMapper {
         List<ProductEntity> list = new ArrayList<ProductEntity>( productDtoList.size() );
         for ( ProductDto productDto : productDtoList ) {
             list.add( productMapper.toProductEntity( productDto ) );
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<ProductDto> toListProductDto(List<ProductEntity> productEntityList) {
+        if ( productEntityList == null ) {
+            return null;
+        }
+
+        List<ProductDto> list = new ArrayList<ProductDto>( productEntityList.size() );
+        for ( ProductEntity productEntity : productEntityList ) {
+            list.add( productMapper.toProductDto( productEntity ) );
         }
 
         return list;

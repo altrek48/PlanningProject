@@ -10,6 +10,7 @@ import org.mapstruct.MappingConstants;
 public interface TaskMapper {
     //todo переделать
     @Mapping(target = "groupId", source = "groupId")
+    //@Mapping(target = "purchases.id", source = "purchasesIds")
     TaskEntity toTaskEntity(TaskDto taskDto);
     //todo переделать
     @Mapping(target = "groupId", source = "groupId")

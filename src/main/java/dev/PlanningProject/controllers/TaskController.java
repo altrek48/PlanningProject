@@ -1,11 +1,9 @@
 package dev.PlanningProject.controllers;
 
 import dev.PlanningProject.dtos.TaskDto;
-import dev.PlanningProject.entities.TaskEntity;
 import dev.PlanningProject.services.TaskService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 

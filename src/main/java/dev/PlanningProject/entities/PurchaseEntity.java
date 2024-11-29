@@ -5,9 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -52,8 +50,11 @@ public class PurchaseEntity {
 
     private BigDecimal amount;
 
+    @Column(name = "group_id", nullable = false)
+    private Long groupId;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "group_id")
+    @JoinColumn(name = "group_id", insertable = false, updatable = false)
     private GroupEntity group;
 
     //todo lazy everywhere, join fetch? jpql
@@ -61,7 +62,7 @@ public class PurchaseEntity {
     @JoinColumn(name = "task_id")
     private TaskEntity task;
 
-    @OneToMany(mappedBy = "purchase", fetch = FetchType.LAZY)
-    List<ProductEntity> products;
+    @OneToMany(mappedBy = "purchase", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductEntity> products;
 
 }
