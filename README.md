@@ -1,1 +1,2 @@
-![Классы drawio](https://github.com/user-attachments/assets/9bd2dd0c-5248-4c62-a69d-dea9ec46469b)
+
+![Классы drawio (1)](https://github.com/user-attachments/assets/7db74a16-42d5-49b7-978f-037657ac914a)
