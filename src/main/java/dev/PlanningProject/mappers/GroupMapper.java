@@ -9,12 +9,8 @@ import org.mapstruct.MappingConstants;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface GroupMapper {
 
-    @Mapping(target = "tasks", ignore = true)
-    @Mapping(target = "purchases", ignore = true)
     GroupEntity toGroupEntity(GroupDto groupDto);
 
-    @Mapping(target = "tasksIds", ignore = true)
-    @Mapping(target = "purchasesIds", ignore = true)
     GroupDto toGroupDto(GroupEntity groupEntity);
 
 }
