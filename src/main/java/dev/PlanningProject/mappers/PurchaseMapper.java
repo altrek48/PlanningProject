@@ -13,12 +13,11 @@ public interface PurchaseMapper {
     @Mapping(target = "groupId", source = "groupId")
     //@Mapping(target = "task.id", source = "taskId")
     PurchaseEntity toPurchaseEntity(PurchaseDto purchaseDto);
-    //todo переделать
 
     @Mapping(target = "groupId", source = "groupId")
     //@Mapping(target = "taskId", source = "task.id")
     PurchaseDto toPurchaseDto(PurchaseEntity purchaseEntity);
-    //todo переделать
+
     //@Mapping(target = "taskId", source = "task.id")
     @Mapping(target = "groupId", source = "group.id")
     PurchaseDto toPurchaseDtoWithPlane(PurchaseEntity purchaseEntity);

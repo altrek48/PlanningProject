@@ -26,6 +26,7 @@ public class PurchaseService {
         return purchaseMapper.toPurchaseDto(savedPurchase);
     }
 
+    //todo доделать
     public PurchaseDto createPurchaseInTask(PurchaseDto purchase, Long group_id, Long task_id) {
         return null;
     }
