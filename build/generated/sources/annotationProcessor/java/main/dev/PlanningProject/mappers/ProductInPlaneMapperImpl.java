@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-12-01T12:08:42+0300",
+    date = "2024-12-08T12:52:32+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.10.2.jar, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
@@ -26,6 +26,7 @@ public class ProductInPlaneMapperImpl implements ProductInPlaneMapper {
         productInPlaneEntity.setId( productInPlaneDto.getId() );
         productInPlaneEntity.setName( productInPlaneDto.getName() );
         productInPlaneEntity.setCompleteness( productInPlaneDto.getCompleteness() );
+        productInPlaneEntity.setPrice( productInPlaneDto.getPrice() );
 
         return productInPlaneEntity;
     }
@@ -42,6 +43,7 @@ public class ProductInPlaneMapperImpl implements ProductInPlaneMapper {
         productInPlaneDto.setId( productInPlaneEntity.getId() );
         productInPlaneDto.setName( productInPlaneEntity.getName() );
         productInPlaneDto.setCompleteness( productInPlaneEntity.getCompleteness() );
+        productInPlaneDto.setPrice( productInPlaneEntity.getPrice() );
 
         return productInPlaneDto;
     }

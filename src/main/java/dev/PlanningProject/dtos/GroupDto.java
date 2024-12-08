@@ -13,16 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 public class GroupDto {
 
-    public GroupDto(String name) {
-        this.name = name;
-    }
-
     private Long id;
 
     private String name;
-
-    private List<Long> purchasesIds;
-
-    private List<Long> tasksIds;
 
 }

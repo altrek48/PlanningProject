@@ -3,12 +3,18 @@ package dev.PlanningProject.services;
 import dev.PlanningProject.dtos.TaskDto;
 import dev.PlanningProject.entities.ProductInPlaneEntity;
 import dev.PlanningProject.entities.TaskEntity;
+import dev.PlanningProject.mappers.ListTaskMapper;
 import dev.PlanningProject.mappers.TaskMapper;
 import dev.PlanningProject.repositories.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
+
+import static java.math.BigDecimal.valueOf;
 
 @Service
 @Slf4j
@@ -17,11 +23,15 @@ public class TaskService {
 
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
+    private final ListTaskMapper listTaskMapper;
 
 
     public TaskDto createTask(TaskDto task,Long groupId ) {
         TaskEntity newTask = taskMapper.toTaskEntity(task);
         newTask.setGroupId(groupId);
+        if(newTask.getPurchases() != null) {
+            newTask.setAmount(getAmount(newTask));
+        }
         if(task.getProducts() != null) {
             tuneProducts(newTask);
         }
@@ -53,6 +63,21 @@ public class TaskService {
         for(ProductInPlaneEntity product : products) {
             product.setTask(task);
         }
+    }
+
+    public List<TaskDto> getTasks(Long groupId) {
+        List<TaskEntity> taskEntities = taskRepository.findAllByGroupId(groupId);
+        return listTaskMapper.toListTaskDto(taskEntities);
+    }
+
+    public BigDecimal getAmount(TaskEntity task) {
+        BigDecimal amount = new BigDecimal(0);
+        for( ProductInPlaneEntity product: task.getProducts()) {
+            if(!Objects.equals(product.getPrice(), valueOf(0))) {
+                amount = amount.add(product.getPrice());
+            }
+        }
+        return amount;
     }
 
 }

@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/base/task")
@@ -31,11 +32,13 @@ public class TaskController {
 
     //Удаление плана
     @DeleteMapping(value = "delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    Long deleteTask(@PathVariable("id") Long task_id) {
-        return taskService.deleteTask(task_id);
+    Long deleteTask(@PathVariable("id") Long taskId) {
+        return taskService.deleteTask(taskId);
     }
 
-
-
+    @GetMapping(value = "get/{groupId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<TaskDto> getTasks(@PathVariable("groupId") Long groupId) {
+        return taskService.getTasks(groupId);
+    }
 
 }

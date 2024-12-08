@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "productsInPlane")
 @Getter
@@ -25,6 +27,8 @@ public class ProductInPlaneEntity {
     private String name;
 
     private Boolean completeness = false;
+
+    private BigDecimal price;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id")

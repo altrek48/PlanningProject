@@ -20,6 +20,11 @@ public class GroupEntity {
         this.name = name;
     };
 
+    public  GroupEntity(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

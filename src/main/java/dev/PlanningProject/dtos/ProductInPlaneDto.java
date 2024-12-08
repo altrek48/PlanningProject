@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -22,6 +24,8 @@ public class ProductInPlaneDto {
     private String name;
 
     private Boolean completeness = false;
+
+    private BigDecimal price;
 
     private Long taskId;
 
