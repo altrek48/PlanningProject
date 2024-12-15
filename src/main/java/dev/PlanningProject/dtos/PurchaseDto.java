@@ -1,5 +1,7 @@
 package dev.PlanningProject.dtos;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +28,7 @@ public class PurchaseDto {
 
     private Long taskId;
 
+    @NotEmpty
     private List<ProductDto> products;
 
 }
