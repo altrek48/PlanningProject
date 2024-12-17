@@ -1,6 +1,7 @@
 package dev.PlanningProject.mappers;
 
 import dev.PlanningProject.dtos.TaskDto;
+import dev.PlanningProject.dtos.TaskShortDto;
 import dev.PlanningProject.entities.TaskEntity;
 import javax.annotation.processing.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-12-08T12:52:32+0300",
+    date = "2024-12-17T12:07:58+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.10.2.jar, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
@@ -51,5 +52,22 @@ public class TaskMapperImpl implements TaskMapper {
         taskDto.setProducts( listProductInPlaneMapper.toListProductInPlaneDto( taskEntity.getProducts() ) );
 
         return taskDto;
+    }
+
+    @Override
+    public TaskShortDto toTaskShortDto(TaskEntity taskEntity) {
+        if ( taskEntity == null ) {
+            return null;
+        }
+
+        TaskShortDto taskShortDto = new TaskShortDto();
+
+        taskShortDto.setId( taskEntity.getId() );
+        taskShortDto.setName( taskEntity.getName() );
+        taskShortDto.setComment( taskEntity.getComment() );
+        taskShortDto.setAmount( taskEntity.getAmount() );
+        taskShortDto.setCompleteness( taskEntity.getCompleteness() );
+
+        return taskShortDto;
     }
 }

@@ -1,6 +1,7 @@
 package dev.PlanningProject.controllers;
 
 import dev.PlanningProject.dtos.TaskDto;
+import dev.PlanningProject.dtos.TaskShortDto;
 import dev.PlanningProject.services.TaskService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +38,7 @@ public class TaskController {
     }
 
     @GetMapping(value = "get/{groupId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    List<TaskDto> getTasks(@PathVariable("groupId") Long groupId) {
+    List<TaskShortDto> getTasks(@PathVariable("groupId") Long groupId) {
         return taskService.getTasks(groupId);
     }
 

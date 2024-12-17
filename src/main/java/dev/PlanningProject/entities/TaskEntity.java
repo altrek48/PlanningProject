@@ -36,6 +36,8 @@ public class TaskEntity {
     private String comment;
 
     private BigDecimal amount;
+    //думаю цельных процентов будет достаточно
+    private Integer completeness;
 
     @OneToMany(mappedBy = "task", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductInPlaneEntity> products;

@@ -1,6 +1,7 @@
 package dev.PlanningProject.services;
 
 import dev.PlanningProject.dtos.TaskDto;
+import dev.PlanningProject.dtos.TaskShortDto;
 import dev.PlanningProject.entities.ProductInPlaneEntity;
 import dev.PlanningProject.entities.TaskEntity;
 import dev.PlanningProject.mappers.ListTaskMapper;
@@ -65,9 +66,9 @@ public class TaskService {
         }
     }
 
-    public List<TaskDto> getTasks(Long groupId) {
+    public List<TaskShortDto> getTasks(Long groupId) {
         List<TaskEntity> taskEntities = taskRepository.findAllByGroupId(groupId);
-        return listTaskMapper.toListTaskDto(taskEntities);
+        return listTaskMapper.toListTaskShortDto(taskEntities);
     }
 
     public BigDecimal getAmount(TaskEntity task) {
