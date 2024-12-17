@@ -32,6 +32,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly('org.postgresql:postgresql')
+	implementation 'org.hibernate.validator:hibernate-validator:8.0.0.Final'
+	implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
 }
 
 tasks.named('test') {

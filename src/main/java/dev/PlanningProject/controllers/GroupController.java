@@ -2,6 +2,7 @@ package dev.PlanningProject.controllers;
 
 import dev.PlanningProject.dtos.GroupDto;
 import dev.PlanningProject.services.GroupService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ public class GroupController {
     private final GroupService groupService;
 
     @PostMapping(value = "create", produces = MediaType.APPLICATION_JSON_VALUE)
-    public GroupDto createGroup(@RequestBody GroupDto group) {
+    public GroupDto createGroup(@Valid @RequestBody GroupDto group) {
         return groupService.createGroup(group);
     }
 
