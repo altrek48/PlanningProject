@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-12-17T12:20:21+0300",
+    date = "2024-12-09T20:52:37+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.10.2.jar, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
@@ -30,7 +30,6 @@ public class TaskMapperImpl implements TaskMapper {
         taskEntity.setId( taskDto.getId() );
         taskEntity.setName( taskDto.getName() );
         taskEntity.setComment( taskDto.getComment() );
-        taskEntity.setAmount( taskDto.getAmount() );
         taskEntity.setProducts( listProductInPlaneMapper.toListProductInPlaneEntity( taskDto.getProducts() ) );
 
         return taskEntity;
@@ -48,7 +47,6 @@ public class TaskMapperImpl implements TaskMapper {
         taskDto.setId( taskEntity.getId() );
         taskDto.setName( taskEntity.getName() );
         taskDto.setComment( taskEntity.getComment() );
-        taskDto.setAmount( taskEntity.getAmount() );
         taskDto.setProducts( listProductInPlaneMapper.toListProductInPlaneDto( taskEntity.getProducts() ) );
 
         return taskDto;
