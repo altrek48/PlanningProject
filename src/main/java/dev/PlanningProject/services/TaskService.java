@@ -7,6 +7,7 @@ import dev.PlanningProject.entities.TaskEntity;
 import dev.PlanningProject.mappers.ListTaskMapper;
 import dev.PlanningProject.mappers.TaskMapper;
 import dev.PlanningProject.repositories.TaskRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -79,6 +80,12 @@ public class TaskService {
             }
         }
         return amount;
+    }
+
+    public TaskDto getTask(Long taskId) {
+        TaskEntity task = taskRepository.findById(taskId)
+                .orElseThrow(() -> new EntityNotFoundException("task с переданным значение не найден"));
+        return taskMapper.toTaskDto(task);
     }
 
 }

@@ -45,4 +45,9 @@ public class TaskController {
         return taskService.getTasks(groupId);
     }
 
+    @GetMapping(value = "getOne/{taskId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    TaskDto getTask(@PathVariable("taskId") Long taskId) {
+        return taskService.getTask(taskId);
+    }
+
 }

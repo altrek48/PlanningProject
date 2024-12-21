@@ -1,5 +1,7 @@
 package dev.PlanningProject.dtos;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +23,8 @@ public class ProductInPlaneDto {
 
     private Long id;
 
+    @NotBlank
+    @Size(min = 2, max = 36, message = "Name must be between 2 and 36 characters long")
     private String name;
 
     private Boolean completeness = false;
