@@ -1,6 +1,7 @@
 package dev.PlanningProject.mappers;
 
 import dev.PlanningProject.dtos.PurchaseDto;
+import dev.PlanningProject.dtos.PurchaseShortDto;
 import dev.PlanningProject.entities.PurchaseEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -21,4 +22,6 @@ public interface PurchaseMapper {
     //@Mapping(target = "taskId", source = "task.id")
     @Mapping(target = "groupId", source = "group.id")
     PurchaseDto toPurchaseDtoWithPlane(PurchaseEntity purchaseEntity);
+
+    PurchaseShortDto toPurchaseShortDto(PurchaseEntity purchaseEntity);
 }

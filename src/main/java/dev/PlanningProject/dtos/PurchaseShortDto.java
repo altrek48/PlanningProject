@@ -1,6 +1,5 @@
 package dev.PlanningProject.dtos;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,8 +15,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PurchaseDto {
-
+public class PurchaseShortDto {
     private Long id;
 
     private String storeName;
@@ -29,8 +27,4 @@ public class PurchaseDto {
     private Long groupId;
 
     private Long taskId;
-
-    @NotEmpty
-    private List<ProductDto> products;
-
 }

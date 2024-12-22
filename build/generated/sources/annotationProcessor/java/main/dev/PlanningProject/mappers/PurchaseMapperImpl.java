@@ -1,6 +1,7 @@
 package dev.PlanningProject.mappers;
 
 import dev.PlanningProject.dtos.PurchaseDto;
+import dev.PlanningProject.dtos.PurchaseShortDto;
 import dev.PlanningProject.entities.GroupEntity;
 import dev.PlanningProject.entities.PurchaseEntity;
 import javax.annotation.processing.Generated;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-12-17T12:20:21+0300",
+    date = "2024-12-22T16:45:04+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.10.2.jar, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
@@ -29,6 +30,7 @@ public class PurchaseMapperImpl implements PurchaseMapper {
         purchaseEntity.setGroupId( purchaseDto.getGroupId() );
         purchaseEntity.setId( purchaseDto.getId() );
         purchaseEntity.setStoreName( purchaseDto.getStoreName() );
+        purchaseEntity.setDate( purchaseDto.getDate() );
         purchaseEntity.setAmount( purchaseDto.getAmount() );
         purchaseEntity.setProducts( listProductMapper.toListProductEntity( purchaseDto.getProducts() ) );
 
@@ -46,6 +48,7 @@ public class PurchaseMapperImpl implements PurchaseMapper {
         purchaseDto.setGroupId( purchaseEntity.getGroupId() );
         purchaseDto.setId( purchaseEntity.getId() );
         purchaseDto.setStoreName( purchaseEntity.getStoreName() );
+        purchaseDto.setDate( purchaseEntity.getDate() );
         purchaseDto.setAmount( purchaseEntity.getAmount() );
         purchaseDto.setProducts( listProductMapper.toListProductDto( purchaseEntity.getProducts() ) );
 
@@ -63,10 +66,28 @@ public class PurchaseMapperImpl implements PurchaseMapper {
         purchaseDto.setGroupId( purchaseEntityGroupId( purchaseEntity ) );
         purchaseDto.setId( purchaseEntity.getId() );
         purchaseDto.setStoreName( purchaseEntity.getStoreName() );
+        purchaseDto.setDate( purchaseEntity.getDate() );
         purchaseDto.setAmount( purchaseEntity.getAmount() );
         purchaseDto.setProducts( listProductMapper.toListProductDto( purchaseEntity.getProducts() ) );
 
         return purchaseDto;
+    }
+
+    @Override
+    public PurchaseShortDto toPurchaseShortDto(PurchaseEntity purchaseEntity) {
+        if ( purchaseEntity == null ) {
+            return null;
+        }
+
+        PurchaseShortDto purchaseShortDto = new PurchaseShortDto();
+
+        purchaseShortDto.setId( purchaseEntity.getId() );
+        purchaseShortDto.setStoreName( purchaseEntity.getStoreName() );
+        purchaseShortDto.setDate( purchaseEntity.getDate() );
+        purchaseShortDto.setAmount( purchaseEntity.getAmount() );
+        purchaseShortDto.setGroupId( purchaseEntity.getGroupId() );
+
+        return purchaseShortDto;
     }
 
     private Long purchaseEntityGroupId(PurchaseEntity purchaseEntity) {

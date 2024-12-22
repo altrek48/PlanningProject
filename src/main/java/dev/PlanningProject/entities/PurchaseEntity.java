@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -46,7 +49,7 @@ public class PurchaseEntity {
 
     private String storeName;
 
-    //private Date date;
+    private LocalDateTime date;
 
     private BigDecimal amount;
 

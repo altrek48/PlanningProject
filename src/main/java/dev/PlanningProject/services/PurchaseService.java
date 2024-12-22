@@ -1,13 +1,17 @@
 package dev.PlanningProject.services;
 
 import dev.PlanningProject.dtos.PurchaseDto;
+import dev.PlanningProject.dtos.PurchaseShortDto;
 import dev.PlanningProject.entities.ProductEntity;
 import dev.PlanningProject.entities.PurchaseEntity;
+import dev.PlanningProject.mappers.ListPurchaseMapper;
 import dev.PlanningProject.mappers.PurchaseMapper;
 import dev.PlanningProject.repositories.PurchaseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -16,12 +20,14 @@ public class PurchaseService {
 
     private final PurchaseRepository purchaseRepository;
     private final PurchaseMapper purchaseMapper;
+    private final ListPurchaseMapper listPurchaseMapper;
 
 
     public PurchaseDto createPurchase(PurchaseDto purchase, Long groupId) {
         PurchaseEntity newPurchase = purchaseMapper.toPurchaseEntity(purchase);
         newPurchase.setGroupId(groupId);
         tuneProducts(newPurchase);
+        newPurchase.setDate(LocalDateTime.now());
         PurchaseEntity savedPurchase = purchaseRepository.save(newPurchase);
         return purchaseMapper.toPurchaseDto(savedPurchase);
     }
@@ -37,6 +43,11 @@ public class PurchaseService {
         for(ProductEntity product : products) {
             product.setPurchase(purchase);
         }
+    }
+
+    public List<PurchaseShortDto> getAllPurchases(Long groupId) {
+        List<PurchaseEntity> purchases = purchaseRepository.findAllByGroupId(groupId);
+        return listPurchaseMapper.toListPurchaseShortDto(purchases);
     }
 
 }
