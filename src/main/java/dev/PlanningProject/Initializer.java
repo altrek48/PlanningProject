@@ -1,14 +1,14 @@
 package dev.PlanningProject;
 
-import dev.PlanningProject.entities.GroupEntity;
-import dev.PlanningProject.entities.ProductInPlaneEntity;
-import dev.PlanningProject.entities.PurchaseEntity;
-import dev.PlanningProject.entities.TaskEntity;
+import dev.PlanningProject.dtos.auth.SignInRequest;
+import dev.PlanningProject.entities.*;
 import dev.PlanningProject.repositories.GroupRepository;
 import dev.PlanningProject.repositories.PurchaseRepository;
 import dev.PlanningProject.repositories.TaskRepository;
+import dev.PlanningProject.services.auth.JwtUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -23,6 +23,7 @@ public class Initializer {
     private final GroupRepository groupRepository;
     private final TaskRepository taskRepository;
     private final PurchaseRepository purchaseRepository;
+    private final JwtUserDetailsService userDetailsService;
 
     public void initial1() {
 
@@ -59,8 +60,9 @@ public class Initializer {
         newTask2.setProducts(newProductsInPlane2);
         taskRepository.save(newTask2);
 
-
+        userDetailsService.createUser(SignInRequest.builder()
+                        .username("rolik222")
+                        .pwd("1234")
+                .build());
     }
-
-
 }

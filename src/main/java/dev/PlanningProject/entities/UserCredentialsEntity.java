@@ -9,13 +9,22 @@ import lombok.*;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 public class UserCredentialsEntity {
+
+    public UserCredentialsEntity() {
+        UserEntity userEntity = new UserEntity();
+        this.linkedUser = userEntity;
+        userEntity.setLinkedUserCredentials(this);
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    private String username;
+
+    private boolean enabled;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "linkedUserCredentials")
     private UserEntity linkedUser;
