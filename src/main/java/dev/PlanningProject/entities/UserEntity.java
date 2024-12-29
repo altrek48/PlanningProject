@@ -23,7 +23,7 @@ public class UserEntity {
 //    private List<GroupEntity> groups;
 
     @OneToOne
-    @JoinColumn(name = "linkedUserCredentials_id")
+    @JoinColumn(name = "linked_UserCredentials_id")
     private UserCredentialsEntity linkedUserCredentials;
 
 

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-12-22T16:45:04+0300",
+    date = "2024-12-29T16:07:51+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.10.2.jar, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
@@ -37,15 +37,15 @@ public class ProductInPlaneMapperImpl implements ProductInPlaneMapper {
             return null;
         }
 
-        ProductInPlaneDto productInPlaneDto = new ProductInPlaneDto();
+        ProductInPlaneDto.ProductInPlaneDtoBuilder productInPlaneDto = ProductInPlaneDto.builder();
 
-        productInPlaneDto.setTaskId( productInPlaneEntityTaskId( productInPlaneEntity ) );
-        productInPlaneDto.setId( productInPlaneEntity.getId() );
-        productInPlaneDto.setName( productInPlaneEntity.getName() );
-        productInPlaneDto.setCompleteness( productInPlaneEntity.getCompleteness() );
-        productInPlaneDto.setPrice( productInPlaneEntity.getPrice() );
+        productInPlaneDto.taskId( productInPlaneEntityTaskId( productInPlaneEntity ) );
+        productInPlaneDto.id( productInPlaneEntity.getId() );
+        productInPlaneDto.name( productInPlaneEntity.getName() );
+        productInPlaneDto.completeness( productInPlaneEntity.getCompleteness() );
+        productInPlaneDto.price( productInPlaneEntity.getPrice() );
 
-        return productInPlaneDto;
+        return productInPlaneDto.build();
     }
 
     protected TaskEntity productInPlaneDtoToTaskEntity(ProductInPlaneDto productInPlaneDto) {

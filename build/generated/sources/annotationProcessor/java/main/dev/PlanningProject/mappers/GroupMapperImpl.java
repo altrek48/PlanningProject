@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-12-22T16:45:03+0300",
+    date = "2024-12-29T16:07:51+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.10.2.jar, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
@@ -33,11 +33,11 @@ public class GroupMapperImpl implements GroupMapper {
             return null;
         }
 
-        GroupDto groupDto = new GroupDto();
+        GroupDto.GroupDtoBuilder groupDto = GroupDto.builder();
 
-        groupDto.setId( groupEntity.getId() );
-        groupDto.setName( groupEntity.getName() );
+        groupDto.id( groupEntity.getId() );
+        groupDto.name( groupEntity.getName() );
 
-        return groupDto;
+        return groupDto.build();
     }
 }

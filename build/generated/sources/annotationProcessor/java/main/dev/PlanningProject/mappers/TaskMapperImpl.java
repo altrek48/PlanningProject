@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-12-22T16:45:04+0300",
+    date = "2024-12-29T16:07:51+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.10.2.jar, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
@@ -42,16 +42,16 @@ public class TaskMapperImpl implements TaskMapper {
             return null;
         }
 
-        TaskDto taskDto = new TaskDto();
+        TaskDto.TaskDtoBuilder taskDto = TaskDto.builder();
 
-        taskDto.setGroupId( taskEntity.getGroupId() );
-        taskDto.setId( taskEntity.getId() );
-        taskDto.setName( taskEntity.getName() );
-        taskDto.setComment( taskEntity.getComment() );
-        taskDto.setAmount( taskEntity.getAmount() );
-        taskDto.setProducts( listProductInPlaneMapper.toListProductInPlaneDto( taskEntity.getProducts() ) );
+        taskDto.groupId( taskEntity.getGroupId() );
+        taskDto.id( taskEntity.getId() );
+        taskDto.name( taskEntity.getName() );
+        taskDto.comment( taskEntity.getComment() );
+        taskDto.amount( taskEntity.getAmount() );
+        taskDto.products( listProductInPlaneMapper.toListProductInPlaneDto( taskEntity.getProducts() ) );
 
-        return taskDto;
+        return taskDto.build();
     }
 
     @Override

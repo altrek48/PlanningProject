@@ -2,6 +2,7 @@ package dev.PlanningProject.controllers;
 
 import dev.PlanningProject.dtos.auth.JwtRequest;
 import dev.PlanningProject.dtos.auth.JwtResponse;
+import dev.PlanningProject.dtos.auth.SignInRequest;
 import dev.PlanningProject.services.auth.JwtUserDetailsService;
 import dev.PlanningProject.services.auth.TokenManager;
 import lombok.AllArgsConstructor;
@@ -39,6 +40,11 @@ public class AuthenticationController {
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
         return new JwtResponse(tokenManager.generateJwtToken(userDetails));
+    }
+
+    @PostMapping(value = "/api/register", consumes = "application/json")
+    public void addUser(@RequestBody SignInRequest request) {
+            userDetailsService.createUser(request);
     }
 
 }
