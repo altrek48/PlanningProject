@@ -65,7 +65,7 @@ public class Initializer {
 
         userDetailsService.createUser(SignInRequest.builder()
                 .username("rolik222")
-                .pwd("1234")
+                .password("1234")
                 .build());
     }
 

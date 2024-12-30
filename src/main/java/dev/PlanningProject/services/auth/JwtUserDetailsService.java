@@ -43,7 +43,7 @@ public class JwtUserDetailsService implements UserDetailsService {
         if (!this.checkAvailableUsername(request.getUsername())) {
             UserCredentialsEntity entity = UserCredentialsEntity.builder()
                     .username(request.getUsername())
-                    .password(new PasswordEntity(request.getPwd()))
+                    .password(new PasswordEntity(request.getPassword()))
                     .enabled(true)
                     .role(Role.USER)
                     .build();

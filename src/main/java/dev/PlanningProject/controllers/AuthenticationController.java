@@ -44,7 +44,7 @@ public class AuthenticationController {
 
     @PostMapping(value = "/api/register", consumes = "application/json")
     public void addUser(@RequestBody SignInRequest request) {
-            userDetailsService.createUser(request);
+        userDetailsService.createUser(request);
     }
 
 }

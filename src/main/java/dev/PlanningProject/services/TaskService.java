@@ -64,6 +64,7 @@ public class TaskService {
         List<ProductInPlaneEntity> products = task.getProducts();
         for(ProductInPlaneEntity product : products) {
             product.setTask(task);
+            product.setCompleteness(false);
         }
     }
 

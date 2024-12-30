@@ -25,7 +25,7 @@ public class ProductInPlaneDto {
     @Size(min = 2, max = 36, message = "Name must be between 2 and 36 characters long")
     private String name;
 
-    private Boolean completeness = false;
+    private Boolean completeness;
 
     private BigDecimal price;
 
