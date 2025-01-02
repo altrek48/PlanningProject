@@ -1,6 +1,7 @@
 package dev.PlanningProject.repositories;
 
 import dev.PlanningProject.entities.UserCredentialsEntity;
+import dev.PlanningProject.entities.UserEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -16,4 +17,6 @@ public interface UserRepository extends CrudRepository<UserCredentialsEntity, Lo
             "FROM UserCredentialsEntity u WHERE LOWER(u.username) = LOWER(:username)")
     Boolean checkAvailableUsername(@Param("username") String username);
 
+    @Query("SELECT u FROM UserEntity u WHERE u.linkedUserCredentials.username = :username")
+    UserEntity getUserByUsername(@Param("username") String username);
 }

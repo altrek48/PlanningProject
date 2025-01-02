@@ -4,7 +4,9 @@ import dev.PlanningProject.dtos.GroupDto;
 import dev.PlanningProject.services.GroupService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,13 +14,15 @@ import java.util.List;
 @RestController
 @RequestMapping("api/base/group")
 @RequiredArgsConstructor
+@Slf4j
 public class GroupController {
 
     private final GroupService groupService;
 
     @PostMapping(value = "create", produces = MediaType.APPLICATION_JSON_VALUE)
     public GroupDto createGroup(@Valid @RequestBody GroupDto group) {
-        return groupService.createGroup(group);
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return groupService.createGroup(group, username);
     }
 
 
@@ -29,7 +33,8 @@ public class GroupController {
 
     @GetMapping(value = "get", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<GroupDto> getGroups() {
-        return groupService.getAllGroups();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return groupService.getAllGroups(username);
     }
 
 }

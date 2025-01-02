@@ -20,10 +20,16 @@ public class UserEntity {
 
     private String email;
 
-//    private List<GroupEntity> groups;
+    @ManyToMany
+    @JoinTable(
+            name = "user_groups",
+            joinColumns = @JoinColumn(name = "group_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<GroupEntity> groups;
 
     @OneToOne
-    @JoinColumn(name = "linked_UserCredentials_id")
+    @JoinColumn(name = "linked_UserCredentials_id", nullable = false)
     private UserCredentialsEntity linkedUserCredentials;
 
 

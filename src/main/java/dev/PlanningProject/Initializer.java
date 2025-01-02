@@ -32,9 +32,26 @@ public class Initializer {
 
     public void initial1() {
 
+        userDetailsService.createUser(SignInRequest.builder()
+                .username("rolik222")
+                .password("1234")
+                .build());
+
         groupService.createGroup(GroupDto.builder()
                 .name("Семья")
-                .build()
+                .build(),
+                "rolik222"
+        );
+
+        userDetailsService.createUser(SignInRequest.builder()
+                .username("bobik333")
+                .password("1234")
+                .build());
+
+        groupService.createGroup(GroupDto.builder()
+                        .name("Коллеги")
+                        .build(),
+                "bobik333"
         );
 
         TaskDto taskDto = TaskDto.builder()
@@ -61,12 +78,6 @@ public class Initializer {
                 .build();
 
         taskService.createTask(taskDto2, 1L);
-
-
-        userDetailsService.createUser(SignInRequest.builder()
-                .username("rolik222")
-                .password("1234")
-                .build());
     }
 
 
