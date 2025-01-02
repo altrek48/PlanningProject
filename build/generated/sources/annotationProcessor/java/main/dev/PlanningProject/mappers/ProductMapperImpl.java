@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-01-02T00:24:39+0300",
+    date = "2025-01-02T04:09:46+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.10.2.jar, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
@@ -37,15 +37,15 @@ public class ProductMapperImpl implements ProductMapper {
             return null;
         }
 
-        ProductDto productDto = new ProductDto();
+        ProductDto.ProductDtoBuilder productDto = ProductDto.builder();
 
-        productDto.setPurchaseId( productEntityPurchaseId( productEntity ) );
-        productDto.setId( productEntity.getId() );
-        productDto.setName( productEntity.getName() );
-        productDto.setQuantity( productEntity.getQuantity() );
-        productDto.setPrice( productEntity.getPrice() );
+        productDto.purchaseId( productEntityPurchaseId( productEntity ) );
+        productDto.id( productEntity.getId() );
+        productDto.name( productEntity.getName() );
+        productDto.quantity( productEntity.getQuantity() );
+        productDto.price( productEntity.getPrice() );
 
-        return productDto;
+        return productDto.build();
     }
 
     protected PurchaseEntity productDtoToPurchaseEntity(ProductDto productDto) {

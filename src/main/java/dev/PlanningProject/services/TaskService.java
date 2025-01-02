@@ -7,6 +7,7 @@ import dev.PlanningProject.entities.TaskEntity;
 import dev.PlanningProject.mappers.ListTaskMapper;
 import dev.PlanningProject.mappers.TaskMapper;
 import dev.PlanningProject.repositories.TaskRepository;
+import dev.PlanningProject.repositories.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,11 +27,13 @@ public class TaskService {
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
     private final ListTaskMapper listTaskMapper;
+    private final UserRepository userRepository;
 
 
-    public TaskDto createTask(TaskDto task,Long groupId ) {
+    public TaskDto createTask(TaskDto task,Long groupId, String username) {
         TaskEntity newTask = taskMapper.toTaskEntity(task);
         newTask.setGroupId(groupId);
+        newTask.setUserCreator(userRepository.getUserByUsername(username));
         if(newTask.getPurchases() != null) {
             newTask.setAmount(getAmount(newTask));
         }

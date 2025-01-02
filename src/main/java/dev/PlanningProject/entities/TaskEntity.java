@@ -52,6 +52,10 @@ public class TaskEntity {
     @JoinColumn(name = "group_id", insertable = false, updatable = false)
     private GroupEntity group;
 
-    //todo save through group_id
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity userCreator;
+
+
 
 }

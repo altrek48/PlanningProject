@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -23,8 +24,9 @@ public class TaskController {
     //Создание плана
     @PostMapping(value = "create/{groupId}", produces = MediaType.APPLICATION_JSON_VALUE)
     TaskDto createTask(@Valid @RequestBody TaskDto task, @PathVariable("groupId") Long groupId ) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
         log.info("Succesful");
-        return taskService.createTask(task, groupId);
+        return taskService.createTask(task, groupId, username);
     }
 
     //Изменение плана

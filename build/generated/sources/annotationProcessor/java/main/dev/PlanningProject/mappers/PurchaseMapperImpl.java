@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-01-02T00:24:39+0300",
+    date = "2025-01-02T04:09:46+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.10.2.jar, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
@@ -43,16 +43,16 @@ public class PurchaseMapperImpl implements PurchaseMapper {
             return null;
         }
 
-        PurchaseDto purchaseDto = new PurchaseDto();
+        PurchaseDto.PurchaseDtoBuilder purchaseDto = PurchaseDto.builder();
 
-        purchaseDto.setGroupId( purchaseEntity.getGroupId() );
-        purchaseDto.setId( purchaseEntity.getId() );
-        purchaseDto.setStoreName( purchaseEntity.getStoreName() );
-        purchaseDto.setDate( purchaseEntity.getDate() );
-        purchaseDto.setAmount( purchaseEntity.getAmount() );
-        purchaseDto.setProducts( listProductMapper.toListProductDto( purchaseEntity.getProducts() ) );
+        purchaseDto.groupId( purchaseEntity.getGroupId() );
+        purchaseDto.id( purchaseEntity.getId() );
+        purchaseDto.storeName( purchaseEntity.getStoreName() );
+        purchaseDto.date( purchaseEntity.getDate() );
+        purchaseDto.amount( purchaseEntity.getAmount() );
+        purchaseDto.products( listProductMapper.toListProductDto( purchaseEntity.getProducts() ) );
 
-        return purchaseDto;
+        return purchaseDto.build();
     }
 
     @Override
@@ -61,16 +61,16 @@ public class PurchaseMapperImpl implements PurchaseMapper {
             return null;
         }
 
-        PurchaseDto purchaseDto = new PurchaseDto();
+        PurchaseDto.PurchaseDtoBuilder purchaseDto = PurchaseDto.builder();
 
-        purchaseDto.setGroupId( purchaseEntityGroupId( purchaseEntity ) );
-        purchaseDto.setId( purchaseEntity.getId() );
-        purchaseDto.setStoreName( purchaseEntity.getStoreName() );
-        purchaseDto.setDate( purchaseEntity.getDate() );
-        purchaseDto.setAmount( purchaseEntity.getAmount() );
-        purchaseDto.setProducts( listProductMapper.toListProductDto( purchaseEntity.getProducts() ) );
+        purchaseDto.groupId( purchaseEntityGroupId( purchaseEntity ) );
+        purchaseDto.id( purchaseEntity.getId() );
+        purchaseDto.storeName( purchaseEntity.getStoreName() );
+        purchaseDto.date( purchaseEntity.getDate() );
+        purchaseDto.amount( purchaseEntity.getAmount() );
+        purchaseDto.products( listProductMapper.toListProductDto( purchaseEntity.getProducts() ) );
 
-        return purchaseDto;
+        return purchaseDto.build();
     }
 
     @Override

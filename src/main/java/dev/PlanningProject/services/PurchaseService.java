@@ -7,7 +7,9 @@ import dev.PlanningProject.entities.PurchaseEntity;
 import dev.PlanningProject.mappers.ListPurchaseMapper;
 import dev.PlanningProject.mappers.PurchaseMapper;
 import dev.PlanningProject.repositories.PurchaseRepository;
+import dev.PlanningProject.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -21,13 +23,15 @@ public class PurchaseService {
     private final PurchaseRepository purchaseRepository;
     private final PurchaseMapper purchaseMapper;
     private final ListPurchaseMapper listPurchaseMapper;
+    private final UserRepository userRepository;
 
 
-    public PurchaseDto createPurchase(PurchaseDto purchase, Long groupId) {
+    public PurchaseDto createPurchase(PurchaseDto purchase, Long groupId, String username) {
         PurchaseEntity newPurchase = purchaseMapper.toPurchaseEntity(purchase);
         newPurchase.setGroupId(groupId);
         tuneProducts(newPurchase);
         newPurchase.setDate(LocalDateTime.now());
+        newPurchase.setUserPayer(userRepository.getUserByUsername(username));
         PurchaseEntity savedPurchase = purchaseRepository.save(newPurchase);
         return purchaseMapper.toPurchaseDto(savedPurchase);
     }

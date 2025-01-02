@@ -6,6 +6,7 @@ import dev.PlanningProject.services.PurchaseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +21,8 @@ public class PurchaseController {
     //Добавления покупки вне плана
     @PostMapping(value = "create/{groupId}", produces = MediaType.APPLICATION_JSON_VALUE)
     PurchaseDto createPurchase(@Valid @RequestBody PurchaseDto purchase, @PathVariable("groupId") Long groupId) {
-        return purchaseService.createPurchase(purchase, groupId);
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return purchaseService.createPurchase(purchase, groupId, username);
     }
 
     //Добавление покупки через план

@@ -1,14 +1,13 @@
 package dev.PlanningProject;
 
-import dev.PlanningProject.dtos.GroupDto;
-import dev.PlanningProject.dtos.ProductInPlaneDto;
-import dev.PlanningProject.dtos.TaskDto;
+import dev.PlanningProject.dtos.*;
 import dev.PlanningProject.dtos.auth.SignInRequest;
 import dev.PlanningProject.entities.*;
 import dev.PlanningProject.repositories.GroupRepository;
 import dev.PlanningProject.repositories.PurchaseRepository;
 import dev.PlanningProject.repositories.TaskRepository;
 import dev.PlanningProject.services.GroupService;
+import dev.PlanningProject.services.PurchaseService;
 import dev.PlanningProject.services.TaskService;
 import dev.PlanningProject.services.auth.JwtUserDetailsService;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +28,7 @@ public class Initializer {
     private final JwtUserDetailsService userDetailsService;
     private final GroupService groupService;
     private final TaskService taskService;
+    private final PurchaseService purchaseService;
 
     public void initial1() {
 
@@ -64,7 +64,7 @@ public class Initializer {
                 ))
                 .build();
 
-        taskService.createTask(taskDto, 1L);
+        taskService.createTask(taskDto, 1L, "rolik222");
 
 
         TaskDto taskDto2 = TaskDto.builder()
@@ -77,7 +77,17 @@ public class Initializer {
                 ))
                 .build();
 
-        taskService.createTask(taskDto2, 1L);
+        taskService.createTask(taskDto2, 1L, "rolik222");
+
+        PurchaseDto purchaseDto1 = PurchaseDto.builder()
+                .storeName("Pyterochka")
+                .amount(BigDecimal.valueOf(42242))
+                .products(Arrays.asList(
+                        ProductDto.builder().name("Gorshok").price(BigDecimal.valueOf(2345)).quantity(1L).build()
+                ))
+                .build();
+
+        purchaseService.createPurchase(purchaseDto1, 1L, "rolik222");
     }
 
 
