@@ -10,10 +10,12 @@ import org.mapstruct.MappingConstants;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = ListProductInPlaneMapper.class)
 public interface TaskMapper {
     //todo переделать
+    @Mapping(target = "userCreator", ignore = true)
     @Mapping(target = "groupId", source = "groupId")
     //@Mapping(target = "purchases.id", source = "purchasesIds")
     TaskEntity toTaskEntity(TaskDto taskDto);
     //todo переделать
+    @Mapping(target = "userCreator", source = "userCreator.linkedUserCredentials.username")
     @Mapping(target = "groupId", source = "groupId")
     TaskDto toTaskDto(TaskEntity taskEntity);
 

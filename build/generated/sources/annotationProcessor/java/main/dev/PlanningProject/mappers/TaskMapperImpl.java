@@ -3,13 +3,15 @@ package dev.PlanningProject.mappers;
 import dev.PlanningProject.dtos.TaskDto;
 import dev.PlanningProject.dtos.TaskShortDto;
 import dev.PlanningProject.entities.TaskEntity;
+import dev.PlanningProject.entities.UserCredentialsEntity;
+import dev.PlanningProject.entities.UserEntity;
 import javax.annotation.processing.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-01-02T04:09:47+0300",
+    date = "2025-01-02T19:51:10+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.10.2.jar, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
@@ -44,6 +46,7 @@ public class TaskMapperImpl implements TaskMapper {
 
         TaskDto.TaskDtoBuilder taskDto = TaskDto.builder();
 
+        taskDto.userCreator( taskEntityUserCreatorLinkedUserCredentialsUsername( taskEntity ) );
         taskDto.groupId( taskEntity.getGroupId() );
         taskDto.id( taskEntity.getId() );
         taskDto.name( taskEntity.getName() );
@@ -69,5 +72,17 @@ public class TaskMapperImpl implements TaskMapper {
         taskShortDto.setCompleteness( taskEntity.getCompleteness() );
 
         return taskShortDto;
+    }
+
+    private String taskEntityUserCreatorLinkedUserCredentialsUsername(TaskEntity taskEntity) {
+        UserEntity userCreator = taskEntity.getUserCreator();
+        if ( userCreator == null ) {
+            return null;
+        }
+        UserCredentialsEntity linkedUserCredentials = userCreator.getLinkedUserCredentials();
+        if ( linkedUserCredentials == null ) {
+            return null;
+        }
+        return linkedUserCredentials.getUsername();
     }
 }

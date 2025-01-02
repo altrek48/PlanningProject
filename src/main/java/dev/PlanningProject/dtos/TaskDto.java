@@ -30,5 +30,7 @@ public class TaskDto {
 
     private Long groupId;
 
+    private String userCreator;
+
 }
 

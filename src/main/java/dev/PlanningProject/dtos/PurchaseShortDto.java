@@ -26,5 +26,7 @@ public class PurchaseShortDto {
 
     private Long groupId;
 
+    private String userPayer;
+
     private Long taskId;
 }

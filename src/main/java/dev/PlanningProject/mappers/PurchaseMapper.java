@@ -11,17 +11,21 @@ import org.mapstruct.MappingConstants;
 public interface PurchaseMapper {
     //todo переделать
 
+    @Mapping(target = "userPayer", ignore = true)
     @Mapping(target = "groupId", source = "groupId")
     //@Mapping(target = "task.id", source = "taskId")
     PurchaseEntity toPurchaseEntity(PurchaseDto purchaseDto);
 
+    @Mapping(target = "userPayer", source = "userPayer.linkedUserCredentials.username")
     @Mapping(target = "groupId", source = "groupId")
     //@Mapping(target = "taskId", source = "task.id")
     PurchaseDto toPurchaseDto(PurchaseEntity purchaseEntity);
 
+    @Mapping(target = "userPayer", ignore = true)
     //@Mapping(target = "taskId", source = "task.id")
     @Mapping(target = "groupId", source = "group.id")
     PurchaseDto toPurchaseDtoWithPlane(PurchaseEntity purchaseEntity);
 
+    @Mapping(target = "userPayer", source = "userPayer.linkedUserCredentials.username")
     PurchaseShortDto toPurchaseShortDto(PurchaseEntity purchaseEntity);
 }

@@ -4,13 +4,15 @@ import dev.PlanningProject.dtos.PurchaseDto;
 import dev.PlanningProject.dtos.PurchaseShortDto;
 import dev.PlanningProject.entities.GroupEntity;
 import dev.PlanningProject.entities.PurchaseEntity;
+import dev.PlanningProject.entities.UserCredentialsEntity;
+import dev.PlanningProject.entities.UserEntity;
 import javax.annotation.processing.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-01-02T04:09:46+0300",
+    date = "2025-01-02T20:04:58+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.10.2.jar, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
@@ -45,6 +47,7 @@ public class PurchaseMapperImpl implements PurchaseMapper {
 
         PurchaseDto.PurchaseDtoBuilder purchaseDto = PurchaseDto.builder();
 
+        purchaseDto.userPayer( purchaseEntityUserPayerLinkedUserCredentialsUsername( purchaseEntity ) );
         purchaseDto.groupId( purchaseEntity.getGroupId() );
         purchaseDto.id( purchaseEntity.getId() );
         purchaseDto.storeName( purchaseEntity.getStoreName() );
@@ -81,6 +84,7 @@ public class PurchaseMapperImpl implements PurchaseMapper {
 
         PurchaseShortDto purchaseShortDto = new PurchaseShortDto();
 
+        purchaseShortDto.setUserPayer( purchaseEntityUserPayerLinkedUserCredentialsUsername( purchaseEntity ) );
         purchaseShortDto.setId( purchaseEntity.getId() );
         purchaseShortDto.setStoreName( purchaseEntity.getStoreName() );
         purchaseShortDto.setDate( purchaseEntity.getDate() );
@@ -88,6 +92,18 @@ public class PurchaseMapperImpl implements PurchaseMapper {
         purchaseShortDto.setGroupId( purchaseEntity.getGroupId() );
 
         return purchaseShortDto;
+    }
+
+    private String purchaseEntityUserPayerLinkedUserCredentialsUsername(PurchaseEntity purchaseEntity) {
+        UserEntity userPayer = purchaseEntity.getUserPayer();
+        if ( userPayer == null ) {
+            return null;
+        }
+        UserCredentialsEntity linkedUserCredentials = userPayer.getLinkedUserCredentials();
+        if ( linkedUserCredentials == null ) {
+            return null;
+        }
+        return linkedUserCredentials.getUsername();
     }
 
     private Long purchaseEntityGroupId(PurchaseEntity purchaseEntity) {

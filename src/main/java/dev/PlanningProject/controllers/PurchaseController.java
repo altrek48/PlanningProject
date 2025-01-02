@@ -36,4 +36,9 @@ public class PurchaseController {
         return purchaseService.getAllPurchases(groupId);
     }
 
+    @GetMapping(value = "get/{purchaseId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    PurchaseDto getPurchase(@PathVariable("purchaseId") Long purchaseId) {
+        return purchaseService.getPurchase(purchaseId);
+    }
+
 }

@@ -31,4 +31,6 @@ public class PurchaseDto {
     @NotEmpty
     private List<ProductDto> products;
 
+    private String userPayer;
+
 }
