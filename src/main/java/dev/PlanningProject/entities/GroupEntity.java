@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -39,7 +40,15 @@ public class GroupEntity {
     @OneToMany(mappedBy = "group", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TaskEntity> tasks;
 
-    @ManyToMany
+    public void addUser(UserEntity user) {
+        if (users == null) {
+            users = new ArrayList<>();
+        }
+        users.add(user);
+        user.getGroups().add(this);
+    }
+
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(
             name = "user_groups",
             joinColumns = @JoinColumn(name = "group_id"),

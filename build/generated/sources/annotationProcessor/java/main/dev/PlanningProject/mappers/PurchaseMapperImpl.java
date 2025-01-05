@@ -2,9 +2,9 @@ package dev.PlanningProject.mappers;
 
 import dev.PlanningProject.dtos.PurchaseDto;
 import dev.PlanningProject.dtos.PurchaseShortDto;
+import dev.PlanningProject.entities.CredentialsEntity;
 import dev.PlanningProject.entities.GroupEntity;
 import dev.PlanningProject.entities.PurchaseEntity;
-import dev.PlanningProject.entities.UserCredentialsEntity;
 import dev.PlanningProject.entities.UserEntity;
 import javax.annotation.processing.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-01-02T20:04:58+0300",
+    date = "2025-01-05T23:23:52+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.10.2.jar, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
@@ -99,7 +99,7 @@ public class PurchaseMapperImpl implements PurchaseMapper {
         if ( userPayer == null ) {
             return null;
         }
-        UserCredentialsEntity linkedUserCredentials = userPayer.getLinkedUserCredentials();
+        CredentialsEntity linkedUserCredentials = userPayer.getLinkedUserCredentials();
         if ( linkedUserCredentials == null ) {
             return null;
         }

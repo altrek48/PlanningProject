@@ -11,6 +11,7 @@ import dev.PlanningProject.repositories.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -31,12 +32,9 @@ public class TaskService {
 
 
     public TaskDto createTask(TaskDto task,Long groupId, String username) {
-        TaskEntity newTask = taskMapper.toTaskEntity(task);
-        newTask.setGroupId(groupId);
-        newTask.setUserCreator(userRepository.getUserByUsername(username));
-        if(newTask.getPurchases() != null) {
-            newTask.setAmount(getAmount(newTask));
-        }
+        TaskEntity newTask = taskMapper.toTaskEntity(task, groupId);
+        newTask.setUserCreator(userRepository.getUserByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found")));
         if(task.getProducts() != null) {
             tuneProducts(newTask);
         }

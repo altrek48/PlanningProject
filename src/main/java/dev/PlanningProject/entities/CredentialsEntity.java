@@ -9,14 +9,9 @@ import lombok.*;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor //todo как работают Autowired
 @Builder
-public class UserCredentialsEntity {
-
-    public UserCredentialsEntity() {
-        UserEntity userEntity = new UserEntity();
-        this.linkedUser = userEntity;
-        userEntity.setLinkedUserCredentials(this);
-    }
+public class CredentialsEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

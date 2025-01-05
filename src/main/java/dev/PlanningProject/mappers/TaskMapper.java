@@ -13,10 +13,14 @@ public interface TaskMapper {
     @Mapping(target = "userCreator", ignore = true)
     @Mapping(target = "groupId", source = "groupId")
     //@Mapping(target = "purchases.id", source = "purchasesIds")
+    TaskEntity toTaskEntity(TaskDto taskDto, Long groupId);
+
+    @Mapping(target = "userCreator", ignore = true)
+        //@Mapping(target = "purchases.id", source = "purchasesIds")
     TaskEntity toTaskEntity(TaskDto taskDto);
+
     //todo переделать
     @Mapping(target = "userCreator", source = "userCreator.linkedUserCredentials.username")
-    @Mapping(target = "groupId", source = "groupId")
     TaskDto toTaskDto(TaskEntity taskEntity);
 
     TaskShortDto toTaskShortDto(TaskEntity taskEntity);

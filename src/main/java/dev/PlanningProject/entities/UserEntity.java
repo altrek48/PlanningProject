@@ -20,17 +20,12 @@ public class UserEntity {
 
     private String email;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_groups",
-            joinColumns = @JoinColumn(name = "group_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
+    @ManyToMany(mappedBy = "users", cascade = CascadeType.MERGE)
     private List<GroupEntity> groups;
 
     @OneToOne
     @JoinColumn(name = "linked_UserCredentials_id", nullable = false)
-    private UserCredentialsEntity linkedUserCredentials;
+    private CredentialsEntity linkedUserCredentials;
 
 
 }

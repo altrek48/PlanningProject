@@ -60,7 +60,6 @@ public class PurchaseEntity {
     @JoinColumn(name = "group_id", insertable = false, updatable = false)
     private GroupEntity group;
 
-    //todo lazy everywhere, join fetch? jpql
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id")
     private TaskEntity task;

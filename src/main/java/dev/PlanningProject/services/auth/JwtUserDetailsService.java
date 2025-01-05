@@ -2,14 +2,12 @@ package dev.PlanningProject.services.auth;
 
 import dev.PlanningProject.dtos.AuthUser;
 import dev.PlanningProject.dtos.Role;
-import dev.PlanningProject.dtos.auth.JwtRequest;
 import dev.PlanningProject.dtos.auth.SignInRequest;
+import dev.PlanningProject.entities.CredentialsEntity;
 import dev.PlanningProject.entities.PasswordEntity;
-import dev.PlanningProject.entities.UserCredentialsEntity;
 import dev.PlanningProject.entities.UserEntity;
 import dev.PlanningProject.repositories.UserRepository;
 import lombok.AllArgsConstructor;
-import lombok.Setter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,7 +24,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserCredentialsEntity user = userRepository.findByUsername(username).orElseThrow(
+        CredentialsEntity user = userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException(String.format("User %s not found", username))
         );
 
@@ -41,7 +39,7 @@ public class JwtUserDetailsService implements UserDetailsService {
     public void createUser(SignInRequest request) {
 
         if (!this.checkAvailableUsername(request.getUsername())) {
-            UserCredentialsEntity entity = UserCredentialsEntity.builder()
+            CredentialsEntity entity = CredentialsEntity.builder()
                     .username(request.getUsername())
                     .password(new PasswordEntity(request.getPassword()))
                     .enabled(true)
