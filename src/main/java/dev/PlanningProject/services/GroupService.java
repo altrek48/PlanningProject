@@ -47,4 +47,8 @@ public class GroupService {
         return listGroupMapper.toGroupDto(groups);
     }
 
+    public Boolean isUserInGroup(String username, Long groupId) {
+        return groupRepository.isUserInGroup(username, groupId);
+    }
+
 }

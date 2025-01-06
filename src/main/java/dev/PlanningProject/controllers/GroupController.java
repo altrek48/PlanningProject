@@ -28,6 +28,8 @@ public class GroupController {
 
     @DeleteMapping(value = "delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Long deleteGroup(@PathVariable("id") Long id) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        //todo проверка является ли юзер создателем группы
         return groupService.deleteGroupById(id);
     }
 

@@ -2,15 +2,19 @@ package dev.PlanningProject.controllers;
 
 import dev.PlanningProject.dtos.TaskDto;
 import dev.PlanningProject.dtos.TaskShortDto;
+import dev.PlanningProject.services.GroupService;
 import dev.PlanningProject.services.TaskService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
 
 @RestController
@@ -20,35 +24,53 @@ import java.util.List;
 public class TaskController {
 
     private final TaskService taskService;
+    private final GroupService groupService;
 
     //Создание плана
     @PostMapping(value = "create/{groupId}", produces = MediaType.APPLICATION_JSON_VALUE)
     TaskDto createTask(@Valid @RequestBody TaskDto task, @PathVariable("groupId") Long groupId ) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        log.info("Succesful");
+        if(!groupService.isUserInGroup(username, groupId)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This user does not exists in this group");
+        }
         return taskService.createTask(task, groupId, username);
     }
 
     //Изменение плана
-    @PutMapping(value = "change", produces = MediaType.APPLICATION_JSON_VALUE)
-    TaskDto changeTask(@Valid @RequestBody TaskDto task) {
-        log.info("Changing...");
+    @PutMapping(value = "change/{groupId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    TaskDto changeTask(@Valid @RequestBody TaskDto task, @PathVariable("groupId") Long groupId) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        if(!groupService.isUserInGroup(username, groupId)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This user does not exists in this group");
+        }
         return  taskService.changeTask(task);
     }
 
     //Удаление плана
-    @DeleteMapping(value = "delete/{taskId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    Long deleteTask(@PathVariable("taskId") Long taskId) {
+    @DeleteMapping(value = "delete/{groupId}/{taskId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    Long deleteTask(@PathVariable("groupId") Long groupId, @PathVariable("taskId") Long taskId) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        if(!groupService.isUserInGroup(username, groupId)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This user does not exists in this group");
+        }
         return taskService.deleteTask(taskId);
     }
 
     @GetMapping(value = "get/{groupId}", produces = MediaType.APPLICATION_JSON_VALUE)
     List<TaskShortDto> getTasks(@PathVariable("groupId") Long groupId) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        if(!groupService.isUserInGroup(username, groupId)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This user does not exists in this group");
+        }
         return taskService.getTasks(groupId);
     }
 
-    @GetMapping(value = "getOne/{taskId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    TaskDto getTask(@PathVariable("taskId") Long taskId) {
+    @GetMapping(value = "getOne/{groupId}/{taskId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    TaskDto getTask(@PathVariable("groupId") Long groupId, @PathVariable("taskId") Long taskId) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        if(!groupService.isUserInGroup(username, groupId)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This user does not exists in this group");
+        }
         return taskService.getTask(taskId);
     }
 

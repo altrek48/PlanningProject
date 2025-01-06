@@ -14,10 +14,9 @@ public interface PurchaseMapper {
     @Mapping(target = "userPayer", ignore = true)
     @Mapping(target = "groupId", source = "groupId")
     //@Mapping(target = "task.id", source = "taskId")
-    PurchaseEntity toPurchaseEntity(PurchaseDto purchaseDto);
+    PurchaseEntity toPurchaseEntity(PurchaseDto purchaseDto, Long groupId);
 
     @Mapping(target = "userPayer", source = "userPayer.linkedUserCredentials.username")
-    @Mapping(target = "groupId", source = "groupId")
     //@Mapping(target = "taskId", source = "task.id")
     PurchaseDto toPurchaseDto(PurchaseEntity purchaseEntity);
 

@@ -30,8 +30,7 @@ public class PurchaseService {
 
 
     public PurchaseDto createPurchase(PurchaseDto purchase, Long groupId, String username) {
-        PurchaseEntity newPurchase = purchaseMapper.toPurchaseEntity(purchase);
-        newPurchase.setGroupId(groupId);
+        PurchaseEntity newPurchase = purchaseMapper.toPurchaseEntity(purchase, groupId);
         newPurchase.setAmount(tuneProducts(newPurchase));
         newPurchase.setDate(LocalDateTime.now());
         newPurchase.setUserPayer(userRepository.getUserByUsername(username)
