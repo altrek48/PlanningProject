@@ -31,6 +31,7 @@ public class GroupService {
         GroupEntity newGroup = groupMapper.toGroupEntity(group);
         UserEntity user = userRepository.getUserByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found"));
+        newGroup.setUserCreator(user);
         newGroup.addUser(user);
         groupRepository.save(newGroup);
         return groupMapper.toGroupDto(newGroup);
@@ -49,6 +50,10 @@ public class GroupService {
 
     public Boolean isUserInGroup(String username, Long groupId) {
         return groupRepository.isUserInGroup(username, groupId);
+    }
+
+    public Boolean isUserCreator(String username, Long groupId) {
+        return groupRepository.isUserCreator(username, groupId);
     }
 
 }

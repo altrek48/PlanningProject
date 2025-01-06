@@ -15,4 +15,8 @@ public interface GroupRepository extends JpaRepository<GroupEntity, Long> {
 
     @Query("SELECT CASE WHEN COUNT(u) > 0 THEN true ELSE false END FROM UserEntity u JOIN u.groups g WHERE u.linkedUserCredentials.username = :username AND g.id = :groupId")
     boolean isUserInGroup(String username, Long groupId);
+
+    @Query("SELECT CASE WHEN COUNT(g) > 0 THEN true ELSE false END FROM GroupEntity g " +
+            "WHERE g.userCreator.linkedUserCredentials.username = :username AND g.id = :groupId")
+    boolean isUserCreator(@Param("username") String username, @Param("groupId") Long groupId);
 }

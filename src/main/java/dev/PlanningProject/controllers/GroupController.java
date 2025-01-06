@@ -5,9 +5,12 @@ import dev.PlanningProject.services.GroupService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -26,11 +29,10 @@ public class GroupController {
     }
 
 
-    @DeleteMapping(value = "delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Long deleteGroup(@PathVariable("id") Long id) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        //todo проверка является ли юзер создателем группы
-        return groupService.deleteGroupById(id);
+    @DeleteMapping(value = "delete/{groupId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("@groupService.isUserCreator(authentication.name, #groupId)")
+    public Long deleteGroup(@PathVariable("groupId") Long groupId) {
+        return groupService.deleteGroupById(groupId);
     }
 
     @GetMapping(value = "get", produces = MediaType.APPLICATION_JSON_VALUE)

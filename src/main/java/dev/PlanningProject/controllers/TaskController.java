@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -28,49 +29,35 @@ public class TaskController {
 
     //Создание плана
     @PostMapping(value = "create/{groupId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("@groupService.isUserInGroup(authentication.name, #groupId)")
     TaskDto createTask(@Valid @RequestBody TaskDto task, @PathVariable("groupId") Long groupId ) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        if(!groupService.isUserInGroup(username, groupId)) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This user does not exists in this group");
-        }
         return taskService.createTask(task, groupId, username);
     }
 
     //Изменение плана
     @PutMapping(value = "change/{groupId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("@groupService.isUserInGroup(authentication.name, #groupId)")
     TaskDto changeTask(@Valid @RequestBody TaskDto task, @PathVariable("groupId") Long groupId) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        if(!groupService.isUserInGroup(username, groupId)) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This user does not exists in this group");
-        }
         return  taskService.changeTask(task);
     }
 
     //Удаление плана
     @DeleteMapping(value = "delete/{groupId}/{taskId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("@groupService.isUserInGroup(authentication.name, #groupId)")
     Long deleteTask(@PathVariable("groupId") Long groupId, @PathVariable("taskId") Long taskId) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        if(!groupService.isUserInGroup(username, groupId)) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This user does not exists in this group");
-        }
         return taskService.deleteTask(taskId);
     }
 
     @GetMapping(value = "get/{groupId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("@groupService.isUserInGroup(authentication.name, #groupId)")
     List<TaskShortDto> getTasks(@PathVariable("groupId") Long groupId) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        if(!groupService.isUserInGroup(username, groupId)) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This user does not exists in this group");
-        }
         return taskService.getTasks(groupId);
     }
 
     @GetMapping(value = "getOne/{groupId}/{taskId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("@groupService.isUserInGroup(authentication.name, #groupId)")
     TaskDto getTask(@PathVariable("groupId") Long groupId, @PathVariable("taskId") Long taskId) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        if(!groupService.isUserInGroup(username, groupId)) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This user does not exists in this group");
-        }
         return taskService.getTask(taskId);
     }
 

@@ -44,8 +44,8 @@ public class TaskEntity {
     @OneToMany(mappedBy = "task", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductInPlaneEntity> products;
 
-    @OneToMany(mappedBy = "task", fetch = FetchType.LAZY)
-    private List<PurchaseEntity> purchases;
+    @OneToMany(mappedBy = "linkedTask", fetch = FetchType.LAZY)
+    private List<PurchaseEntity> linkedPurchases;
 
     @Column(name = "group_id", nullable = false)
     private Long groupId;
