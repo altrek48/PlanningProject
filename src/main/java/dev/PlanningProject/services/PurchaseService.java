@@ -2,10 +2,7 @@ package dev.PlanningProject.services;
 
 import dev.PlanningProject.dtos.PurchaseDto;
 import dev.PlanningProject.dtos.PurchaseShortDto;
-import dev.PlanningProject.entities.ProductEntity;
-import dev.PlanningProject.entities.ProductInPlaneEntity;
-import dev.PlanningProject.entities.PurchaseEntity;
-import dev.PlanningProject.entities.TaskEntity;
+import dev.PlanningProject.entities.*;
 import dev.PlanningProject.mappers.ListPurchaseMapper;
 import dev.PlanningProject.mappers.PurchaseMapper;
 import dev.PlanningProject.repositories.PurchaseRepository;
@@ -32,29 +29,26 @@ public class PurchaseService {
     private final ListPurchaseMapper listPurchaseMapper;
     private final UserRepository userRepository;
     private final TaskRepository taskRepository;
+    private final GroupService groupService;
 
 
     public PurchaseDto createPurchase(PurchaseDto purchase, Long groupId, String username) {
-        PurchaseEntity newPurchase = purchaseMapper.toPurchaseEntity(purchase, groupId);
+        UserEntity userPayer = userRepository.getUserByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found"));
+        PurchaseEntity newPurchase = purchaseMapper.toPurchaseEntity(purchase, groupId, LocalDateTime.now(), userPayer);
         newPurchase.setAmount(tuneProducts(newPurchase));
-        newPurchase.setDate(LocalDateTime.now());
-        newPurchase.setUserPayer(userRepository.getUserByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found")));
-        PurchaseEntity savedPurchase = purchaseRepository.save(newPurchase);
-        return purchaseMapper.toPurchaseDto(savedPurchase);
+        return purchaseMapper.toPurchaseDto(purchaseRepository.save(newPurchase));
     }
 
     //todo доделать
     public PurchaseDto createPurchaseInTask(PurchaseDto purchase, Long groupId, Long taskId, String username) {
-        PurchaseEntity newPurchase = purchaseMapper.toPurchaseEntity(purchase, groupId);
+        UserEntity userPayer = userRepository.getUserByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found"));
+        PurchaseEntity newPurchase = purchaseMapper.toPurchaseEntity(purchase, groupId,LocalDateTime.now(), userPayer);
         //todo
         newPurchase.setAmount(tuneProducts(newPurchase));
-        newPurchase.setDate(LocalDateTime.now());
-        newPurchase.setUserPayer(userRepository.getUserByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found")));
         this.connectProducts(newPurchase, taskId);
-        PurchaseEntity savedPurchase = purchaseRepository.save(newPurchase);
-        return purchaseMapper.toPurchaseDto(savedPurchase);
+        return purchaseMapper.toPurchaseDto(purchaseRepository.save(newPurchase));
     }
 
     //Привязка продукта к покупке и получение суммы всех продуктов
@@ -92,14 +86,19 @@ public class PurchaseService {
     }
 
     public List<PurchaseShortDto> getAllPurchases(Long groupId) {
-        List<PurchaseEntity> purchases = purchaseRepository.findAllByGroupId(groupId);
-        return listPurchaseMapper.toListPurchaseShortDto(purchases);
+        return listPurchaseMapper.toListPurchaseShortDto(purchaseRepository.findAllByGroupId(groupId));
     }
 
     public PurchaseDto getPurchase(Long purchaseId) {
-        PurchaseEntity purchase = purchaseRepository.findById(purchaseId)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("purchase с id %d не найден", purchaseId)));
-        return purchaseMapper.toPurchaseDto(purchase);
+        return purchaseMapper.toPurchaseDto(purchaseRepository.findById(purchaseId)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("purchase с id %d не найден", purchaseId))));
+    }
+
+    public Boolean canUserAccessPurchase(String username, Long groupId, Long purchaseId) {
+        if(purchaseRepository.isPurchaseInGroup(groupId, purchaseId)) {
+            return groupService.isUserInGroup(username, groupId);
+        }
+        else return false;
     }
 
 }

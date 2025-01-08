@@ -36,15 +36,15 @@ public class TaskController {
     }
 
     //Изменение плана
-    @PutMapping(value = "change/{groupId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("@groupService.isUserInGroup(authentication.name, #groupId)")
-    TaskDto changeTask(@Valid @RequestBody TaskDto task, @PathVariable("groupId") Long groupId) {
+    @PutMapping(value = "change/{groupId}/{taskId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("@taskService.canUserAccessTask(authentication.name, #groupId, #taskId)")
+    TaskDto changeTask(@Valid @RequestBody TaskDto task, @PathVariable("groupId") Long groupId, @PathVariable("taskId") Long taskId) {
         return  taskService.changeTask(task);
     }
 
     //Удаление плана
     @DeleteMapping(value = "delete/{groupId}/{taskId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("@groupService.isUserInGroup(authentication.name, #groupId)")
+    @PreAuthorize("@taskService.canUserDeleteTask(authentication.name, #groupId, #taskId)")
     Long deleteTask(@PathVariable("groupId") Long groupId, @PathVariable("taskId") Long taskId) {
         return taskService.deleteTask(taskId);
     }
@@ -56,7 +56,7 @@ public class TaskController {
     }
 
     @GetMapping(value = "getOne/{groupId}/{taskId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("@groupService.isUserInGroup(authentication.name, #groupId)")
+    @PreAuthorize("@taskService.canUserAccessTask(authentication.name, #groupId, #taskId)")
     TaskDto getTask(@PathVariable("groupId") Long groupId, @PathVariable("taskId") Long taskId) {
         return taskService.getTask(taskId);
     }

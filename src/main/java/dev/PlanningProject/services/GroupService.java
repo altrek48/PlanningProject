@@ -28,13 +28,11 @@ public class GroupService {
 
     @Transactional
     public GroupDto createGroup(GroupDto group, String username) {
-        GroupEntity newGroup = groupMapper.toGroupEntity(group);
         UserEntity user = userRepository.getUserByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found"));
-        newGroup.setUserCreator(user);
+        GroupEntity newGroup = groupMapper.toGroupEntity(group, user);
         newGroup.addUser(user);
-        groupRepository.save(newGroup);
-        return groupMapper.toGroupDto(newGroup);
+        return groupMapper.toGroupDto(groupRepository.save(newGroup));
     }
 
 
@@ -44,8 +42,7 @@ public class GroupService {
     }
 
     public List<GroupDto> getAllGroups(String username) {
-        List<GroupEntity> groups = groupRepository.findGroupsByUsername(username);
-        return listGroupMapper.toGroupDto(groups);
+        return listGroupMapper.toGroupDto(groupRepository.findGroupsByUsername(username));
     }
 
     public Boolean isUserInGroup(String username, Long groupId) {

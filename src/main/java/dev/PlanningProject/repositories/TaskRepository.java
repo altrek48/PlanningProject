@@ -10,4 +10,7 @@ public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
 
     List<TaskEntity> findAllByGroupId(Long groupId);
 
+    @Query("SELECT COUNT(t) > 0 FROM TaskEntity t WHERE t.groupId = :groupId AND t.id = :taskId")
+    boolean isTaskInGroup(Long groupId, Long taskId);
+
 }

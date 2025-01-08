@@ -4,6 +4,7 @@ import dev.PlanningProject.dtos.TaskDto;
 import dev.PlanningProject.dtos.TaskShortDto;
 import dev.PlanningProject.entities.ProductInPlaneEntity;
 import dev.PlanningProject.entities.TaskEntity;
+import dev.PlanningProject.entities.UserEntity;
 import dev.PlanningProject.mappers.ListTaskMapper;
 import dev.PlanningProject.mappers.TaskMapper;
 import dev.PlanningProject.repositories.TaskRepository;
@@ -29,20 +30,17 @@ public class TaskService {
     private final TaskMapper taskMapper;
     private final ListTaskMapper listTaskMapper;
     private final UserRepository userRepository;
+    private final GroupService groupService;
 
 
     public TaskDto createTask(TaskDto task,Long groupId, String username) {
-        TaskEntity newTask = taskMapper.toTaskEntity(task, groupId);
-        newTask.setUserCreator(userRepository.getUserByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found")));
+        UserEntity userCreator = userRepository.getUserByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found"));
+        TaskEntity newTask = taskMapper.toTaskEntity(task, groupId, userCreator);
         if(task.getProducts() != null) {
             tuneProducts(newTask);
         }
-        else {
-            log.info("No products in task");
-        }
-        TaskEntity savedTask = taskRepository.save(newTask);
-        return taskMapper.toTaskDto(savedTask);
+        return taskMapper.toTaskDto(taskRepository.save(newTask));
     }
 
 
@@ -56,8 +54,7 @@ public class TaskService {
         if(task.getProducts() != null) {
             tuneProducts(changingTask);
         }
-        TaskEntity changedTask = taskRepository.save(changingTask);
-        return taskMapper.toTaskDto(changedTask);
+        return taskMapper.toTaskDto(taskRepository.save(changingTask));
     }
 
 
@@ -70,8 +67,7 @@ public class TaskService {
     }
 
     public List<TaskShortDto> getTasks(Long groupId) {
-        List<TaskEntity> taskEntities = taskRepository.findAllByGroupId(groupId);
-        return listTaskMapper.toListTaskShortDto(taskEntities);
+        return listTaskMapper.toListTaskShortDto(taskRepository.findAllByGroupId(groupId));
     }
 
     public BigDecimal getAmount(TaskEntity task) {
@@ -85,9 +81,22 @@ public class TaskService {
     }
 
     public TaskDto getTask(Long taskId) {
-        TaskEntity task = taskRepository.findById(taskId)
-                .orElseThrow(() -> new EntityNotFoundException("task с переданным значение не найден"));
-        return taskMapper.toTaskDto(task);
+        return taskMapper.toTaskDto(taskRepository.findById(taskId)
+                .orElseThrow(() -> new EntityNotFoundException("task с переданным значение не найден")));
+    }
+
+    public  Boolean canUserAccessTask(String username, Long groupId, Long taskId) {
+        if(taskRepository.isTaskInGroup(groupId, taskId)) {
+            return groupService.isUserInGroup(username, groupId);
+        }
+        else return false;
+    }
+
+    public Boolean canUserDeleteTask(String username, Long groupId,Long taskId) {
+        if(taskRepository.isTaskInGroup(groupId, taskId)) {
+            return groupService.isUserCreator(username, groupId);
+        }
+        else return false;
     }
 
 }

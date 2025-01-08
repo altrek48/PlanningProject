@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-01-07T02:04:11+0300",
+    date = "2025-01-07T03:15:08+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.10.2.jar, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
@@ -41,9 +41,22 @@ public class ListGroupMapperImpl implements ListGroupMapper {
 
         List<GroupEntity> list = new ArrayList<GroupEntity>( groupDtos.size() );
         for ( GroupDto groupDto : groupDtos ) {
-            list.add( groupMapper.toGroupEntity( groupDto ) );
+            list.add( groupDtoToGroupEntity( groupDto ) );
         }
 
         return list;
+    }
+
+    protected GroupEntity groupDtoToGroupEntity(GroupDto groupDto) {
+        if ( groupDto == null ) {
+            return null;
+        }
+
+        GroupEntity groupEntity = new GroupEntity();
+
+        groupEntity.setId( groupDto.getId() );
+        groupEntity.setName( groupDto.getName() );
+
+        return groupEntity;
     }
 }
