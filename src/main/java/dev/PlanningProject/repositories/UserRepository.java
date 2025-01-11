@@ -10,12 +10,11 @@ import java.util.Optional;
 
 public interface UserRepository extends CrudRepository<CredentialsEntity, Long> {
 
-    @Query("SELECT u FROM CredentialsEntity u JOIN FETCH u.password WHERE u.username = :name")
-    Optional<CredentialsEntity> findByUsername(String name);
+    @Query("SELECT u FROM CredentialsEntity u JOIN FETCH u.password WHERE u.username = :username")
+    Optional<CredentialsEntity> findByUsername(@Param("username") String username);
 
-    @Query("SELECT CASE WHEN COUNT(u) > 0 THEN TRUE ELSE FALSE END " +
-            "FROM CredentialsEntity u WHERE LOWER(u.username) = LOWER(:username)")
-    Boolean checkAvailableUsername(@Param("username") String username);
+    @Query("SELECT COUNT(u) > 0 FROM CredentialsEntity u WHERE LOWER(u.username) = LOWER(:username)")
+    boolean checkAvailableUsername(@Param("username") String username);
 
     @Query("SELECT u FROM UserEntity u WHERE u.linkedUserCredentials.username = :username")
     Optional<UserEntity> getUserByUsername(@Param("username") String username);

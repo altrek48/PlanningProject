@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -36,9 +37,9 @@ public class JwtUserDetailsService implements UserDetailsService {
                 .build();
     }
 
+    @Transactional
     public void createUser(SignInRequest request) {
 
-        if (!this.checkAvailableUsername(request.getUsername())) {
             CredentialsEntity entity = CredentialsEntity.builder()
                     .username(request.getUsername())
                     .password(new PasswordEntity(request.getPassword()))
@@ -52,12 +53,6 @@ public class JwtUserDetailsService implements UserDetailsService {
 
             entity.setLinkedUser(user);
             userRepository.save(entity);
-        }
-        else throw new IllegalArgumentException("Username is already taken");
-    }
-
-    public boolean checkAvailableUsername(String username) {
-        return userRepository.checkAvailableUsername(username);
     }
 
 }

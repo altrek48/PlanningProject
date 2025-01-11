@@ -14,7 +14,7 @@ public interface ProductMapper {
     //@Mapping(target = "productInPlane.id", source = "productInPlaneId")
     ProductEntity toProductEntity(ProductDto productDto);
 
-    //@Mapping(target = "productInPlaneId", source = "productInPlane.id")
+    @Mapping(target = "productInPlaneId", source = "productInPlane.id")
     @Mapping(target = "purchaseId", source = "purchase.id")
     ProductDto toProductDto(ProductEntity productEntity);
 

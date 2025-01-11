@@ -2,13 +2,14 @@ package dev.PlanningProject.mappers;
 
 import dev.PlanningProject.dtos.ProductDto;
 import dev.PlanningProject.entities.ProductEntity;
+import dev.PlanningProject.entities.ProductInPlaneEntity;
 import dev.PlanningProject.entities.PurchaseEntity;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-01-07T02:04:11+0300",
+    date = "2025-01-10T16:47:25+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.10.2.jar, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
@@ -39,6 +40,7 @@ public class ProductMapperImpl implements ProductMapper {
 
         ProductDto.ProductDtoBuilder productDto = ProductDto.builder();
 
+        productDto.productInPlaneId( productEntityProductInPlaneId( productEntity ) );
         productDto.purchaseId( productEntityPurchaseId( productEntity ) );
         productDto.id( productEntity.getId() );
         productDto.name( productEntity.getName() );
@@ -58,6 +60,14 @@ public class ProductMapperImpl implements ProductMapper {
         purchaseEntity.setId( productDto.getPurchaseId() );
 
         return purchaseEntity;
+    }
+
+    private Long productEntityProductInPlaneId(ProductEntity productEntity) {
+        ProductInPlaneEntity productInPlane = productEntity.getProductInPlane();
+        if ( productInPlane == null ) {
+            return null;
+        }
+        return productInPlane.getId();
     }
 
     private Long productEntityPurchaseId(ProductEntity productEntity) {

@@ -37,14 +37,14 @@ public class TaskEntity {
 
     private String comment;
 
-    private BigDecimal amount;
+    private BigDecimal amount = BigDecimal.ZERO;
     //думаю цельных процентов будет достаточно
-    private Integer completeness;
+    private Integer completeness = 0;
 
     @OneToMany(mappedBy = "task", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductInPlaneEntity> products;
 
-    @OneToMany(mappedBy = "linkedTask", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "linkedTask", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private List<PurchaseEntity> linkedPurchases;
 
     @Column(name = "group_id", nullable = false)

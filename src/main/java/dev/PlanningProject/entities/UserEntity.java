@@ -18,6 +18,7 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(unique = true)
     private String email;
 
     @ManyToMany(mappedBy = "users", cascade = CascadeType.MERGE)

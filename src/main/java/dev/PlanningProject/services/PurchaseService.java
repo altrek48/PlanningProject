@@ -18,7 +18,10 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -30,6 +33,7 @@ public class PurchaseService {
     private final UserRepository userRepository;
     private final TaskRepository taskRepository;
     private final GroupService groupService;
+    private final TaskService taskService;
 
 
     public PurchaseDto createPurchase(PurchaseDto purchase, Long groupId, String username) {
@@ -69,19 +73,26 @@ public class PurchaseService {
     public void connectProducts(PurchaseEntity purchase, Long taskId) {
         TaskEntity task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new EntityNotFoundException("task с переданным значение не найден"));
-        for(ProductEntity product: purchase.getProducts()) {
-            for(ProductInPlaneEntity productInPlane: task.getProducts()) {
-                if(Objects.equals(product.getName(), productInPlane.getName())) {
-                    product.setProductInPlane(productInPlane);
-                    productInPlane.setLinkedProduct(product);
-                    productInPlane.setCompleteness(true);
-                    productInPlane.setPrice(product.getPrice());
-                    if(purchase.getLinkedTask() == null) {
-                        purchase.setLinkedTask(task);
-                        task.getLinkedPurchases().add(purchase);
-                    }
+        BigDecimal addedValue = BigDecimal.valueOf(0);
+        Map<String, ProductInPlaneEntity> productsInPlaneMap = task.getProducts()
+                .stream()
+                .collect(Collectors.toMap(ProductInPlaneEntity::getName, product -> product));
+        for (ProductEntity product: purchase.getProducts()) {
+            ProductInPlaneEntity productInPlane = productsInPlaneMap.get(product.getName());
+            if (productInPlane != null) {
+                product.setProductInPlane(productInPlane);
+                productInPlane.setLinkedProduct(product);
+                productInPlane.setCompleteness(true);
+                productInPlane.setPrice(product.getPrice());
+                addedValue = addedValue.add(product.getPrice());
+                if (purchase.getLinkedTask() == null) {
+                    purchase.setLinkedTask(task);
+                    task.getLinkedPurchases().add(purchase);
                 }
             }
+        }
+        if(!addedValue.equals(BigDecimal.valueOf(0))) {
+            taskService.updateTaskDetails(task, addedValue);
         }
     }
 

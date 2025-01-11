@@ -2,6 +2,7 @@ package dev.PlanningProject.services;
 
 import dev.PlanningProject.dtos.TaskDto;
 import dev.PlanningProject.dtos.TaskShortDto;
+import dev.PlanningProject.entities.ProductEntity;
 import dev.PlanningProject.entities.ProductInPlaneEntity;
 import dev.PlanningProject.entities.TaskEntity;
 import dev.PlanningProject.entities.UserEntity;
@@ -49,10 +50,16 @@ public class TaskService {
         return task_id;
     }
 
+    //todo Убрать связь покупки и таска при удалении связанного продукта, пересчет итоговой стоимости и completeness
     public TaskDto changeTask(TaskDto task) {
         TaskEntity changingTask = taskMapper.toTaskEntity(task);
         if(task.getProducts() != null) {
             tuneProducts(changingTask);
+        }
+        else {
+            changingTask.setAmount(BigDecimal.ZERO);
+            changingTask.setCompleteness(0);
+            changingTask.setLinkedPurchases(null);
         }
         return taskMapper.toTaskDto(taskRepository.save(changingTask));
     }
@@ -62,22 +69,11 @@ public class TaskService {
         List<ProductInPlaneEntity> products = task.getProducts();
         for(ProductInPlaneEntity product : products) {
             product.setTask(task);
-            product.setCompleteness(false);
         }
     }
 
     public List<TaskShortDto> getTasks(Long groupId) {
         return listTaskMapper.toListTaskShortDto(taskRepository.findAllByGroupId(groupId));
-    }
-
-    public BigDecimal getAmount(TaskEntity task) {
-        BigDecimal amount = new BigDecimal(0);
-        for( ProductInPlaneEntity product: task.getProducts()) {
-            if(!Objects.equals(product.getPrice(), valueOf(0))) {
-                amount = amount.add(product.getPrice());
-            }
-        }
-        return amount;
     }
 
     public TaskDto getTask(Long taskId) {
@@ -93,10 +89,42 @@ public class TaskService {
     }
 
     public Boolean canUserDeleteTask(String username, Long groupId,Long taskId) {
-        if(taskRepository.isTaskInGroup(groupId, taskId)) {
-            return groupService.isUserCreator(username, groupId);
+        if(this.isTaskInGroup(groupId, taskId)) {
+            return this.isTaskCreator(taskId, username);
         }
         else return false;
+    }
+
+    public void updateTaskDetails(TaskEntity task, BigDecimal addedValue) {
+        updateTaskAmount(task, addedValue);
+        updateTaskCompleteness(task);
+    }
+
+    public void updateTaskAmount(TaskEntity task, BigDecimal addedValue) {
+        BigDecimal currentAmount = task.getAmount() == null ? BigDecimal.ZERO : task.getAmount();
+        BigDecimal updatedAmount = currentAmount.add(addedValue);
+        task.setAmount(updatedAmount);
+    }
+
+    public void updateTaskCompleteness(TaskEntity task) {
+        List<ProductInPlaneEntity> products = task.getProducts();
+        int linkedProductsCount = 0;
+        for (ProductInPlaneEntity product : products) {
+            if (product.getLinkedProduct() != null) linkedProductsCount++;
+        }
+        if (linkedProductsCount > 0) {
+            int completeness = (linkedProductsCount * 100) / products.size();
+            task.setCompleteness(completeness);
+        }
+        else task.setCompleteness(0);
+    }
+
+    public Boolean isTaskInGroup(Long groupId, Long taskId) {
+        return taskRepository.isTaskInGroup(groupId, taskId);
+    }
+
+    public Boolean isTaskCreator(Long taskId, String username) {
+        return taskRepository.isTaskCreator(taskId, username);
     }
 
 }

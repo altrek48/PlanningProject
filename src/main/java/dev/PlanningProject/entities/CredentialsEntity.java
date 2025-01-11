@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor //todo как работают Autowired
+@NoArgsConstructor
 @Builder
 public class CredentialsEntity {
 
@@ -17,6 +17,7 @@ public class CredentialsEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(unique = true)
     private String username;
 
     private boolean enabled;

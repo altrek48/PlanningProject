@@ -24,7 +24,7 @@ public interface PurchaseMapper {
     PurchaseEntity toPurchaseEntity(PurchaseDto purchaseDto, Long groupId, LocalDateTime now, UserEntity userPayer);
 
     @Mapping(target = "userPayer", source = "userPayer.linkedUserCredentials.username")
-    //@Mapping(target = "taskId", source = "task.id")
+    @Mapping(target = "taskId", source = "linkedTask.id")
     PurchaseDto toPurchaseDto(PurchaseEntity purchaseEntity);
 
     @Mapping(target = "userPayer", ignore = true)

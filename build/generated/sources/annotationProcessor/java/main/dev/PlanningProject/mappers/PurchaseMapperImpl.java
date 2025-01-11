@@ -5,6 +5,7 @@ import dev.PlanningProject.dtos.PurchaseShortDto;
 import dev.PlanningProject.entities.CredentialsEntity;
 import dev.PlanningProject.entities.GroupEntity;
 import dev.PlanningProject.entities.PurchaseEntity;
+import dev.PlanningProject.entities.TaskEntity;
 import dev.PlanningProject.entities.UserEntity;
 import java.time.LocalDateTime;
 import javax.annotation.processing.Generated;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-01-07T03:34:03+0300",
+    date = "2025-01-10T16:47:25+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.10.2.jar, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
@@ -51,6 +52,7 @@ public class PurchaseMapperImpl implements PurchaseMapper {
         PurchaseDto.PurchaseDtoBuilder purchaseDto = PurchaseDto.builder();
 
         purchaseDto.userPayer( purchaseEntityUserPayerLinkedUserCredentialsUsername( purchaseEntity ) );
+        purchaseDto.taskId( purchaseEntityLinkedTaskId( purchaseEntity ) );
         purchaseDto.id( purchaseEntity.getId() );
         purchaseDto.storeName( purchaseEntity.getStoreName() );
         purchaseDto.date( purchaseEntity.getDate() );
@@ -107,6 +109,14 @@ public class PurchaseMapperImpl implements PurchaseMapper {
             return null;
         }
         return linkedUserCredentials.getUsername();
+    }
+
+    private Long purchaseEntityLinkedTaskId(PurchaseEntity purchaseEntity) {
+        TaskEntity linkedTask = purchaseEntity.getLinkedTask();
+        if ( linkedTask == null ) {
+            return null;
+        }
+        return linkedTask.getId();
     }
 
     private Long purchaseEntityGroupId(PurchaseEntity purchaseEntity) {
