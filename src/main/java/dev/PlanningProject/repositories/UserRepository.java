@@ -18,4 +18,8 @@ public interface UserRepository extends CrudRepository<CredentialsEntity, Long> 
 
     @Query("SELECT u FROM UserEntity u WHERE u.linkedUserCredentials.username = :username")
     Optional<UserEntity> getUserByUsername(@Param("username") String username);
+
+    @Query("SELECT COUNT(u) > 0 From UserEntity u JOIN u.groups g WHERE u.linkedUserCredentials.username = :username AND g.id = :groupId")
+    boolean isUserConsistsInGroup(@Param("groupId") Long groupId, @Param("username") String username);
+
 }
