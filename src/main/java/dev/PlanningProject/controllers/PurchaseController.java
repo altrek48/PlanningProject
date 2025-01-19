@@ -7,6 +7,7 @@ import dev.PlanningProject.services.PurchaseService;
 import dev.PlanningProject.services.TaskService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
@@ -53,6 +54,11 @@ public class PurchaseController {
     @PreAuthorize("@purchaseService.canUserAccessPurchase(authentication.name, #groupId, #purchaseId)")
     PurchaseDto getPurchase(@PathVariable("groupId") Long groupId, @PathVariable("purchaseId") Long purchaseId) {
         return purchaseService.getPurchase(purchaseId);
+    }
+
+    @GetMapping(value = "getPurchaseId/{productId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    Long getPurchaseIdByProductId(@PathVariable("productId") Long productId) {
+        return purchaseService.getPurchaseIdByProductId(productId);
     }
 
 }

@@ -1,5 +1,6 @@
 package dev.PlanningProject.services;
 
+import dev.PlanningProject.dtos.ProductDto;
 import dev.PlanningProject.dtos.PurchaseDto;
 import dev.PlanningProject.dtos.PurchaseShortDto;
 import dev.PlanningProject.entities.*;
@@ -10,17 +11,14 @@ import dev.PlanningProject.repositories.TaskRepository;
 import dev.PlanningProject.repositories.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,60 +37,59 @@ public class PurchaseService {
     public PurchaseDto createPurchase(PurchaseDto purchase, Long groupId, String username) {
         UserEntity userPayer = userRepository.getUserByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found"));
-        PurchaseEntity newPurchase = purchaseMapper.toPurchaseEntity(purchase, groupId, LocalDateTime.now(), userPayer);
-        newPurchase.setAmount(tuneProducts(newPurchase));
+        PurchaseEntity newPurchase = purchaseMapper.toPurchaseEntity(purchase, groupId, LocalDateTime.now(), userPayer, findAmount(purchase));
+        tuneProducts(newPurchase);
         return purchaseMapper.toPurchaseDto(purchaseRepository.save(newPurchase));
     }
 
-    //todo доделать
     public PurchaseDto createPurchaseInTask(PurchaseDto purchase, Long groupId, Long taskId, String username) {
         UserEntity userPayer = userRepository.getUserByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found"));
-        PurchaseEntity newPurchase = purchaseMapper.toPurchaseEntity(purchase, groupId,LocalDateTime.now(), userPayer);
-        //todo
-        newPurchase.setAmount(tuneProducts(newPurchase));
+        PurchaseEntity newPurchase = purchaseMapper.toPurchaseEntity(purchase, groupId,LocalDateTime.now(), userPayer, findAmount(purchase));
+        tuneProducts(newPurchase);
         this.connectProducts(newPurchase, taskId);
         return purchaseMapper.toPurchaseDto(purchaseRepository.save(newPurchase));
     }
 
-    //Привязка продукта к покупке и получение суммы всех продуктов
-    public BigDecimal tuneProducts(PurchaseEntity purchase) {
+    //Привязка продуктов к покупке
+    public void tuneProducts(PurchaseEntity purchase) {
         List<ProductEntity> products = purchase.getProducts();
-        BigDecimal amount = BigDecimal.valueOf(0);
         for(ProductEntity product : products) {
             if(product.getPrice() != null && product.getName() != null) {
                 product.setPurchase(purchase);
+            }
+            else throw new IllegalArgumentException("product price and name cannot be null");
+        }
+    }
+
+    public BigDecimal findAmount(PurchaseDto purchase) {
+        List<ProductDto> products = purchase.getProducts();
+        BigDecimal amount = BigDecimal.valueOf(0);
+        for(ProductDto product : products) {
+            if(product.getPrice() != null && product.getName() != null) {
                 amount = amount.add(product.getPrice());
             }
             else throw new IllegalArgumentException("product price and name cannot be null");
         }
-        return amount;
+        return  amount;
     }
 
-    //todo Set or Map
+    @Transactional
     public void connectProducts(PurchaseEntity purchase, Long taskId) {
-        TaskEntity task = taskRepository.findById(taskId)
+        TaskEntity task = taskRepository.findByIdWithProducts(taskId)
                 .orElseThrow(() -> new EntityNotFoundException("task с переданным значение не найден"));
         BigDecimal addedValue = BigDecimal.valueOf(0);
-        Map<String, ProductInPlaneEntity> productsInPlaneMap = task.getProducts()
-                .stream()
-                .collect(Collectors.toMap(ProductInPlaneEntity::getName, product -> product));
+        Map<String, ProductInPlaneEntity> productsInPlaneMap = getProductInPlaneMap(task);
         for (ProductEntity product: purchase.getProducts()) {
             ProductInPlaneEntity productInPlane = productsInPlaneMap.get(product.getName());
-            if (productInPlane != null) {
-                product.setProductInPlane(productInPlane);
-                productInPlane.setLinkedProduct(product);
-                productInPlane.setCompleteness(true);
-                productInPlane.setPrice(product.getPrice());
+            if (productInPlane != null && !productInPlane.getCompleteness()) {
+                connectProductAndTuneProductInPlane(product, productInPlane);
                 addedValue = addedValue.add(product.getPrice());
-                if (purchase.getLinkedTask() == null) {
-                    purchase.setLinkedTask(task);
-                    task.getLinkedPurchases().add(purchase);
-                }
+                connectPurchase(task, purchase);
             }
         }
         if(!addedValue.equals(BigDecimal.valueOf(0))) {
-            taskService.updateTaskDetails(task, addedValue);
+            taskService.updateTaskDetailsAfterAddPurchase(task, addedValue);
         }
     }
 
@@ -110,6 +107,30 @@ public class PurchaseService {
             return groupService.isUserInGroup(username, groupId);
         }
         else return false;
+    }
+
+    public Long getPurchaseIdByProductId(Long productId) {
+        return purchaseRepository.findPurchaseIdByProductId(productId)
+                .orElseThrow(() -> new EntityNotFoundException("purchaseId with productId: " + productId + " not found"));
+    }
+
+    public void connectProductAndTuneProductInPlane(ProductEntity product, ProductInPlaneEntity productInPlane) {
+        product.setProductInPlane(productInPlane);
+        productInPlane.setLinkedProduct(product);
+        productInPlane.setCompleteness(true);
+        productInPlane.setPrice(product.getPrice());
+    }
+
+    public Map<String, ProductInPlaneEntity> getProductInPlaneMap(TaskEntity task) {
+        return task.getProducts()
+                .stream()
+                .collect(Collectors.toMap(ProductInPlaneEntity::getName, product -> product));
+    }
+
+    public void connectPurchase(TaskEntity task, PurchaseEntity purchase) {
+        if (purchase.getLinkedTask() == null) {
+            purchase.setLinkedTask(task);
+        }
     }
 
 }

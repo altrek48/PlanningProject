@@ -2,6 +2,7 @@ package dev.PlanningProject.mappers;
 
 import dev.PlanningProject.dtos.ProductInPlaneDto;
 import dev.PlanningProject.entities.ProductInPlaneEntity;
+import dev.PlanningProject.repositories.ProductRepository;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-01-12T02:18:57+0300",
+    date = "2025-01-19T15:09:32+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.10.2.jar, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
@@ -27,7 +28,21 @@ public class ListProductInPlaneMapperImpl implements ListProductInPlaneMapper {
 
         List<ProductInPlaneEntity> list = new ArrayList<ProductInPlaneEntity>( listProductInPlaneDto.size() );
         for ( ProductInPlaneDto productInPlaneDto : listProductInPlaneDto ) {
-            list.add( productInPlaneMapper.toProductInPlaneEntity( productInPlaneDto ) );
+            list.add( productInPlaneDtoToProductInPlaneEntity( productInPlaneDto ) );
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<ProductInPlaneEntity> toListProductInPlaneEntity(List<ProductInPlaneDto> listProductInPlaneDto, ProductRepository productRepository) {
+        if ( listProductInPlaneDto == null ) {
+            return null;
+        }
+
+        List<ProductInPlaneEntity> list = new ArrayList<ProductInPlaneEntity>( listProductInPlaneDto.size() );
+        for ( ProductInPlaneDto productInPlaneDto : listProductInPlaneDto ) {
+            list.add( productInPlaneMapper.toProductInPlaneEntity( productInPlaneDto, productRepository ) );
         }
 
         return list;
@@ -45,5 +60,20 @@ public class ListProductInPlaneMapperImpl implements ListProductInPlaneMapper {
         }
 
         return list;
+    }
+
+    protected ProductInPlaneEntity productInPlaneDtoToProductInPlaneEntity(ProductInPlaneDto productInPlaneDto) {
+        if ( productInPlaneDto == null ) {
+            return null;
+        }
+
+        ProductInPlaneEntity productInPlaneEntity = new ProductInPlaneEntity();
+
+        productInPlaneEntity.setId( productInPlaneDto.getId() );
+        productInPlaneEntity.setName( productInPlaneDto.getName() );
+        productInPlaneEntity.setCompleteness( productInPlaneDto.getCompleteness() );
+        productInPlaneEntity.setPrice( productInPlaneDto.getPrice() );
+
+        return productInPlaneEntity;
     }
 }

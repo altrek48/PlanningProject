@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Immutable;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -43,9 +44,6 @@ public class TaskEntity {
 
     @OneToMany(mappedBy = "task", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductInPlaneEntity> products;
-
-    @OneToMany(mappedBy = "linkedTask", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    private List<PurchaseEntity> linkedPurchases;
 
     @Column(name = "group_id", nullable = false)
     private Long groupId;

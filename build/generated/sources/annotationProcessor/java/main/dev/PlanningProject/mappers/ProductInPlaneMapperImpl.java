@@ -1,32 +1,36 @@
 package dev.PlanningProject.mappers;
 
 import dev.PlanningProject.dtos.ProductInPlaneDto;
+import dev.PlanningProject.entities.ProductEntity;
 import dev.PlanningProject.entities.ProductInPlaneEntity;
 import dev.PlanningProject.entities.TaskEntity;
+import dev.PlanningProject.repositories.ProductRepository;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-01-12T02:18:57+0300",
+    date = "2025-01-19T15:09:33+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.10.2.jar, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
 public class ProductInPlaneMapperImpl implements ProductInPlaneMapper {
 
     @Override
-    public ProductInPlaneEntity toProductInPlaneEntity(ProductInPlaneDto productInPlaneDto) {
+    public ProductInPlaneEntity toProductInPlaneEntity(ProductInPlaneDto productInPlaneDto, ProductRepository productRepository) {
         if ( productInPlaneDto == null ) {
             return null;
         }
 
         ProductInPlaneEntity productInPlaneEntity = new ProductInPlaneEntity();
 
-        productInPlaneEntity.setTask( productInPlaneDtoToTaskEntity( productInPlaneDto ) );
+        productInPlaneEntity.setTask( productInPlaneDtoToTaskEntity( productInPlaneDto, productRepository ) );
         productInPlaneEntity.setId( productInPlaneDto.getId() );
         productInPlaneEntity.setName( productInPlaneDto.getName() );
         productInPlaneEntity.setCompleteness( productInPlaneDto.getCompleteness() );
         productInPlaneEntity.setPrice( productInPlaneDto.getPrice() );
+
+        afterMapping( productInPlaneDto, productInPlaneEntity, productRepository );
 
         return productInPlaneEntity;
     }
@@ -40,6 +44,7 @@ public class ProductInPlaneMapperImpl implements ProductInPlaneMapper {
         ProductInPlaneDto.ProductInPlaneDtoBuilder productInPlaneDto = ProductInPlaneDto.builder();
 
         productInPlaneDto.taskId( productInPlaneEntityTaskId( productInPlaneEntity ) );
+        productInPlaneDto.linkedProductId( productInPlaneEntityLinkedProductId( productInPlaneEntity ) );
         productInPlaneDto.id( productInPlaneEntity.getId() );
         productInPlaneDto.name( productInPlaneEntity.getName() );
         productInPlaneDto.completeness( productInPlaneEntity.getCompleteness() );
@@ -48,7 +53,7 @@ public class ProductInPlaneMapperImpl implements ProductInPlaneMapper {
         return productInPlaneDto.build();
     }
 
-    protected TaskEntity productInPlaneDtoToTaskEntity(ProductInPlaneDto productInPlaneDto) {
+    protected TaskEntity productInPlaneDtoToTaskEntity(ProductInPlaneDto productInPlaneDto, ProductRepository productRepository) {
         if ( productInPlaneDto == null ) {
             return null;
         }
@@ -66,5 +71,13 @@ public class ProductInPlaneMapperImpl implements ProductInPlaneMapper {
             return null;
         }
         return task.getId();
+    }
+
+    private Long productInPlaneEntityLinkedProductId(ProductInPlaneEntity productInPlaneEntity) {
+        ProductEntity linkedProduct = productInPlaneEntity.getLinkedProduct();
+        if ( linkedProduct == null ) {
+            return null;
+        }
+        return linkedProduct.getId();
     }
 }

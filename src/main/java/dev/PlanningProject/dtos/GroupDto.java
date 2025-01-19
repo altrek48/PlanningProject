@@ -13,6 +13,10 @@ import java.util.List;
 @Builder
 public class GroupDto {
 
+    public GroupDto(String name) {
+        this.name = name;
+    }
+
     private Long id;
 
     @NotBlank(message = "name may not be blank")

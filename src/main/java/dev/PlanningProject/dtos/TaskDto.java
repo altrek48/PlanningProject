@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -22,11 +23,13 @@ public class TaskDto {
 
     private String comment;
 
+    private LocalDateTime date;
+
     private BigDecimal amount;
 
-    private List<ProductInPlaneDto> products;
+    private Integer completeness;
 
-    private List<Long> purchasesIds;
+    private List<ProductInPlaneDto> products;
 
     private Long groupId;
 

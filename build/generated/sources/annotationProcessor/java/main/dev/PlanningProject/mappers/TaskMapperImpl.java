@@ -5,13 +5,14 @@ import dev.PlanningProject.dtos.TaskShortDto;
 import dev.PlanningProject.entities.CredentialsEntity;
 import dev.PlanningProject.entities.TaskEntity;
 import dev.PlanningProject.entities.UserEntity;
+import dev.PlanningProject.repositories.ProductRepository;
 import javax.annotation.processing.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-01-12T02:18:57+0300",
+    date = "2025-01-19T15:09:32+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.10.2.jar, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
@@ -32,6 +33,7 @@ public class TaskMapperImpl implements TaskMapper {
             taskEntity.setName( taskDto.getName() );
             taskEntity.setComment( taskDto.getComment() );
             taskEntity.setAmount( taskDto.getAmount() );
+            taskEntity.setCompleteness( taskDto.getCompleteness() );
             taskEntity.setProducts( listProductInPlaneMapper.toListProductInPlaneEntity( taskDto.getProducts() ) );
         }
         taskEntity.setGroupId( groupId );
@@ -41,18 +43,19 @@ public class TaskMapperImpl implements TaskMapper {
     }
 
     @Override
-    public TaskEntity toTaskEntity(TaskDto taskDto) {
+    public TaskEntity toTaskEntity(TaskDto taskDto, ProductRepository productRepository) {
         if ( taskDto == null ) {
             return null;
         }
 
         TaskEntity taskEntity = new TaskEntity();
 
+        taskEntity.setProducts( listProductInPlaneMapper.toListProductInPlaneEntity( taskDto.getProducts(), productRepository ) );
         taskEntity.setId( taskDto.getId() );
         taskEntity.setName( taskDto.getName() );
         taskEntity.setComment( taskDto.getComment() );
         taskEntity.setAmount( taskDto.getAmount() );
-        taskEntity.setProducts( listProductInPlaneMapper.toListProductInPlaneEntity( taskDto.getProducts() ) );
+        taskEntity.setCompleteness( taskDto.getCompleteness() );
         taskEntity.setGroupId( taskDto.getGroupId() );
 
         return taskEntity;
@@ -71,6 +74,7 @@ public class TaskMapperImpl implements TaskMapper {
         taskDto.name( taskEntity.getName() );
         taskDto.comment( taskEntity.getComment() );
         taskDto.amount( taskEntity.getAmount() );
+        taskDto.completeness( taskEntity.getCompleteness() );
         taskDto.products( listProductInPlaneMapper.toListProductInPlaneDto( taskEntity.getProducts() ) );
         taskDto.groupId( taskEntity.getGroupId() );
 

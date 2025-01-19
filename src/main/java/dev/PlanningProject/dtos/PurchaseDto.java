@@ -2,6 +2,7 @@ package dev.PlanningProject.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -18,6 +19,8 @@ public class PurchaseDto {
 
     private Long id;
 
+    @NotBlank
+    @Size(min = 2, max = 36, message = "storeName must be between 2 and 36 characters long")
     private String storeName;
 
     private LocalDateTime date;

@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
@@ -18,20 +19,15 @@ public class UserService {
     private final UserRepository userRepository;
     private final GroupRepository groupRepository;
 
-    public synchronized void addUserToGroup(Long groupId, String username) {
-        if(!userRepository.isUserConsistsInGroup(groupId, username)) {
-            this.addUser(groupId, username);
-        }
-        else throw new IllegalArgumentException("Пользователь уже добавлен");
-    }
 
-    private void addUser(Long groupId, String username) {
+//todo обработать ошибку
+    @Transactional
+    public void addUser(Long groupId, String username) {
         UserEntity addingUser = this.userRepository.getUserByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found"));
         GroupEntity group = groupRepository.findById(groupId)
                 .orElseThrow(() -> new EntityNotFoundException("Group with id: " + groupId + " not found"));
-        addingUser.getGroups().add(group);
-        group.getUsers().add(addingUser);
+        group.addUser(addingUser);
         groupRepository.save(group);
     }
 }

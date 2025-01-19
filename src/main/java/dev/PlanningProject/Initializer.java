@@ -34,7 +34,7 @@ public class Initializer {
 
         userDetailsService.createUser(SignInRequest.builder()
                 .username("rolik222")
-                .password("1234")
+                .password("12345")
                 .build());
 
         groupService.createGroup(GroupDto.builder()
@@ -45,7 +45,7 @@ public class Initializer {
 
         userDetailsService.createUser(SignInRequest.builder()
                 .username("bobik333")
-                .password("1234")
+                .password("12345")
                 .build());
 
         groupService.createGroup(GroupDto.builder()
@@ -87,7 +87,20 @@ public class Initializer {
                 ))
                 .build();
 
+
         purchaseService.createPurchase(purchaseDto1, 1L, "rolik222");
+
+
+
+//        PurchaseDto purchaseDto2 = PurchaseDto.builder()
+//                .storeName("Magnit")
+//                .products(Arrays.asList(
+//                        ProductDto.builder().name("Кукла").price(BigDecimal.valueOf(111)).quantity(1L).build()
+////                        ProductDto.builder().name("Машинка").price(BigDecimal.valueOf(444)).quantity(1L).build()
+//                ))
+//                .build();
+//
+//        purchaseService.createPurchaseInTask(purchaseDto2, 1L, 1L, "rolik222");
     }
 
 

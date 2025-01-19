@@ -7,6 +7,7 @@ import dev.PlanningProject.entities.GroupEntity;
 import dev.PlanningProject.entities.PurchaseEntity;
 import dev.PlanningProject.entities.TaskEntity;
 import dev.PlanningProject.entities.UserEntity;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import javax.annotation.processing.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-01-12T02:18:57+0300",
+    date = "2025-01-19T15:09:32+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.10.2.jar, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
@@ -24,8 +25,8 @@ public class PurchaseMapperImpl implements PurchaseMapper {
     private ListProductMapper listProductMapper;
 
     @Override
-    public PurchaseEntity toPurchaseEntity(PurchaseDto purchaseDto, Long groupId, LocalDateTime now, UserEntity userPayer) {
-        if ( purchaseDto == null && groupId == null && now == null && userPayer == null ) {
+    public PurchaseEntity toPurchaseEntity(PurchaseDto purchaseDto, Long groupId, LocalDateTime now, UserEntity userPayer, BigDecimal amount) {
+        if ( purchaseDto == null && groupId == null && now == null && userPayer == null && amount == null ) {
             return null;
         }
 
@@ -33,12 +34,12 @@ public class PurchaseMapperImpl implements PurchaseMapper {
 
         if ( purchaseDto != null ) {
             purchaseEntity.setStoreName( purchaseDto.getStoreName() );
-            purchaseEntity.setAmount( purchaseDto.getAmount() );
             purchaseEntity.setProducts( listProductMapper.toListProductEntity( purchaseDto.getProducts() ) );
         }
         purchaseEntity.setGroupId( groupId );
         purchaseEntity.setDate( now );
         purchaseEntity.setUserPayer( userPayer );
+        purchaseEntity.setAmount( amount );
 
         return purchaseEntity;
     }

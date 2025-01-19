@@ -2,23 +2,24 @@ package dev.PlanningProject.services;
 
 import dev.PlanningProject.dtos.TaskDto;
 import dev.PlanningProject.dtos.TaskShortDto;
-import dev.PlanningProject.entities.ProductEntity;
-import dev.PlanningProject.entities.ProductInPlaneEntity;
-import dev.PlanningProject.entities.TaskEntity;
-import dev.PlanningProject.entities.UserEntity;
+import dev.PlanningProject.entities.*;
 import dev.PlanningProject.mappers.ListTaskMapper;
 import dev.PlanningProject.mappers.TaskMapper;
+import dev.PlanningProject.repositories.ProductRepository;
+import dev.PlanningProject.repositories.PurchaseRepository;
 import dev.PlanningProject.repositories.TaskRepository;
 import dev.PlanningProject.repositories.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.mapstruct.Context;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static java.math.BigDecimal.valueOf;
 
@@ -32,6 +33,8 @@ public class TaskService {
     private final ListTaskMapper listTaskMapper;
     private final UserRepository userRepository;
     private final GroupService groupService;
+    private final PurchaseRepository purchaseRepository;
+    private final ProductRepository productRepository;
 
 
     public TaskDto createTask(TaskDto task,Long groupId, String username) {
@@ -39,7 +42,7 @@ public class TaskService {
                 .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found"));
         TaskEntity newTask = taskMapper.toTaskEntity(task, groupId, userCreator);
         if(task.getProducts() != null) {
-            tuneProducts(newTask);
+            connectProducts(newTask);
         }
         return taskMapper.toTaskDto(taskRepository.save(newTask));
     }
@@ -50,26 +53,36 @@ public class TaskService {
         return task_id;
     }
 
-    //todo Убрать связь покупки и таска при удалении связанного продукта, пересчет итоговой стоимости и completeness
+    //todo Убрать связь покупки и таска при удалении связанных продуктов
     public TaskDto changeTask(TaskDto task) {
-        TaskEntity changingTask = taskMapper.toTaskEntity(task);
+        TaskEntity changingTask = taskMapper.toTaskEntity(task, productRepository);
         if(task.getProducts() != null) {
-            tuneProducts(changingTask);
+            connectProducts(changingTask);
+            updateTaskDetails(changingTask, foundAmount(changingTask));
         }
         else {
             changingTask.setAmount(BigDecimal.ZERO);
             changingTask.setCompleteness(0);
-            changingTask.setLinkedPurchases(null);
         }
         return taskMapper.toTaskDto(taskRepository.save(changingTask));
     }
 
 
-    public void tuneProducts(TaskEntity task) {
+    public void connectProducts(TaskEntity task) {
         List<ProductInPlaneEntity> products = task.getProducts();
         for(ProductInPlaneEntity product : products) {
             product.setTask(task);
         }
+    }
+
+    public BigDecimal foundAmount(TaskEntity task) {
+        BigDecimal newAmount = BigDecimal.ZERO;
+        for(ProductInPlaneEntity productInPlane: task.getProducts()) {
+            if(productInPlane.getLinkedProduct() != null) {
+                newAmount = newAmount.add(productInPlane.getPrice());
+            }
+        }
+        return newAmount;
     }
 
     public List<TaskShortDto> getTasks(Long groupId) {
@@ -95,12 +108,17 @@ public class TaskService {
         else return false;
     }
 
-    public void updateTaskDetails(TaskEntity task, BigDecimal addedValue) {
-        updateTaskAmount(task, addedValue);
+    public void updateTaskDetails(TaskEntity task, BigDecimal newAmount) {
+        updateTaskAmount(task, newAmount);
         updateTaskCompleteness(task);
     }
 
-    public void updateTaskAmount(TaskEntity task, BigDecimal addedValue) {
+    public void updateTaskDetailsAfterAddPurchase(TaskEntity task, BigDecimal addedValue) {
+        increaseTaskAmount(task, addedValue);
+        updateTaskCompleteness(task);
+    }
+
+    public void increaseTaskAmount(TaskEntity task, BigDecimal addedValue) {
         BigDecimal currentAmount = task.getAmount() == null ? BigDecimal.ZERO : task.getAmount();
         BigDecimal updatedAmount = currentAmount.add(addedValue);
         task.setAmount(updatedAmount);
@@ -117,6 +135,10 @@ public class TaskService {
             task.setCompleteness(completeness);
         }
         else task.setCompleteness(0);
+    }
+
+    public void updateTaskAmount(TaskEntity task, BigDecimal newAmount) {
+        task.setAmount(newAmount);
     }
 
     public Boolean isTaskInGroup(Long groupId, Long taskId) {
