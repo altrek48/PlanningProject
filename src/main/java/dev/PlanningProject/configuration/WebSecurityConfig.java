@@ -3,6 +3,7 @@ package dev.PlanningProject.configuration;
 import dev.PlanningProject.services.auth.JwtAuthenticationEntryPoint;
 import dev.PlanningProject.services.auth.JwtFilter;
 import dev.PlanningProject.services.auth.JwtUserDetailsService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,7 +42,13 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(request -> request.requestMatchers("api/login", "/api/register").permitAll()
                         .anyRequest().authenticated())
                 // Send a 401 error response if user is not authentic.
-                .exceptionHandling(exception -> exception.authenticationEntryPoint(authenticationEntryPoint))
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint(authenticationEntryPoint)
+                        .accessDeniedHandler((request, response, accessDeniedException) -> {
+                            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                            response.setContentType("application/json");
+                            response.getWriter().write("{\"error\": \"Access Denied: " + accessDeniedException.getMessage() + "\"}");
+                        }))
                 // no session management
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 // filter the request and add authentication token

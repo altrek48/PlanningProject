@@ -24,7 +24,7 @@ public class UserService {
     @Transactional
     public void addUser(Long groupId, String username) {
         UserEntity addingUser = this.userRepository.getUserByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found"));
+                .orElseThrow(() -> new EntityNotFoundException("User with username: " + username + " not found"));
         GroupEntity group = groupRepository.findById(groupId)
                 .orElseThrow(() -> new EntityNotFoundException("Group with id: " + groupId + " not found"));
         group.addUser(addingUser);
