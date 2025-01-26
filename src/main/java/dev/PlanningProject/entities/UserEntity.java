@@ -21,7 +21,6 @@ public class UserEntity {
     @Column(unique = true)
     private String email;
 
-    //todo
     @ManyToMany(mappedBy = "users", cascade = CascadeType.MERGE)
     private List<GroupEntity> groups;
 

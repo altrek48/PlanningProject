@@ -1,9 +1,11 @@
 package dev.PlanningProject.services;
 
+import dev.PlanningProject.dtos.ProductInPlaneDto;
 import dev.PlanningProject.dtos.TaskDto;
 import dev.PlanningProject.dtos.TaskShortDto;
 import dev.PlanningProject.entities.*;
 import dev.PlanningProject.mappers.ListTaskMapper;
+import dev.PlanningProject.mappers.ProductInPlaneMapper;
 import dev.PlanningProject.mappers.TaskMapper;
 import dev.PlanningProject.repositories.ProductRepository;
 import dev.PlanningProject.repositories.PurchaseRepository;
@@ -20,6 +22,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static java.math.BigDecimal.valueOf;
 
@@ -55,7 +59,8 @@ public class TaskService {
 
     //todo Убрать связь покупки и таска при удалении связанных продуктов
     public TaskDto changeTask(TaskDto task) {
-        TaskEntity changingTask = taskMapper.toTaskEntity(task, productRepository);
+        TaskEntity changingTask = taskMapper.toTaskEntity(task);
+        resetLinkedProducts(changingTask, getLinkedProductsConnection(task));
         if(task.getProducts() != null) {
             connectProducts(changingTask);
             updateTaskDetails(changingTask, foundAmount(changingTask));
@@ -75,6 +80,24 @@ public class TaskService {
         }
     }
 
+    public Map<Long, Long> getLinkedProductsConnection(TaskDto taskDto) {
+        return taskDto.getProducts()
+                .stream()
+                .filter(product -> product.getLinkedProductId() != null)
+                .collect(Collectors.toMap(ProductInPlaneDto::getId, ProductInPlaneDto::getLinkedProductId));
+    }
+
+    public void resetLinkedProducts(TaskEntity task, Map<Long, Long> linkedProductsConnection) {
+        List<Long> productsIds = new ArrayList<>(linkedProductsConnection.values());
+        List<ProductEntity> productsEntity = productRepository.getProductsByIds(productsIds);
+        for(ProductInPlaneEntity productInPlane: task.getProducts()) {
+            if(linkedProductsConnection.containsKey(productInPlane.getId())) {
+                Long productId = linkedProductsConnection.get(productInPlane.getId());
+                productInPlane.setLinkedProduct(findProductById(productsEntity, productId));
+            }
+        }
+    }
+
     public BigDecimal foundAmount(TaskEntity task) {
         BigDecimal newAmount = BigDecimal.ZERO;
         for(ProductInPlaneEntity productInPlane: task.getProducts()) {
@@ -83,6 +106,13 @@ public class TaskService {
             }
         }
         return newAmount;
+    }
+
+    public ProductEntity findProductById(List<ProductEntity> products, Long productId) {
+        return products.stream()
+                .filter(product -> product.getId().equals(productId))
+                .findFirst()
+                .orElse(null);
     }
 
     public List<TaskShortDto> getTasks(Long groupId) {

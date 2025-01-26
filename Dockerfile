@@ -7,7 +7,7 @@ COPY build.gradle settings.gradle ./
 COPY src ./src
 RUN chmod +x gradlew
 
-RUN ./gradlew clean build -x test
+RUN ./gradlew clean build
 
 FROM openjdk:21
 EXPOSE 8080

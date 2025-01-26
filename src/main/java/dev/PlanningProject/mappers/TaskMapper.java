@@ -21,8 +21,7 @@ public interface TaskMapper {
     TaskEntity toTaskEntity(TaskDto taskDto, Long groupId, UserEntity userCreator);
 
     @Mapping(target = "userCreator", ignore = true)
-    @Mapping(target = "products", source = "products", qualifiedByName = "withProductRepository")
-    TaskEntity toTaskEntity(TaskDto taskDto, @Context ProductRepository productRepository);
+    TaskEntity toTaskEntity(TaskDto taskDto);
 
 
     @Mapping(target = "userCreator", source = "userCreator.linkedUserCredentials.username")

@@ -15,8 +15,5 @@ public interface ListProductInPlaneMapper {
 
     List<ProductInPlaneEntity> toListProductInPlaneEntity(List<ProductInPlaneDto> listProductInPlaneDto);
 
-    @Named("withProductRepository")
-    List<ProductInPlaneEntity> toListProductInPlaneEntity(List<ProductInPlaneDto> listProductInPlaneDto, @Context ProductRepository productRepository);
-
     List<ProductInPlaneDto> toListProductInPlaneDto(List<ProductInPlaneEntity> productInPlaneEntityList);
 }

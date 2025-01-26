@@ -5,13 +5,14 @@ import dev.PlanningProject.dtos.TaskShortDto;
 import dev.PlanningProject.entities.CredentialsEntity;
 import dev.PlanningProject.entities.TaskEntity;
 import dev.PlanningProject.entities.UserEntity;
+import dev.PlanningProject.repositories.ProductRepository;
 import javax.annotation.processing.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-01-26T04:32:09+0300",
+    date = "2025-01-26T03:36:32+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.12.jar, environment: Java 21.0.6 (Oracle Corporation)"
 )
 @Component
@@ -42,19 +43,19 @@ public class TaskMapperImpl implements TaskMapper {
     }
 
     @Override
-    public TaskEntity toTaskEntity(TaskDto taskDto) {
+    public TaskEntity toTaskEntity(TaskDto taskDto, ProductRepository productRepository) {
         if ( taskDto == null ) {
             return null;
         }
 
         TaskEntity taskEntity = new TaskEntity();
 
+        taskEntity.setProducts( listProductInPlaneMapper.toListProductInPlaneEntity( taskDto.getProducts(), productRepository ) );
         taskEntity.setId( taskDto.getId() );
         taskEntity.setName( taskDto.getName() );
         taskEntity.setComment( taskDto.getComment() );
         taskEntity.setAmount( taskDto.getAmount() );
         taskEntity.setCompleteness( taskDto.getCompleteness() );
-        taskEntity.setProducts( listProductInPlaneMapper.toListProductInPlaneEntity( taskDto.getProducts() ) );
         taskEntity.setGroupId( taskDto.getGroupId() );
 
         return taskEntity;
