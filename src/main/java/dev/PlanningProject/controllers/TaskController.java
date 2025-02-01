@@ -29,6 +29,7 @@ public class TaskController {
 
     //Создание плана
     @PostMapping(value = "create/{groupId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("@groupService.isUserInGroup(authentication.name, #groupId)")
     TaskDto createTask(@Valid @RequestBody TaskDto task, @PathVariable("groupId") Long groupId ) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();

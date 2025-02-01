@@ -1,5 +1,6 @@
 package dev.PlanningProject.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import dev.PlanningProject.dtos.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -22,6 +23,7 @@ public class CredentialsEntity {
 
     private boolean enabled;
 
+    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "linkedUserCredentials")
     private UserEntity linkedUser;
 

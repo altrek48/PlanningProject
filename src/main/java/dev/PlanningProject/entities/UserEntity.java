@@ -1,8 +1,10 @@
 package dev.PlanningProject.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,9 +24,10 @@ public class UserEntity {
     private String email;
 
     @ManyToMany(mappedBy = "users", cascade = CascadeType.MERGE)
-    private List<GroupEntity> groups;
+    private List<GroupEntity> groups = new ArrayList<>();
 
     @OneToOne
+    @JsonBackReference
     @JoinColumn(name = "linked_UserCredentials_id", nullable = false)
     private CredentialsEntity linkedUserCredentials;
 

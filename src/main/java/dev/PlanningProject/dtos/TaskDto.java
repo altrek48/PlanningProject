@@ -15,6 +15,19 @@ import java.util.List;
 @Builder
 public class TaskDto {
 
+    public TaskDto(String name, String comment) {
+        this.name = name;
+        this.comment = comment;
+    }
+
+    public TaskDto(Long id, String name, String comment, Long groupId, List<ProductInPlaneDto> products) {
+        this.id = id;
+        this.name = name;
+        this.comment = comment;
+        this.groupId = groupId;
+        this.products = products;
+    }
+
     private Long id;
 
     @NotBlank(message = "name may not be blank")
@@ -22,8 +35,6 @@ public class TaskDto {
     private String name;
 
     private String comment;
-
-    private LocalDateTime date;
 
     private BigDecimal amount;
 

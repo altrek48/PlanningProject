@@ -17,6 +17,11 @@ import java.util.List;
 @Builder
 public class PurchaseDto {
 
+    public PurchaseDto(String storeName, String userPayer) {
+        this.storeName = storeName;
+        this.userPayer = userPayer;
+    }
+
     private Long id;
 
     @NotBlank

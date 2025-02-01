@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.PlanningProject.controllers.TaskControllerTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-02-01T23:15:37" hostname="DESKTOP-7MQ8LFA" time="0.771">
+  <properties/>
+  <testcase name="testGetAllTasks(TaskService, GroupService)" classname="dev.PlanningProject.controllers.TaskControllerTest" time="0.194"/>
+  <testcase name="testUpdateTask(TaskService, GroupService)" classname="dev.PlanningProject.controllers.TaskControllerTest" time="0.161"/>
+  <testcase name="testGetTask(TaskService, GroupService)" classname="dev.PlanningProject.controllers.TaskControllerTest" time="0.142"/>
+  <testcase name="testDeleteTask(TaskService, GroupService)" classname="dev.PlanningProject.controllers.TaskControllerTest" time="0.136"/>
+  <testcase name="createTask(GroupService)" classname="dev.PlanningProject.controllers.TaskControllerTest" time="0.134"/>
+  <system-out><![CDATA[2025-02-02T02:15:37.759+03:00  INFO 2508 --- [PlanningProject] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [dev.PlanningProject.controllers.TaskControllerTest]: TaskControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-02-02T02:15:37.762+03:00  INFO 2508 --- [PlanningProject] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration dev.PlanningProject.PlanningProjectApplication for test class dev.PlanningProject.controllers.TaskControllerTest
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /api/base/task/get/11
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8"]
+             Body = null
+    Session Attrs = {}
+
+Handler:
+             Type = dev.PlanningProject.controllers.TaskController
+           Method = dev.PlanningProject.controllers.TaskController#getTasks(Long)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Type:"application/json", X-Content-Type-Options:"nosniff", X-XSS-Protection:"0", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0", X-Frame-Options:"DENY"]
+     Content type = application/json
+             Body = [{"id":2,"name":"testTask1","comment":"testComment1","amount":null,"completeness":null},{"id":3,"name":"testTask2","comment":"testComment2","amount":null,"completeness":null}]
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2025-02-02T02:15:38.103+03:00  WARN 2508 --- [PlanningProject] [    Test worker] o.h.p.entity.AbstractEntityPersister     : HHH000502: The [group] property of the [dev.PlanningProject.entities.TaskEntity] entity was modified, but it won't be updated because the property is immutable.
+2025-02-02T02:15:38.103+03:00  WARN 2508 --- [PlanningProject] [    Test worker] o.h.p.entity.AbstractEntityPersister     : HHH000502: The [userCreator] property of the [dev.PlanningProject.entities.TaskEntity] entity was modified, but it won't be updated because the property is immutable.
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

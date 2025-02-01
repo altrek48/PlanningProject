@@ -17,6 +17,7 @@ public class ProductInPlaneDto {
 
     public ProductInPlaneDto(String name) {
         this.name = name;
+        this.completeness = false;
     }
 
     private Long id;

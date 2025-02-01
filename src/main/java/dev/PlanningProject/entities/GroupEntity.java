@@ -46,7 +46,11 @@ public class GroupEntity {
             users = new ArrayList<>();
         }
         users.add(user);
-        user.getGroups().add(this);
+        if(user.getGroups() == null) {
+            user.setGroups(new ArrayList<>());
+            user.getGroups().add(this);
+        }
+        else user.getGroups().add(this);
     }
 
     @ManyToOne(fetch = FetchType.LAZY)

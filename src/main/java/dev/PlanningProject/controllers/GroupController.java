@@ -22,6 +22,7 @@ public class GroupController {
 
     private final GroupService groupService;
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "create", produces = MediaType.APPLICATION_JSON_VALUE)
     public GroupDto createGroup(@Valid @RequestBody GroupDto group) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -39,6 +40,12 @@ public class GroupController {
     public List<GroupDto> getGroups() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return groupService.getAllGroups(username);
+    }
+
+    @GetMapping(value = "isCreator/{groupId}")
+    public boolean isGroupCreator(@PathVariable("groupId") Long groupId) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return groupService.isUserCreator(username, groupId);
     }
 
 }

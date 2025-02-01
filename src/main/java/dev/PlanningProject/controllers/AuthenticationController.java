@@ -3,11 +3,13 @@ package dev.PlanningProject.controllers;
 import dev.PlanningProject.dtos.auth.JwtRequest;
 import dev.PlanningProject.dtos.auth.JwtResponse;
 import dev.PlanningProject.dtos.auth.SignInRequest;
+import dev.PlanningProject.entities.CredentialsEntity;
 import dev.PlanningProject.services.GroupService;
 import dev.PlanningProject.services.auth.JwtUserDetailsService;
 import dev.PlanningProject.services.auth.TokenManager;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -45,15 +47,10 @@ public class AuthenticationController {
         return new JwtResponse(tokenManager.generateJwtToken(userDetails));
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "register", consumes = "application/json")
-    public void addUser(@RequestBody SignInRequest request) {
-        userDetailsService.createUser(request);
-    }
-
-    @GetMapping(value = "base/isGroupCreator/{groupId}")
-    public boolean isGroupCreator(@PathVariable("groupId") Long groupId) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        return groupService.isUserCreator(username, groupId);
+    public CredentialsEntity addUser(@RequestBody SignInRequest request) {
+        return userDetailsService.createUser(request);
     }
 
 

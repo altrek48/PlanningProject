@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ProductInPlaneMapper {
 
-    //todo -productRepository через service
     @Mapping(target = "task.id", source = "taskId")
     ProductInPlaneEntity toProductInPlaneEntity(ProductInPlaneDto productInPlaneDto);
 

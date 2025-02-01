@@ -14,6 +14,11 @@ import java.math.BigDecimal;
 @Builder
 public class ProductDto {
 
+    public ProductDto(String name, BigDecimal price) {
+        this.name = name;
+        this.price = price;
+    }
+
     private Long id;
 
     @NotBlank

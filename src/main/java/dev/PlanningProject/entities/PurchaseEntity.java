@@ -66,7 +66,7 @@ public class PurchaseEntity {
 //    @Column(name = "task_id")
 //    private Long linkedTaskId;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     @JoinColumn(name = "task_id")
     private TaskEntity linkedTask;
 

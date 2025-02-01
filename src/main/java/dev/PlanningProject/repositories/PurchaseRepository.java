@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface PurchaseRepository extends JpaRepository<PurchaseEntity, Long> {
 
-    @Query("SELECT p FROM PurchaseEntity p WHERE p.groupId = :groupId ORDER BY p.date DESC")
+    @Query("SELECT p FROM PurchaseEntity p WHERE p.groupId = :groupId ORDER BY p.id DESC")
     List<PurchaseEntity> findAllByGroupId(@Param("groupId") Long groupId);
 
     @Query("SELECT COUNT(p) > 0 FROM PurchaseEntity p WHERE p.groupId = :groupId AND p.id = :purchaseId")

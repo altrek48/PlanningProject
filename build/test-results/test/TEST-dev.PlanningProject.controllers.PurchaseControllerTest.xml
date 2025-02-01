@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.PlanningProject.controllers.PurchaseControllerTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-02-01T23:15:36" hostname="DESKTOP-7MQ8LFA" time="0.877">
+  <properties/>
+  <testcase name="testCreatePurchaseInTask(TaskService, GroupService)" classname="dev.PlanningProject.controllers.PurchaseControllerTest" time="0.258"/>
+  <testcase name="testGetPurchase(PurchaseService, GroupService)" classname="dev.PlanningProject.controllers.PurchaseControllerTest" time="0.164"/>
+  <testcase name="testGetPurchaseIdByProductId(PurchaseService, GroupService)" classname="dev.PlanningProject.controllers.PurchaseControllerTest" time="0.136"/>
+  <testcase name="testGetAllPurchases(PurchaseService, GroupService)" classname="dev.PlanningProject.controllers.PurchaseControllerTest" time="0.171"/>
+  <testcase name="testCreatePurchase(GroupService)" classname="dev.PlanningProject.controllers.PurchaseControllerTest" time="0.142"/>
+  <system-out><![CDATA[2025-02-02T02:15:36.871+03:00  INFO 2508 --- [PlanningProject] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [dev.PlanningProject.controllers.PurchaseControllerTest]: PurchaseControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-02-02T02:15:36.875+03:00  INFO 2508 --- [PlanningProject] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration dev.PlanningProject.PlanningProjectApplication for test class dev.PlanningProject.controllers.PurchaseControllerTest
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -38,7 +38,7 @@ public class JwtUserDetailsService implements UserDetailsService {
     }
 
     @Transactional
-    public void createUser(SignInRequest request) {
+    public CredentialsEntity createUser(SignInRequest request) {
 
             CredentialsEntity entity = CredentialsEntity.builder()
                     .username(request.getUsername())
@@ -52,7 +52,7 @@ public class JwtUserDetailsService implements UserDetailsService {
                     .build();
 
             entity.setLinkedUser(user);
-            userRepository.save(entity);
+            return userRepository.save(entity);
     }
 
 }

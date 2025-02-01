@@ -1,5 +1,6 @@
 package dev.PlanningProject.services;
 
+import dev.PlanningProject.dtos.UserProfile;
 import dev.PlanningProject.entities.GroupEntity;
 import dev.PlanningProject.entities.UserEntity;
 import dev.PlanningProject.repositories.GroupRepository;
@@ -29,5 +30,10 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException("Group with id: " + groupId + " not found"));
         group.addUser(addingUser);
         groupRepository.save(group);
+    }
+
+    public UserProfile getUserProfile(String username) {
+        return userRepository.getUserProfile(username)
+                .orElseThrow(() -> new EntityNotFoundException("UserProfile with username: " + username + " not found"));
     }
 }
