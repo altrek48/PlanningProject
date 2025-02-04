@@ -1,8 +1,8 @@
 package dev.PlanningProject.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-//import configuration.TestContainersConfig;
-import configuration.TestContainersConfig;
+//import dev.PlanningProject.controllers.TestContainersConfig;
+// dev.PlanningProject.controllers.TestContainersConfig;
 import dev.PlanningProject.dtos.*;
 import dev.PlanningProject.entities.CredentialsEntity;
 import dev.PlanningProject.entities.PasswordEntity;
@@ -21,6 +21,7 @@ import org.mapstruct.control.MappingControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 import org.springframework.data.rest.core.event.ExceptionEvent;
@@ -30,12 +31,14 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.shaded.org.bouncycastle.est.LimitedSource;
 import org.testcontainers.shaded.org.checkerframework.checker.units.qual.A;
 
 import java.math.BigDecimal;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,11 +50,16 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 @SpringBootTest
 @AutoConfigureMockMvc
-@Import(TestContainersConfig.class)
+@Testcontainers
 public class PurchaseControllerTest {
+
+    @Container
+    @ServiceConnection
+    static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:15")
+            .withStartupTimeout(Duration.ofMinutes(2))
+            .waitingFor(Wait.forListeningPort());
 
     @Autowired
     private MockMvc mockMvc;
@@ -88,7 +96,6 @@ public class PurchaseControllerTest {
     @WithMockUser("userTest")
     public void testCreatePurchase(@Autowired GroupService groupService) throws Exception {
         GroupDto groupDto = groupService.createGroup(new GroupDto("testGroup"), "userTest");
-
         PurchaseDto purchaseDto = new PurchaseDto("testPurchase", "");
         List<ProductDto> productsDto = new ArrayList<>();
         productsDto.add(new ProductDto("testProduct", BigDecimal.valueOf(100)));
@@ -118,7 +125,6 @@ public class PurchaseControllerTest {
     @WithMockUser("userTest")
     public void testCreatePurchaseInTask(@Autowired TaskService taskService, @Autowired GroupService groupService) throws Exception {
         GroupDto groupDto = groupService.createGroup(new GroupDto("testGroup"), "userTest");
-
         TaskDto taskDtoTest = new TaskDto("testTask", "testComment");
         List<ProductInPlaneDto> productsInPlaneDto = new ArrayList<>();
         productsInPlaneDto.add(new ProductInPlaneDto("testProduct"));
@@ -155,7 +161,6 @@ public class PurchaseControllerTest {
     @WithMockUser("userTest")
     public void testGetAllPurchases(@Autowired PurchaseService purchaseService, @Autowired GroupService groupService) throws Exception {
         GroupDto groupDto = groupService.createGroup(new GroupDto("testGroup"), "userTest");
-
         PurchaseDto purchaseDto1 = new PurchaseDto("testPurchase1", "");
         List<ProductDto> productsDto1 = new ArrayList<>();
         productsDto1.add(new ProductDto("testProduct1", BigDecimal.valueOf(100)));
@@ -170,9 +175,9 @@ public class PurchaseControllerTest {
         PurchaseDto purchaseDtoTest2 = purchaseService.createPurchase(purchaseDto2, groupDto.getId(), "userTest");
 
         mockMvc.perform(
-                get("/api/base/purchase/getAll/{groupId}", groupDto.getId())
-                        .contentType(MediaType.APPLICATION_JSON)
-        )
+                        get("/api/base/purchase/getAll/{groupId}", groupDto.getId())
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].storeName").value(purchaseDtoTest2.getStoreName()))
@@ -202,9 +207,9 @@ public class PurchaseControllerTest {
         PurchaseDto purchaseDtoTest1 = purchaseService.createPurchase(purchaseDto1, groupDto.getId(), "userTest");
 
         mockMvc.perform(
-                get("/api/base/purchase/get/{groupId}/{purchaseId}", groupDto.getId(), purchaseDtoTest1.getId())
-                        .contentType(MediaType.APPLICATION_JSON)
-        )
+                        get("/api/base/purchase/get/{groupId}/{purchaseId}", groupDto.getId(), purchaseDtoTest1.getId())
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.storeName").value(purchaseDtoTest1.getStoreName()))
                 .andExpect(jsonPath("$.date").isNotEmpty())
@@ -223,7 +228,6 @@ public class PurchaseControllerTest {
     @WithMockUser("userTest")
     public void testGetPurchaseIdByProductId(@Autowired PurchaseService purchaseService, @Autowired GroupService groupService) throws Exception {
         GroupDto groupDto = groupService.createGroup(new GroupDto("testGroup"), "userTest");
-
         PurchaseDto purchaseDto1 = new PurchaseDto("testPurchase1", "");
         List<ProductDto> productsDto1 = new ArrayList<>();
         productsDto1.add(new ProductDto("testProduct1", BigDecimal.valueOf(100)));
@@ -232,9 +236,9 @@ public class PurchaseControllerTest {
         PurchaseDto purchaseDtoTest1 = purchaseService.createPurchase(purchaseDto1, groupDto.getId(), "userTest");
 
         mockMvc.perform(
-                get("/api/base/purchase/getPurchaseId/{productId}", purchaseDtoTest1.getProducts().getFirst().getId())
-                        .contentType(MediaType.APPLICATION_JSON)
-        )
+                        get("/api/base/purchase/getPurchaseId/{productId}", purchaseDtoTest1.getProducts().getFirst().getId())
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").value(purchaseDtoTest1.getId()));
     }

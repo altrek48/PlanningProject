@@ -1,8 +1,8 @@
 package dev.PlanningProject.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-//import configuration.TestContainersConfig;
-import configuration.TestContainersConfig;
+//import dev.PlanningProject.controllers.TestContainersConfig;
+///import dev.PlanningProject.controllers.TestContainersConfig;
 import dev.PlanningProject.dtos.GroupDto;
 import dev.PlanningProject.dtos.Role;
 import dev.PlanningProject.entities.CredentialsEntity;
@@ -17,6 +17,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -24,8 +25,11 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+
+import java.time.Duration;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -34,16 +38,20 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Testcontainers
 @SpringBootTest
 @AutoConfigureMockMvc
-@Import(TestContainersConfig.class)
 public class GroupControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+    @Container
+    @ServiceConnection
+    static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:15")
+            .withStartupTimeout(Duration.ofMinutes(2))
+            .waitingFor(Wait.forListeningPort());
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    @Autowired private MockMvc mockMvc;
+    @Autowired private ObjectMapper objectMapper;
+    @Autowired private UserRepository userRepository;
 
     @BeforeEach
     public void setup(@Autowired UserRepository userRepository) {
@@ -88,13 +96,12 @@ public class GroupControllerTest {
         GroupDto groupDto = groupService.createGroup(new GroupDto("testGroup"), "userTest");
 
         mockMvc.perform(
-                delete("/api/base/group/delete/{groupId}", groupDto.getId())
-                        .contentType(MediaType.APPLICATION_JSON)
-        )
+                        delete("/api/base/group/delete/{groupId}", groupDto.getId())
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").value(groupDto.getId()));
     }
-
     @Test
     @WithMockUser("userTest")
     public void testGetAllGroups(@Autowired GroupService groupService) throws Exception {

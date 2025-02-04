@@ -2,7 +2,7 @@
   <library name="Gradle: org.springframework.data:spring-data-rest-webmvc:4.3.5" type="java-imported" external-system-id="GRADLE">
     <properties groupId="org.springframework.data" artifactId="spring-data-rest-webmvc" version="4.3.5" baseVersion="4.3.5" />
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-rest-webmvc/4.3.5/9af694092d9ac1814422385ec8e1c49e065918b8/spring-data-rest-webmvc-4.3.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../Gradle/gradle-8.12/caches/modules-2/files-2.1/org.springframework.data/spring-data-rest-webmvc/4.3.5/9af694092d9ac1814422385ec8e1c49e065918b8/spring-data-rest-webmvc-4.3.5.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

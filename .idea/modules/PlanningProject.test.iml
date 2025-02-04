@@ -21,9 +21,10 @@
     <orderEntry type="library" name="Gradle: io.jsonwebtoken:jjwt-jackson:0.12.6" level="project" />
     <orderEntry type="library" name="Gradle: io.jsonwebtoken:jjwt-api:0.12.6" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-test:3.3.5" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework.security:spring-security-test:6.1.5" level="project" />
-    <orderEntry type="library" name="Gradle: org.testcontainers:junit-jupiter:1.19.3" level="project" />
-    <orderEntry type="library" name="Gradle: org.testcontainers:postgresql:1.19.3" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.security:spring-security-test:6.3.4" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-testcontainers:3.3.5" level="project" />
+    <orderEntry type="library" name="Gradle: org.testcontainers:junit-jupiter:1.19.8" level="project" />
+    <orderEntry type="library" name="Gradle: org.testcontainers:postgresql:1.19.8" level="project" />
     <orderEntry type="library" name="Gradle: org.testcontainers:testcontainers:1.19.8" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-aop:3.3.5" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-jdbc:3.3.5" level="project" />
@@ -58,6 +59,7 @@
     <orderEntry type="library" name="Gradle: org.springframework:spring-core:6.1.14" level="project" />
     <orderEntry type="library" name="Gradle: org.xmlunit:xmlunit-core:2.9.1" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.security:spring-security-core:6.3.4" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-autoconfigure:3.3.5" level="project" />
     <orderEntry type="library" name="Gradle: org.testcontainers:jdbc:1.19.8" level="project" />
     <orderEntry type="library" name="Gradle: com.github.docker-java:docker-java-api:3.3.6" level="project" />
     <orderEntry type="library" name="Gradle: junit:junit:4.13.2" level="project" />
@@ -82,7 +84,6 @@
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.2" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.module:jackson-module-parameter-names:2.17.2" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.17.2" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-autoconfigure:3.3.5" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot:3.3.5" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-logging:3.3.5" level="project" />
     <orderEntry type="library" name="Gradle: org.yaml:snakeyaml:2.2" level="project" />

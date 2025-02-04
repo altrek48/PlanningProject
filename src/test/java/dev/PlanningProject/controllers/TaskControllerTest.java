@@ -1,8 +1,8 @@
 package dev.PlanningProject.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-//import configuration.TestContainersConfig;
-import configuration.TestContainersConfig;
+//import dev.PlanningProject.controllers.TestContainersConfig;
+//import dev.PlanningProject.controllers.TestContainersConfig;
 import dev.PlanningProject.dtos.GroupDto;
 import dev.PlanningProject.dtos.Role;
 import dev.PlanningProject.dtos.TaskDto;
@@ -21,6 +21,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.rest.core.event.ExceptionEvent;
 import org.springframework.http.MediaType;
@@ -30,9 +31,11 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.time.Duration;
 import java.util.ArrayList;
 
 import static org.hamcrest.Matchers.hasSize;
@@ -43,11 +46,16 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 @SpringBootTest
 @AutoConfigureMockMvc
-@Import(TestContainersConfig.class)
+@Testcontainers
 public class TaskControllerTest {
+
+    @Container
+    @ServiceConnection
+    static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:15")
+            .withStartupTimeout(Duration.ofMinutes(2))
+            .waitingFor(Wait.forListeningPort());
 
     @Autowired
     MockMvc mockMvc;
@@ -84,12 +92,11 @@ public class TaskControllerTest {
     public void createTask(@Autowired GroupService groupService) throws Exception {
         GroupDto groupDto = groupService.createGroup(new GroupDto("testGroup"), "userTest");
         TaskDto taskDto = new TaskDto("testTask", "testComment");
-
         mockMvc.perform(
-                post("/api/base/task/create/{groupId}", groupDto.getId())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(taskDto))
-        )
+                        post("/api/base/task/create/{groupId}", groupDto.getId())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(taskDto))
+                )
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name").value(taskDto.getName()))
                 .andExpect(jsonPath("$.comment").value(taskDto.getComment()))
@@ -153,7 +160,6 @@ public class TaskControllerTest {
         GroupDto groupDto = groupService.createGroup(new GroupDto("testGroup"), "userTest");
         TaskDto taskDto1 = taskService.createTask(new TaskDto("testTask1", "testComment1"), groupDto.getId(), "userTest");
         TaskDto taskDto2 = taskService.createTask(new TaskDto("testTask2", "testComment2"), groupDto.getId(), "userTest");
-
         mockMvc.perform(
                         get("/api/base/task/get/{groupId}", groupDto.getId())
                                 .contentType(MediaType.APPLICATION_JSON)
