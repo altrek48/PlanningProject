@@ -77,7 +77,7 @@ public class PurchaseService {
     @Transactional
     public void connectProducts(PurchaseEntity purchase, Long taskId) {
         TaskEntity task = taskRepository.findByIdWithProducts(taskId)
-                .orElseThrow(() -> new EntityNotFoundException("task с переданным значение не найден"));
+                .orElseThrow(() -> new EntityNotFoundException("task с переданным id не найден"));
         BigDecimal addedValue = BigDecimal.valueOf(0);
         Map<String, ProductInPlaneEntity> productsInPlaneMap = getProductInPlaneMap(task);
         for (ProductEntity product: purchase.getProducts()) {

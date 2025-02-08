@@ -19,7 +19,7 @@ public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
     @Query("SELECT COUNT(t) > 0 FROM TaskEntity t WHERE t.userCreator.linkedUserCredentials.username = :username AND t.id = :taskId")
     boolean isTaskCreator(@Param("taskId") Long taskId, @Param("username") String username);
 
-    @Query("SELECT t FROM TaskEntity t LEFT JOIN FETCH t.products WHERE t.id = :id")
-    Optional<TaskEntity> findByIdWithProducts(@Param("id") Long id);
+    @Query("SELECT t FROM TaskEntity t LEFT JOIN FETCH t.products WHERE t.id = :taskId")
+    Optional<TaskEntity> findByIdWithProducts(@Param("taskId") Long taskId);
 
 }

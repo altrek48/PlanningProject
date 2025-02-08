@@ -57,4 +57,14 @@ public class TaskEntity {
     @Immutable
     private UserEntity userCreator;
 
+    @OneToMany(mappedBy = "linkedTask", fetch = FetchType.LAZY)
+    private List<PurchaseEntity> purchases;
+
+    @PreRemove
+    private void preRemove() {
+        if (purchases != null) {
+            purchases.forEach(purchase -> purchase.setLinkedTask(null));
+        }
+    }
+
 }

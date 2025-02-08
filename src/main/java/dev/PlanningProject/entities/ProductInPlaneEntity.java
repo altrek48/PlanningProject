@@ -38,4 +38,11 @@ public class ProductInPlaneEntity {
     @JoinColumn(name = "product_id")
     private ProductEntity linkedProduct;
 
+    @PreRemove
+    private void preRemove() {
+        if (linkedProduct != null) {
+            linkedProduct.setProductInPlane(null);
+        }
+    }
+
 }
