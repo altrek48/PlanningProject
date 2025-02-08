@@ -35,4 +35,5 @@ public interface PurchaseMapper {
 
     @Mapping(target = "userPayer", source = "userPayer.linkedUserCredentials.username")
     PurchaseShortDto toPurchaseShortDto(PurchaseEntity purchaseEntity);
+
 }

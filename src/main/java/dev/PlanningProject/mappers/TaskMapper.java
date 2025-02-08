@@ -29,6 +29,4 @@ public interface TaskMapper {
 
     TaskShortDto toTaskShortDto(TaskEntity taskEntity);
 
-
-
 }

@@ -14,4 +14,5 @@ public interface ListTaskMapper {
     List<TaskDto> toListTaskDto(List<TaskEntity> taskEntityList);
 
     List<TaskShortDto> toListTaskShortDto(List<TaskEntity> taskEntityList);
+
 }

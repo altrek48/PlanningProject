@@ -2,24 +2,15 @@ package dev.PlanningProject;
 
 import dev.PlanningProject.dtos.*;
 import dev.PlanningProject.dtos.auth.SignInRequest;
-import dev.PlanningProject.entities.*;
-import dev.PlanningProject.repositories.GroupRepository;
-import dev.PlanningProject.repositories.PurchaseRepository;
-import dev.PlanningProject.repositories.TaskRepository;
 import dev.PlanningProject.services.GroupService;
 import dev.PlanningProject.services.PurchaseService;
 import dev.PlanningProject.services.TaskService;
 import dev.PlanningProject.services.auth.JwtUserDetailsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -102,6 +93,5 @@ public class Initializer {
 //
 //        purchaseService.createPurchaseInTask(purchaseDto2, 1L, 1L, "rolik222");
     }
-
 
 }

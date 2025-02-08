@@ -57,6 +57,4 @@ public class TaskEntity {
     @Immutable
     private UserEntity userCreator;
 
-
-
 }

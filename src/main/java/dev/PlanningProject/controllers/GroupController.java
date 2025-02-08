@@ -24,28 +24,33 @@ public class GroupController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "create", produces = MediaType.APPLICATION_JSON_VALUE)
-    public GroupDto createGroup(@Valid @RequestBody GroupDto group) {
+    GroupDto createGroup(@Valid @RequestBody GroupDto group) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return groupService.createGroup(group, username);
     }
 
-
     @DeleteMapping(value = "delete/{groupId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("@groupService.isUserCreator(authentication.name, #groupId)")
-    public Long deleteGroup(@PathVariable("groupId") Long groupId) {
+    Long deleteGroup(@PathVariable("groupId") Long groupId) {
         return groupService.deleteGroupById(groupId);
     }
 
     @GetMapping(value = "get", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<GroupDto> getGroups() {
+    List<GroupDto> getGroups() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return groupService.getAllGroups(username);
     }
 
     @GetMapping(value = "isCreator/{groupId}")
-    public boolean isGroupCreator(@PathVariable("groupId") Long groupId) {
+    Boolean isGroupCreator(@PathVariable("groupId") Long groupId) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return groupService.isUserCreator(username, groupId);
+    }
+
+    @DeleteMapping(value = "{groupId}/removeUser/{userId}")
+    @PreAuthorize("@groupService.isUserCreator(authentication.name, #groupId)")
+    Long removeUserFromGroup(@PathVariable("groupId") Long groupId, @PathVariable("userId") Long userId) {
+        return groupService.removeUserFromGroup(groupId, userId);
     }
 
 }

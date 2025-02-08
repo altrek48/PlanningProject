@@ -3,9 +3,11 @@ package dev.PlanningProject.services;
 import dev.PlanningProject.dtos.ProductInPlaneDto;
 import dev.PlanningProject.dtos.TaskDto;
 import dev.PlanningProject.dtos.TaskShortDto;
-import dev.PlanningProject.entities.*;
+import dev.PlanningProject.entities.ProductEntity;
+import dev.PlanningProject.entities.ProductInPlaneEntity;
+import dev.PlanningProject.entities.TaskEntity;
+import dev.PlanningProject.entities.UserEntity;
 import dev.PlanningProject.mappers.ListTaskMapper;
-import dev.PlanningProject.mappers.ProductInPlaneMapper;
 import dev.PlanningProject.mappers.TaskMapper;
 import dev.PlanningProject.repositories.ProductRepository;
 import dev.PlanningProject.repositories.PurchaseRepository;
@@ -14,18 +16,14 @@ import dev.PlanningProject.repositories.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.Context;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import static java.math.BigDecimal.valueOf;
 
 @Service
 @Slf4j

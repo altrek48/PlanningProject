@@ -37,6 +37,4 @@ public class ProductEntity {
     @OneToOne(mappedBy = "linkedProduct", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     ProductInPlaneEntity productInPlane;
 
-
-
 }

@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="dev.PlanningProject.controllers.AuthenticationControllerTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-02-04T18:57:25" hostname="DESKTOP-BNO4RHE" time="1.211">
+<testsuite name="dev.PlanningProject.controllers.AuthenticationControllerTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-02-08T09:14:00" hostname="DESKTOP-BNO4RHE" time="1.316">
   <properties/>
-  <testcase name="testLogin()" classname="dev.PlanningProject.controllers.AuthenticationControllerTest" time="1.021"/>
-  <testcase name="testRegistration()" classname="dev.PlanningProject.controllers.AuthenticationControllerTest" time="0.188"/>
-  <system-out><![CDATA[21:57:08.332 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [dev.PlanningProject.controllers.AuthenticationControllerTest]: AuthenticationControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-21:57:08.389 [Test worker] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
-21:57:08.394 [Test worker] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
-21:57:08.672 [Test worker] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
-21:57:09.251 [Test worker] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
-21:57:09.254 [Test worker] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
-21:57:09.276 [Test worker] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  <testcase name="testLogin()" classname="dev.PlanningProject.controllers.AuthenticationControllerTest" time="1.129"/>
+  <testcase name="testRegistration()" classname="dev.PlanningProject.controllers.AuthenticationControllerTest" time="0.186"/>
+  <system-out><![CDATA[12:13:49.041 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [dev.PlanningProject.controllers.AuthenticationControllerTest]: AuthenticationControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:13:49.085 [Test worker] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+12:13:49.089 [Test worker] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+12:13:49.330 [Test worker] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+12:13:49.596 [Test worker] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+12:13:49.597 [Test worker] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+12:13:49.619 [Test worker] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
   Server Version: 27.4.0
   API Version: 1.47
   Operating System: Docker Desktop
   Total Memory: 7650 MB
-21:57:09.307 [Test worker] INFO tc.testcontainers/ryuk:0.7.0 -- Creating container for image: testcontainers/ryuk:0.7.0
-21:57:09.884 [Test worker] INFO tc.testcontainers/ryuk:0.7.0 -- Container testcontainers/ryuk:0.7.0 is starting: e61c64f7a3500c8d0128e859268109bba44508615864d4bb1323bfb9d6224ad8
-21:57:10.925 [Test worker] INFO tc.testcontainers/ryuk:0.7.0 -- Container testcontainers/ryuk:0.7.0 started in PT1.6176505S
-21:57:10.935 [Test worker] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
-21:57:10.935 [Test worker] INFO org.testcontainers.DockerClientFactory -- Checking the system...
-21:57:10.935 [Test worker] INFO org.testcontainers.DockerClientFactory -- ✔︎ Docker server version should be at least 1.6.0
-21:57:11.248 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration dev.PlanningProject.PlanningProjectApplication for test class dev.PlanningProject.controllers.AuthenticationControllerTest
-21:57:11.515 [Test worker] INFO tc.postgres:15 -- Creating container for image: postgres:15
-21:57:11.771 [Test worker] INFO tc.postgres:15 -- Container postgres:15 is starting: ce80b590fe4dea2b9c8b67f0b21e149c9ef3e1563c116ad178893480ea6a3588
-21:57:14.918 [Test worker] INFO tc.postgres:15 -- Container postgres:15 started in PT3.4031929S
-21:57:14.918 [Test worker] INFO tc.postgres:15 -- Container is started (JDBC URL: jdbc:postgresql://localhost:62983/test?loggerLevel=OFF)
+12:13:49.758 [Test worker] INFO tc.testcontainers/ryuk:0.7.0 -- Creating container for image: testcontainers/ryuk:0.7.0
+12:13:50.062 [Test worker] INFO tc.testcontainers/ryuk:0.7.0 -- Container testcontainers/ryuk:0.7.0 is starting: a44c8ac0e9a3f218f199a8601ec9737a285bb07bfe17e4a5a1c9d3df058560a0
+12:13:50.652 [Test worker] INFO tc.testcontainers/ryuk:0.7.0 -- Container testcontainers/ryuk:0.7.0 started in PT0.8933818S
+12:13:50.659 [Test worker] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+12:13:50.659 [Test worker] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+12:13:50.660 [Test worker] INFO org.testcontainers.DockerClientFactory -- ✔︎ Docker server version should be at least 1.6.0
+12:13:50.860 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration dev.PlanningProject.PlanningProjectApplication for test class dev.PlanningProject.controllers.AuthenticationControllerTest
+12:13:50.969 [Test worker] INFO tc.postgres:15 -- Creating container for image: postgres:15
+12:13:51.079 [Test worker] INFO tc.postgres:15 -- Container postgres:15 is starting: 9cafaf629cd72b400061dff988500725ba6fde07c1d1d954729c6951ef23ffdd
+12:13:52.706 [Test worker] INFO tc.postgres:15 -- Container postgres:15 started in PT1.7366708S
+12:13:52.706 [Test worker] INFO tc.postgres:15 -- Container is started (JDBC URL: jdbc:postgresql://localhost:53688/test?loggerLevel=OFF)
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -35,86 +35,86 @@
 
  :: Spring Boot ::                (v3.3.5)
 
-2025-02-04T21:57:15.680+03:00  INFO 20572 --- [PlanningProject] [    Test worker] d.P.c.AuthenticationControllerTest       : Starting AuthenticationControllerTest using Java 21.0.6 with PID 20572 (started by Алексей in C:\Projects\PlanningProject)
-2025-02-04T21:57:15.683+03:00  INFO 20572 --- [PlanningProject] [    Test worker] d.P.c.AuthenticationControllerTest       : No active profile set, falling back to 1 default profile: "default"
-2025-02-04T21:57:16.981+03:00  INFO 20572 --- [PlanningProject] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-02-04T21:57:17.124+03:00  INFO 20572 --- [PlanningProject] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 126 ms. Found 5 JPA repository interfaces.
-2025-02-04T21:57:18.979+03:00  INFO 20572 --- [PlanningProject] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-02-04T21:57:19.180+03:00  INFO 20572 --- [PlanningProject] [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
-2025-02-04T21:57:19.291+03:00  INFO 20572 --- [PlanningProject] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-02-04T21:57:19.827+03:00  INFO 20572 --- [PlanningProject] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-02-04T21:57:19.864+03:00  INFO 20572 --- [PlanningProject] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-02-04T21:57:20.039+03:00  INFO 20572 --- [PlanningProject] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@d28a235
-2025-02-04T21:57:20.041+03:00  INFO 20572 --- [PlanningProject] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-02-04T21:57:21.747+03:00  INFO 20572 --- [PlanningProject] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-02-04T21:57:21.770+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.770+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "groups" does not exist, skipping
-2025-02-04T21:57:21.772+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.773+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "products" does not exist, skipping
-2025-02-04T21:57:21.774+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.775+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "products_in_plane" does not exist, skipping
-2025-02-04T21:57:21.776+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.777+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "products_in_plane" does not exist, skipping
-2025-02-04T21:57:21.778+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.778+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "purchases" does not exist, skipping
-2025-02-04T21:57:21.780+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.781+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "purchases" does not exist, skipping
-2025-02-04T21:57:21.782+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.782+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "purchases" does not exist, skipping
-2025-02-04T21:57:21.784+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.784+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "tasks" does not exist, skipping
-2025-02-04T21:57:21.786+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.787+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "tasks" does not exist, skipping
-2025-02-04T21:57:21.788+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.788+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "user_groups" does not exist, skipping
-2025-02-04T21:57:21.791+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.791+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "user_groups" does not exist, skipping
-2025-02-04T21:57:21.793+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.793+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "users" does not exist, skipping
-2025-02-04T21:57:21.794+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.795+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "users_credentials" does not exist, skipping
-2025-02-04T21:57:21.797+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.797+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "groups" does not exist, skipping
-2025-02-04T21:57:21.798+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.798+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "passwords" does not exist, skipping
-2025-02-04T21:57:21.800+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.800+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "products" does not exist, skipping
-2025-02-04T21:57:21.802+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.802+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "products_in_plane" does not exist, skipping
-2025-02-04T21:57:21.803+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.804+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "purchases" does not exist, skipping
-2025-02-04T21:57:21.806+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.806+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "tasks" does not exist, skipping
-2025-02-04T21:57:21.808+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.808+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "user_groups" does not exist, skipping
-2025-02-04T21:57:21.810+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.810+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "users" does not exist, skipping
-2025-02-04T21:57:21.811+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.812+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "users_credentials" does not exist, skipping
-2025-02-04T21:57:21.813+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.813+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : sequence "groups_seq" does not exist, skipping
-2025-02-04T21:57:21.814+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.816+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : sequence "passwords_seq" does not exist, skipping
-2025-02-04T21:57:21.817+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.817+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : sequence "products_in_plane_seq" does not exist, skipping
-2025-02-04T21:57:21.819+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.819+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : sequence "products_seq" does not exist, skipping
-2025-02-04T21:57:21.820+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.820+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : sequence "purchases_seq" does not exist, skipping
-2025-02-04T21:57:21.822+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.823+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : sequence "tasks_seq" does not exist, skipping
-2025-02-04T21:57:21.825+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.825+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : sequence "users_credentials_seq" does not exist, skipping
-2025-02-04T21:57:21.826+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
-2025-02-04T21:57:21.827+03:00  WARN 20572 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : sequence "users_seq" does not exist, skipping
-2025-02-04T21:57:21.907+03:00  INFO 20572 --- [PlanningProject] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-02-04T21:57:22.315+03:00  INFO 20572 --- [PlanningProject] [    Test worker] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-02-04T21:57:23.491+03:00  INFO 20572 --- [PlanningProject] [    Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name jwtUserDetailsService
-2025-02-04T21:57:23.626+03:00  WARN 20572 --- [PlanningProject] [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-02-04T21:57:25.299+03:00  INFO 20572 --- [PlanningProject] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2025-02-04T21:57:25.300+03:00  INFO 20572 --- [PlanningProject] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2025-02-04T21:57:25.301+03:00  INFO 20572 --- [PlanningProject] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
-2025-02-04T21:57:25.323+03:00  INFO 20572 --- [PlanningProject] [    Test worker] d.P.c.AuthenticationControllerTest       : Started AuthenticationControllerTest in 10.356 seconds (process running for 18.285)
+2025-02-08T12:13:53.073+03:00  INFO 4660 --- [PlanningProject] [    Test worker] d.P.c.AuthenticationControllerTest       : Starting AuthenticationControllerTest using Java 21.0.6 with PID 4660 (started by Алексей in C:\Projects\PlanningProject)
+2025-02-08T12:13:53.074+03:00  INFO 4660 --- [PlanningProject] [    Test worker] d.P.c.AuthenticationControllerTest       : No active profile set, falling back to 1 default profile: "default"
+2025-02-08T12:13:53.949+03:00  INFO 4660 --- [PlanningProject] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-08T12:13:54.046+03:00  INFO 4660 --- [PlanningProject] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 87 ms. Found 5 JPA repository interfaces.
+2025-02-08T12:13:54.818+03:00  INFO 4660 --- [PlanningProject] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-08T12:13:54.964+03:00  INFO 4660 --- [PlanningProject] [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-02-08T12:13:55.033+03:00  INFO 4660 --- [PlanningProject] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-08T12:13:55.430+03:00  INFO 4660 --- [PlanningProject] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-08T12:13:55.473+03:00  INFO 4660 --- [PlanningProject] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-08T12:13:55.653+03:00  INFO 4660 --- [PlanningProject] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@46d18a33
+2025-02-08T12:13:55.655+03:00  INFO 4660 --- [PlanningProject] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-08T12:13:56.887+03:00  INFO 4660 --- [PlanningProject] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-08T12:13:56.908+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.908+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "groups" does not exist, skipping
+2025-02-08T12:13:56.910+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.910+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "products" does not exist, skipping
+2025-02-08T12:13:56.912+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.912+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "products_in_plane" does not exist, skipping
+2025-02-08T12:13:56.914+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.914+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "products_in_plane" does not exist, skipping
+2025-02-08T12:13:56.915+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.915+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "purchases" does not exist, skipping
+2025-02-08T12:13:56.917+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.918+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "purchases" does not exist, skipping
+2025-02-08T12:13:56.919+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.920+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "purchases" does not exist, skipping
+2025-02-08T12:13:56.921+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.921+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "tasks" does not exist, skipping
+2025-02-08T12:13:56.923+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.923+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "tasks" does not exist, skipping
+2025-02-08T12:13:56.925+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.925+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "user_groups" does not exist, skipping
+2025-02-08T12:13:56.927+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.927+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "user_groups" does not exist, skipping
+2025-02-08T12:13:56.929+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.929+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "users" does not exist, skipping
+2025-02-08T12:13:56.931+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.931+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "users_credentials" does not exist, skipping
+2025-02-08T12:13:56.933+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.933+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "groups" does not exist, skipping
+2025-02-08T12:13:56.934+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.935+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "passwords" does not exist, skipping
+2025-02-08T12:13:56.936+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.936+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "products" does not exist, skipping
+2025-02-08T12:13:56.938+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.939+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "products_in_plane" does not exist, skipping
+2025-02-08T12:13:56.940+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.940+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "purchases" does not exist, skipping
+2025-02-08T12:13:56.941+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.941+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "tasks" does not exist, skipping
+2025-02-08T12:13:56.944+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.944+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "user_groups" does not exist, skipping
+2025-02-08T12:13:56.945+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.945+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "users" does not exist, skipping
+2025-02-08T12:13:56.947+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.947+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "users_credentials" does not exist, skipping
+2025-02-08T12:13:56.948+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.949+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : sequence "groups_seq" does not exist, skipping
+2025-02-08T12:13:56.950+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.950+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : sequence "passwords_seq" does not exist, skipping
+2025-02-08T12:13:56.952+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.952+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : sequence "products_in_plane_seq" does not exist, skipping
+2025-02-08T12:13:56.953+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.954+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : sequence "products_seq" does not exist, skipping
+2025-02-08T12:13:56.955+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.955+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : sequence "purchases_seq" does not exist, skipping
+2025-02-08T12:13:56.956+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.957+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : sequence "tasks_seq" does not exist, skipping
+2025-02-08T12:13:56.958+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.958+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : sequence "users_credentials_seq" does not exist, skipping
+2025-02-08T12:13:56.960+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-08T12:13:56.960+03:00  WARN 4660 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : sequence "users_seq" does not exist, skipping
+2025-02-08T12:13:57.040+03:00  INFO 4660 --- [PlanningProject] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-08T12:13:57.402+03:00  INFO 4660 --- [PlanningProject] [    Test worker] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-02-08T12:13:58.583+03:00  INFO 4660 --- [PlanningProject] [    Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name jwtUserDetailsService
+2025-02-08T12:13:58.695+03:00  WARN 4660 --- [PlanningProject] [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-08T12:14:00.086+03:00  INFO 4660 --- [PlanningProject] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2025-02-08T12:14:00.086+03:00  INFO 4660 --- [PlanningProject] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-02-08T12:14:00.088+03:00  INFO 4660 --- [PlanningProject] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2025-02-08T12:14:00.108+03:00  INFO 4660 --- [PlanningProject] [    Test worker] d.P.c.AuthenticationControllerTest       : Started AuthenticationControllerTest in 7.362 seconds (process running for 12.136)
 
 MockHttpServletRequest:
       HTTP Method = POST
@@ -148,7 +148,7 @@ MockHttpServletResponse:
     Error message = null
           Headers = [Content-Type:"application/json", X-Content-Type-Options:"nosniff", X-XSS-Protection:"0", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0", X-Frame-Options:"DENY"]
      Content type = application/json
-             Body = {"id":3,"username":"testUser","enabled":true,"linkedUser":{"id":3,"email":null,"groups":null},"password":{"id":3,"password":"$2a$10$tAjlZ.O8p/kD0vtRe8O9GuiruLiBoOUVrUGlRbPyihFZ/m2ieVx6C"},"role":"USER"}
+             Body = {"id":3,"username":"testUser","enabled":true,"linkedUser":{"id":3,"email":null,"groups":null},"password":{"id":3,"password":"$2a$10$V/ER3POPPQCfKFOm4/b95OX7kasmOfEuEXqauAtr4ShwVe3im3v7u"},"role":"USER"}
     Forwarded URL = null
    Redirected URL = null
           Cookies = []

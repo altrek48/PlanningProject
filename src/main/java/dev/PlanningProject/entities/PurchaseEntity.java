@@ -62,10 +62,6 @@ public class PurchaseEntity {
     @JoinColumn(name = "group_id", insertable = false, updatable = false)
     private GroupEntity group;
 
-    //на будущее
-//    @Column(name = "task_id")
-//    private Long linkedTaskId;
-
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     @JoinColumn(name = "task_id")
     private TaskEntity linkedTask;

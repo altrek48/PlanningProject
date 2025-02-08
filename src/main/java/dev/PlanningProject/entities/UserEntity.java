@@ -24,12 +24,11 @@ public class UserEntity {
     private String email;
 
     @ManyToMany(mappedBy = "users", cascade = CascadeType.MERGE)
-    private List<GroupEntity> groups = new ArrayList<>();
+    private List<GroupEntity> groups;
 
     @OneToOne
     @JsonBackReference
     @JoinColumn(name = "linked_UserCredentials_id", nullable = false)
     private CredentialsEntity linkedUserCredentials;
-
 
 }

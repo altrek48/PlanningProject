@@ -1,34 +1,26 @@
 package dev.PlanningProject.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-//import dev.PlanningProject.controllers.TestContainersConfig;
-//import dev.PlanningProject.controllers.TestContainersConfig;
 import dev.PlanningProject.dtos.GroupDto;
 import dev.PlanningProject.dtos.Role;
 import dev.PlanningProject.dtos.TaskDto;
 import dev.PlanningProject.entities.CredentialsEntity;
-import dev.PlanningProject.entities.GroupEntity;
 import dev.PlanningProject.entities.PasswordEntity;
 import dev.PlanningProject.entities.UserEntity;
 import dev.PlanningProject.repositories.GroupRepository;
-import dev.PlanningProject.repositories.PurchaseRepository;
 import dev.PlanningProject.repositories.TaskRepository;
 import dev.PlanningProject.repositories.UserRepository;
 import dev.PlanningProject.services.GroupService;
 import dev.PlanningProject.services.TaskService;
-import jakarta.transaction.Transactional;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
-import org.springframework.context.annotation.Import;
-import org.springframework.data.rest.core.event.ExceptionEvent;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
@@ -39,10 +31,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -174,7 +163,5 @@ public class TaskControllerTest {
                 .andExpect(jsonPath("$[1].name").value(taskDto2.getName()))
                 .andExpect(jsonPath("$[1].comment").value(taskDto2.getComment()));
     }
-
-
 
 }

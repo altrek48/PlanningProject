@@ -13,12 +13,8 @@ import java.math.BigDecimal;
 public class TaskShortDto {
 
         private Long id;
-
         private String name;
-
         private String comment;
-
         private BigDecimal amount;
-
         private Integer completeness;
 }

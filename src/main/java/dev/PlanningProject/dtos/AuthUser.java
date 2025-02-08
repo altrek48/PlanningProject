@@ -16,7 +16,6 @@ public class AuthUser implements UserDetails {
     private String password;
     private String username;
     private boolean enabled;
-
     private List<SimpleGrantedAuthority> authorities;
 
 }

@@ -1,7 +1,9 @@
 package dev.PlanningProject.repositories;
 
 import dev.PlanningProject.entities.GroupEntity;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -18,4 +20,13 @@ public interface GroupRepository extends JpaRepository<GroupEntity, Long> {
 
     @Query("SELECT COUNT(g) > 0 FROM GroupEntity g WHERE g.userCreator.linkedUserCredentials.username = :username AND g.id = :groupId")
     boolean isUserCreator(@Param("username") String username, @Param("groupId") Long groupId);
+
+    @Query("SELECT g.userCreator.id FROM GroupEntity g WHERE g.id = :groupId")
+    Long getUserCreatorId(@Param("groupId") Long groupId);
+
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM user_groups WHERE group_id = :groupId AND user_id = :userId", nativeQuery = true)
+    void removeUserFromGroup(@Param("groupId") Long groupId, @Param("userId") Long userId);
+
 }

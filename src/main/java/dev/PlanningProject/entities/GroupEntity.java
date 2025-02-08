@@ -67,5 +67,4 @@ public class GroupEntity {
     )
     private List<UserEntity> users;
 
-
 }

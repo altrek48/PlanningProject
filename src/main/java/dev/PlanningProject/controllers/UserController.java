@@ -10,6 +10,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/base/user")
 @Slf4j
@@ -31,5 +33,15 @@ public class UserController {
         return userService.getUserProfile(username);
     }
 
+    @GetMapping(value = "getProfilesInGroup/{groupId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("@groupService.isUserInGroup(authentication.name, #groupId)")
+    List<UserProfile> getProfilesByGroupId(@PathVariable Long groupId) {
+        return userService.getProfilesByGroupId(groupId);
+    }
+
+    @GetMapping(value = "getUsername", produces =  MediaType.TEXT_PLAIN_VALUE)
+    String getUsername() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
 
 }

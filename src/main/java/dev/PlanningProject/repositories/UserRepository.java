@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends CrudRepository<CredentialsEntity, Long> {
@@ -25,5 +26,9 @@ public interface UserRepository extends CrudRepository<CredentialsEntity, Long> 
 
     @Query("SELECT new dev.PlanningProject.dtos.UserProfile(u.id, c.username, u.email) FROM UserEntity u JOIN u.linkedUserCredentials c WHERE c.username = :username")
     Optional<UserProfile> getUserProfile(@Param("username") String username);
+
+    @Query("SELECT new dev.PlanningProject.dtos.UserProfile(u.id, c.username, u.email) " +
+            "FROM GroupEntity g JOIN g.users u JOIN u.linkedUserCredentials c WHERE g.id = :groupId")
+    List<UserProfile> getProfilesByGroupId(@Param("groupId") Long groupId);
 
 }

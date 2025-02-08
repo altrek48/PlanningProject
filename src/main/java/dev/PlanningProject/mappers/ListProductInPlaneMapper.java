@@ -16,4 +16,5 @@ public interface ListProductInPlaneMapper {
     List<ProductInPlaneEntity> toListProductInPlaneEntity(List<ProductInPlaneDto> listProductInPlaneDto);
 
     List<ProductInPlaneDto> toListProductInPlaneDto(List<ProductInPlaneEntity> productInPlaneEntityList);
+
 }

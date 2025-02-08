@@ -21,4 +21,5 @@ public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
 
     @Query("SELECT t FROM TaskEntity t LEFT JOIN FETCH t.products WHERE t.id = :id")
     Optional<TaskEntity> findByIdWithProducts(@Param("id") Long id);
+
 }

@@ -12,9 +12,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 
 @Service
@@ -51,6 +50,14 @@ public class GroupService {
 
     public Boolean isUserCreator(String username, Long groupId) {
         return groupRepository.isUserCreator(username, groupId);
+    }
+
+    public Long removeUserFromGroup(Long groupId, Long userId) {
+        if(Objects.equals(groupRepository.getUserCreatorId(groupId), userId)) {
+            throw new IllegalArgumentException("user Creator can't delete himself. UserId: " + userId);
+        }
+        else groupRepository.removeUserFromGroup(groupId, userId);
+        return userId;
     }
 
 }
