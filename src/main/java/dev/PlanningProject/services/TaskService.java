@@ -3,10 +3,7 @@ package dev.PlanningProject.services;
 import dev.PlanningProject.dtos.ProductInPlaneDto;
 import dev.PlanningProject.dtos.TaskDto;
 import dev.PlanningProject.dtos.TaskShortDto;
-import dev.PlanningProject.entities.ProductEntity;
-import dev.PlanningProject.entities.ProductInPlaneEntity;
-import dev.PlanningProject.entities.TaskEntity;
-import dev.PlanningProject.entities.UserEntity;
+import dev.PlanningProject.entities.*;
 import dev.PlanningProject.mappers.ListTaskMapper;
 import dev.PlanningProject.mappers.TaskMapper;
 import dev.PlanningProject.repositories.ProductRepository;
@@ -20,9 +17,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -50,26 +46,61 @@ public class TaskService {
     }
 
 
-    public Long deleteTask(Long task_id) {
-        taskRepository.deleteById(task_id);
-        return task_id;
+    public Long deleteTask(Long taskId) {
+        taskRepository.deleteById(taskId);
+        return taskId;
     }
 
-    //todo Убрать связь покупки и таска при удалении связанных продуктов
     public TaskDto changeTask(TaskDto task) {
+        TaskEntity previousTask = taskRepository.findByIdWithProducts(task.getId())
+                .orElseThrow(() -> new EntityNotFoundException("task с переданным id не найден"));
+        Map<Long, PurchaseEntity> previousPurchaseLinks = getPurchaseLinks(previousTask);
         TaskEntity changingTask = taskMapper.toTaskEntity(task);
         resetLinkedProducts(changingTask, getLinkedProductsConnection(task));
         if(task.getProducts() != null) {
             connectProducts(changingTask);
             updateTaskDetails(changingTask, foundAmount(changingTask));
+            checkAndUpdatePurchaseLinks(previousPurchaseLinks, changingTask);
         }
         else {
             changingTask.setAmount(BigDecimal.ZERO);
             changingTask.setCompleteness(0);
+            removeAllPurchaseLinks(changingTask);
         }
         return taskMapper.toTaskDto(taskRepository.save(changingTask));
     }
 
+    private Map<Long, PurchaseEntity> getPurchaseLinks(TaskEntity task) {
+        return task.getProducts().stream()
+                .map(ProductInPlaneEntity::getLinkedProduct)
+                .filter(Objects::nonNull)
+                .map(ProductEntity::getPurchase)
+                .collect(Collectors.toMap(
+                        PurchaseEntity::getId,
+                        Function.identity()
+                ));
+    }
+
+    //Обновление связи покупки и таска(удаление связи для покупок, продукты которых были связаны с удаленными продуктами в таске)
+    private void checkAndUpdatePurchaseLinks(Map<Long, PurchaseEntity> previousLinks, TaskEntity updatedTask) {
+        Set<Long> newPurchaseIds = updatedTask.getProducts().stream()
+                .map(ProductInPlaneEntity::getLinkedProduct)
+                .filter(Objects::nonNull)
+                .map(product -> product.getPurchase().getId())
+                .collect(Collectors.toSet());
+        previousLinks.keySet().removeAll(newPurchaseIds);//Удаление совпавших id покупок(остаются только id покупок для последующего разрыва связи)
+        previousLinks.values().forEach(purchase -> {
+            purchase.setLinkedTask(null);
+            purchaseRepository.save(purchase);
+        });
+    }
+
+    private void removeAllPurchaseLinks(TaskEntity task) {
+        task.getPurchases().forEach(purchase -> {
+            purchase.setLinkedTask(null);
+            purchaseRepository.save(purchase);
+        });
+    }
 
     public void connectProducts(TaskEntity task) {
         List<ProductInPlaneEntity> products = task.getProducts();
