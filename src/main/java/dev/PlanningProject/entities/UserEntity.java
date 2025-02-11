@@ -31,4 +31,5 @@ public class UserEntity {
     @JoinColumn(name = "linked_UserCredentials_id", nullable = false)
     private CredentialsEntity linkedUserCredentials;
 
+    private String avatarUrl;
 }

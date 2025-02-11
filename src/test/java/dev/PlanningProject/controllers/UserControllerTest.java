@@ -10,7 +10,7 @@ import dev.PlanningProject.entities.CredentialsEntity;
 import dev.PlanningProject.entities.PasswordEntity;
 import dev.PlanningProject.entities.UserEntity;
 import dev.PlanningProject.repositories.GroupRepository;
-import dev.PlanningProject.repositories.UserRepository;
+import dev.PlanningProject.repositories.CredentialsRepository;
 import dev.PlanningProject.services.GroupService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -51,7 +51,7 @@ public class UserControllerTest {
     private MockMvc mockMvc;
 
     @BeforeEach
-    public void setup(@Autowired UserRepository userRepository) {
+    public void setup(@Autowired CredentialsRepository credentialsRepository) {
         CredentialsEntity entity = CredentialsEntity.builder()
                 .username("userTest")
                 .password(new PasswordEntity("12345"))
@@ -64,7 +64,7 @@ public class UserControllerTest {
                 .build();
 
         entity.setLinkedUser(user);
-        userRepository.save(entity);
+        credentialsRepository.save(entity);
 
         CredentialsEntity entity2 = CredentialsEntity.builder()
                 .username("userTest2")
@@ -78,13 +78,13 @@ public class UserControllerTest {
                 .build();
 
         entity2.setLinkedUser(user2);
-        userRepository.save(entity2);
+        credentialsRepository.save(entity2);
     }
 
     @AfterEach
-    public void clean(@Autowired UserRepository userRepository, @Autowired GroupRepository groupRepository) {
+    public void clean(@Autowired CredentialsRepository credentialsRepository, @Autowired GroupRepository groupRepository) {
         groupRepository.deleteAll();
-        userRepository.deleteAll();
+        credentialsRepository.deleteAll();
     }
 
     @Test

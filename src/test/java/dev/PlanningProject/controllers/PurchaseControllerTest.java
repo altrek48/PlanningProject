@@ -8,7 +8,7 @@ import dev.PlanningProject.entities.UserEntity;
 import dev.PlanningProject.repositories.GroupRepository;
 import dev.PlanningProject.repositories.PurchaseRepository;
 import dev.PlanningProject.repositories.TaskRepository;
-import dev.PlanningProject.repositories.UserRepository;
+import dev.PlanningProject.repositories.CredentialsRepository;
 import dev.PlanningProject.services.GroupService;
 import dev.PlanningProject.services.PurchaseService;
 import dev.PlanningProject.services.TaskService;
@@ -55,7 +55,7 @@ public class PurchaseControllerTest {
     private ObjectMapper objectMapper;
 
     @BeforeEach
-    public void setup(@Autowired UserRepository userRepository, @Autowired GroupService groupService) {
+    public void setup(@Autowired CredentialsRepository credentialsRepository, @Autowired GroupService groupService) {
         CredentialsEntity entity = CredentialsEntity.builder()
                 .username("userTest")
                 .password(new PasswordEntity("12345"))
@@ -68,15 +68,15 @@ public class PurchaseControllerTest {
                 .build();
 
         entity.setLinkedUser(user);
-        userRepository.save(entity);
+        credentialsRepository.save(entity);
     }
 
     @AfterEach
-    public void clean(@Autowired UserRepository userRepository, @Autowired GroupRepository groupRepository, @Autowired PurchaseRepository purchaseRepository, @Autowired TaskRepository taskRepository) {
+    public void clean(@Autowired CredentialsRepository credentialsRepository, @Autowired GroupRepository groupRepository, @Autowired PurchaseRepository purchaseRepository, @Autowired TaskRepository taskRepository) {
         purchaseRepository.deleteAll();
         taskRepository.deleteAll();
         groupRepository.deleteAll();
-        userRepository.deleteAll();
+        credentialsRepository.deleteAll();
     }
 
     @Test

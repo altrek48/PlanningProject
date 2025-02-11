@@ -6,7 +6,7 @@ import dev.PlanningProject.entities.UserEntity;
 import dev.PlanningProject.mappers.GroupMapper;
 import dev.PlanningProject.mappers.ListGroupMapper;
 import dev.PlanningProject.repositories.GroupRepository;
-import dev.PlanningProject.repositories.UserRepository;
+import dev.PlanningProject.repositories.CredentialsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -23,11 +23,11 @@ public class GroupService {
     private final GroupRepository groupRepository;
     private final GroupMapper groupMapper;
     private final ListGroupMapper listGroupMapper;
-    private final UserRepository userRepository;
+    private final CredentialsRepository credentialsRepository;
 
     @Transactional
     public GroupDto createGroup(GroupDto group, String username) {
-        UserEntity user = userRepository.getUserByUsername(username)
+        UserEntity user = credentialsRepository.getUserByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found"));
         GroupEntity newGroup = groupMapper.toGroupEntity(group, user);
         newGroup.addUser(user);

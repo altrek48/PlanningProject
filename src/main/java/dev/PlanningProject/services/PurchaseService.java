@@ -8,7 +8,7 @@ import dev.PlanningProject.mappers.ListPurchaseMapper;
 import dev.PlanningProject.mappers.PurchaseMapper;
 import dev.PlanningProject.repositories.PurchaseRepository;
 import dev.PlanningProject.repositories.TaskRepository;
-import dev.PlanningProject.repositories.UserRepository;
+import dev.PlanningProject.repositories.CredentialsRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,14 +28,14 @@ public class PurchaseService {
     private final PurchaseRepository purchaseRepository;
     private final PurchaseMapper purchaseMapper;
     private final ListPurchaseMapper listPurchaseMapper;
-    private final UserRepository userRepository;
+    private final CredentialsRepository credentialsRepository;
     private final TaskRepository taskRepository;
     private final GroupService groupService;
     private final TaskService taskService;
 
 
     public PurchaseDto createPurchase(PurchaseDto purchase, Long groupId, String username) {
-        UserEntity userPayer = userRepository.getUserByUsername(username)
+        UserEntity userPayer = credentialsRepository.getUserByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found"));
         PurchaseEntity newPurchase = purchaseMapper.toPurchaseEntity(purchase, groupId, LocalDateTime.now(), userPayer, findAmount(purchase));
         tuneProducts(newPurchase);
@@ -43,7 +43,7 @@ public class PurchaseService {
     }
 
     public PurchaseDto createPurchaseInTask(PurchaseDto purchase, Long groupId, Long taskId, String username) {
-        UserEntity userPayer = userRepository.getUserByUsername(username)
+        UserEntity userPayer = credentialsRepository.getUserByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found"));
         PurchaseEntity newPurchase = purchaseMapper.toPurchaseEntity(purchase, groupId,LocalDateTime.now(), userPayer, findAmount(purchase));
         tuneProducts(newPurchase);

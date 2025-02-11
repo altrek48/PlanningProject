@@ -9,7 +9,7 @@ import dev.PlanningProject.mappers.TaskMapper;
 import dev.PlanningProject.repositories.ProductRepository;
 import dev.PlanningProject.repositories.PurchaseRepository;
 import dev.PlanningProject.repositories.TaskRepository;
-import dev.PlanningProject.repositories.UserRepository;
+import dev.PlanningProject.repositories.CredentialsRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,14 +29,14 @@ public class TaskService {
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
     private final ListTaskMapper listTaskMapper;
-    private final UserRepository userRepository;
+    private final CredentialsRepository credentialsRepository;
     private final GroupService groupService;
     private final PurchaseRepository purchaseRepository;
     private final ProductRepository productRepository;
 
 
     public TaskDto createTask(TaskDto task,Long groupId, String username) {
-        UserEntity userCreator = userRepository.getUserByUsername(username)
+        UserEntity userCreator = credentialsRepository.getUserByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found"));
         TaskEntity newTask = taskMapper.toTaskEntity(task, groupId, userCreator);
         if(task.getProducts() != null) {
@@ -60,7 +60,7 @@ public class TaskService {
         if(task.getProducts() != null) {
             connectProducts(changingTask);
             updateTaskDetails(changingTask, foundAmount(changingTask));
-            checkAndUpdatePurchaseLinks(previousPurchaseLinks, changingTask);
+            updatePurchaseLinks(previousPurchaseLinks, changingTask);
         }
         else {
             changingTask.setAmount(BigDecimal.ZERO);
@@ -82,7 +82,7 @@ public class TaskService {
     }
 
     //Обновление связи покупки и таска(удаление связи для покупок, продукты которых были связаны с удаленными продуктами в таске)
-    private void checkAndUpdatePurchaseLinks(Map<Long, PurchaseEntity> previousLinks, TaskEntity updatedTask) {
+    private void updatePurchaseLinks(Map<Long, PurchaseEntity> previousLinks, TaskEntity updatedTask) {
         Set<Long> newPurchaseIds = updatedTask.getProducts().stream()
                 .map(ProductInPlaneEntity::getLinkedProduct)
                 .filter(Objects::nonNull)

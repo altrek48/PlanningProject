@@ -44,4 +44,10 @@ public class UserController {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
+    @PutMapping(value = "editEmail", produces =  MediaType.APPLICATION_JSON_VALUE)
+    String editEmail(@RequestBody String newEmail) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userService.editEmail(newEmail, username);
+    }
+
 }

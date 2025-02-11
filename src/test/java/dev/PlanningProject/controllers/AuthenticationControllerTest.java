@@ -10,7 +10,7 @@ import dev.PlanningProject.dtos.auth.SignInRequest;
 import dev.PlanningProject.entities.CredentialsEntity;
 import dev.PlanningProject.entities.PasswordEntity;
 import dev.PlanningProject.entities.UserEntity;
-import dev.PlanningProject.repositories.UserRepository;
+import dev.PlanningProject.repositories.CredentialsRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,7 +50,7 @@ public class AuthenticationControllerTest {
     private MockMvc mockMvc;
 
     @BeforeEach
-    public void setup(@Autowired UserRepository userRepository){
+    public void setup(@Autowired CredentialsRepository credentialsRepository){
         CredentialsEntity entity = CredentialsEntity.builder()
                 .username("rolikTest")
                 .password(new PasswordEntity("12345"))
@@ -63,12 +63,12 @@ public class AuthenticationControllerTest {
                 .build();
 
         entity.setLinkedUser(user);
-        userRepository.save(entity);
+        credentialsRepository.save(entity);
     }
 
     @AfterEach
-    public void clean(@Autowired UserRepository userRepository) {
-        userRepository.deleteAll();
+    public void clean(@Autowired CredentialsRepository credentialsRepository) {
+        credentialsRepository.deleteAll();
     }
 
     @Test

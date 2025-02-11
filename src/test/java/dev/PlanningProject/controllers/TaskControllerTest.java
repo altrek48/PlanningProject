@@ -9,7 +9,7 @@ import dev.PlanningProject.entities.PasswordEntity;
 import dev.PlanningProject.entities.UserEntity;
 import dev.PlanningProject.repositories.GroupRepository;
 import dev.PlanningProject.repositories.TaskRepository;
-import dev.PlanningProject.repositories.UserRepository;
+import dev.PlanningProject.repositories.CredentialsRepository;
 import dev.PlanningProject.services.GroupService;
 import dev.PlanningProject.services.TaskService;
 import org.junit.jupiter.api.AfterEach;
@@ -53,7 +53,7 @@ public class TaskControllerTest {
     ObjectMapper objectMapper;
 
     @BeforeEach
-    public void setup(@Autowired UserRepository userRepository){
+    public void setup(@Autowired CredentialsRepository credentialsRepository){
         CredentialsEntity entity = CredentialsEntity.builder()
                 .username("userTest")
                 .password(new PasswordEntity("12345"))
@@ -66,14 +66,14 @@ public class TaskControllerTest {
                 .build();
 
         entity.setLinkedUser(user);
-        userRepository.save(entity);
+        credentialsRepository.save(entity);
     }
 
     @AfterEach
-    public void clean(@Autowired UserRepository userRepository, @Autowired GroupRepository groupRepository, @Autowired TaskRepository taskRepository) {
+    public void clean(@Autowired CredentialsRepository credentialsRepository, @Autowired GroupRepository groupRepository, @Autowired TaskRepository taskRepository) {
         taskRepository.deleteAll();
         groupRepository.deleteAll();
-        userRepository.deleteAll();
+        credentialsRepository.deleteAll();
     }
 
     @Test

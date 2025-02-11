@@ -7,7 +7,7 @@ import dev.PlanningProject.entities.CredentialsEntity;
 import dev.PlanningProject.entities.PasswordEntity;
 import dev.PlanningProject.entities.UserEntity;
 import dev.PlanningProject.repositories.GroupRepository;
-import dev.PlanningProject.repositories.UserRepository;
+import dev.PlanningProject.repositories.CredentialsRepository;
 import dev.PlanningProject.services.GroupService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,10 +44,10 @@ public class GroupControllerTest {
 
     @Autowired private MockMvc mockMvc;
     @Autowired private ObjectMapper objectMapper;
-    @Autowired private UserRepository userRepository;
+    @Autowired private CredentialsRepository credentialsRepository;
 
     @BeforeEach
-    public void setup(@Autowired UserRepository userRepository) {
+    public void setup(@Autowired CredentialsRepository credentialsRepository) {
         CredentialsEntity entity = CredentialsEntity.builder()
                 .username("userTest")
                 .password(new PasswordEntity("12345"))
@@ -60,13 +60,13 @@ public class GroupControllerTest {
                 .build();
 
         entity.setLinkedUser(user);
-        userRepository.save(entity);
+        credentialsRepository.save(entity);
     }
 
     @AfterEach
-    public void clean(@Autowired UserRepository userRepository, @Autowired GroupRepository groupRepository) {
+    public void clean(@Autowired CredentialsRepository credentialsRepository, @Autowired GroupRepository groupRepository) {
         groupRepository.deleteAll();
-        userRepository.deleteAll();
+        credentialsRepository.deleteAll();
     }
 
     @Test

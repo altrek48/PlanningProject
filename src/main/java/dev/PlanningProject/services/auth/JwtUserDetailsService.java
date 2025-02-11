@@ -6,7 +6,7 @@ import dev.PlanningProject.dtos.auth.SignInRequest;
 import dev.PlanningProject.entities.CredentialsEntity;
 import dev.PlanningProject.entities.PasswordEntity;
 import dev.PlanningProject.entities.UserEntity;
-import dev.PlanningProject.repositories.UserRepository;
+import dev.PlanningProject.repositories.CredentialsRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,11 +21,11 @@ import java.util.List;
 @AllArgsConstructor
 public class JwtUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final CredentialsRepository credentialsRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        CredentialsEntity user = userRepository.findByUsername(username).orElseThrow(
+        CredentialsEntity user = credentialsRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException(String.format("User %s not found", username))
         );
 
@@ -52,7 +52,7 @@ public class JwtUserDetailsService implements UserDetailsService {
                     .build();
 
             entity.setLinkedUser(user);
-            return userRepository.save(entity);
+            return credentialsRepository.save(entity);
     }
 
 }
