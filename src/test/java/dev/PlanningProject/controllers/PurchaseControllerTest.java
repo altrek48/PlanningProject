@@ -10,6 +10,7 @@ import dev.PlanningProject.repositories.PurchaseRepository;
 import dev.PlanningProject.repositories.TaskRepository;
 import dev.PlanningProject.repositories.CredentialsRepository;
 import dev.PlanningProject.services.GroupService;
+import dev.PlanningProject.services.KafkaProducer;
 import dev.PlanningProject.services.PurchaseService;
 import dev.PlanningProject.services.TaskService;
 import org.junit.jupiter.api.AfterEach;
@@ -37,7 +38,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-@SpringBootTest
+@SpringBootTest(properties = "spring.profiles.active=test")
 @AutoConfigureMockMvc
 @Testcontainers
 public class PurchaseControllerTest {

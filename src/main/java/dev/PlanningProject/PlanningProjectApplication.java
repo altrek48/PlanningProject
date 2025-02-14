@@ -12,12 +12,12 @@ public class PlanningProjectApplication {
 
 	@Autowired
 	public void setInitialLouder(Initializer initiator) {
-		PlanningProjectApplication.initiator = initiator;
+//		PlanningProjectApplication.initiator = initiator;
 	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(PlanningProjectApplication.class, args);
-		initiator.initial1();
+//		initiator.initial1();
 	}
 
 }

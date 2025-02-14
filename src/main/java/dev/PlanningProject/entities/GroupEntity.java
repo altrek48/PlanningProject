@@ -1,8 +1,9 @@
 package dev.PlanningProject.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import dev.PlanningProject.services.KafkaProducer;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EntityListeners(KafkaProducer.class)
 public class GroupEntity {
 
     public GroupEntity(String name){
@@ -35,9 +37,11 @@ public class GroupEntity {
 
     private String name;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "group", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PurchaseEntity> purchases;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "group", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TaskEntity> tasks;
 

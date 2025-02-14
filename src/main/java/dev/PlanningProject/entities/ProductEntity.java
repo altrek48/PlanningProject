@@ -1,5 +1,7 @@
 package dev.PlanningProject.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,10 +32,12 @@ public class ProductEntity {
 
     private BigDecimal price;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "purchase_id")
     PurchaseEntity purchase;
 
+    @JsonManagedReference
     @OneToOne(mappedBy = "linkedProduct", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     ProductInPlaneEntity productInPlane;
 

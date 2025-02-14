@@ -36,7 +36,7 @@ public class AvatarService {
                             .contentType(file.getContentType())
                             .build()
             );
-            String avatarUrl = minioUrl + "/" + bucket + "/" + newFileName;
+            String avatarUrl =  "http://localhost:9000/" + bucket + "/" + newFileName;
             userService.updateAvatar(username, avatarUrl);
             return newFileName;
         }

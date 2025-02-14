@@ -1,6 +1,9 @@
 package dev.PlanningProject.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import dev.PlanningProject.services.KafkaProducer;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@EntityListeners(KafkaProducer.class)
 public class UserEntity {
 
     @Id
@@ -23,6 +27,7 @@ public class UserEntity {
     @Column(unique = true)
     private String email;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "users", cascade = CascadeType.MERGE)
     private List<GroupEntity> groups;
 

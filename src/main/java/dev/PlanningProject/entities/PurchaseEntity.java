@@ -1,5 +1,9 @@
 package dev.PlanningProject.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import dev.PlanningProject.services.KafkaProducer;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +23,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EntityListeners(KafkaProducer.class)
 public class PurchaseEntity {
 
     public PurchaseEntity(String storeName /*, Date date*/, BigDecimal amount) {
@@ -58,14 +63,18 @@ public class PurchaseEntity {
     @Column(name = "group_id", nullable = false)
     private Long groupId;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id", insertable = false, updatable = false)
     private GroupEntity group;
 
+    //todo возможно вообще не передавать свзяанные покупки и таски?
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     @JoinColumn(name = "task_id")
     private TaskEntity linkedTask;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "purchase", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductEntity> products;
 

@@ -1,5 +1,9 @@
 package dev.PlanningProject.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import dev.PlanningProject.services.KafkaProducer;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,6 +21,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EntityListeners(KafkaProducer.class)
 public class TaskEntity {
 
     public TaskEntity(String name, String comment, List<ProductInPlaneEntity> products) {
@@ -42,12 +47,14 @@ public class TaskEntity {
     //думаю цельных процентов будет достаточно
     private Integer completeness = 0;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "task", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductInPlaneEntity> products;
 
     @Column(name = "group_id", nullable = false)
     private Long groupId;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id", insertable = false, updatable = false)
     private GroupEntity group;
@@ -57,6 +64,8 @@ public class TaskEntity {
     @Immutable
     private UserEntity userCreator;
 
+    //todo возможно вообще не передавать свзяанные покупки и таски?
+    @JsonIgnore
     @OneToMany(mappedBy = "linkedTask", fetch = FetchType.LAZY)
     private List<PurchaseEntity> purchases;
 
@@ -64,6 +73,7 @@ public class TaskEntity {
     private void preRemove() {
         if (purchases != null) {
             purchases.forEach(purchase -> purchase.setLinkedTask(null));
+            purchases.clear();
         }
     }
 
