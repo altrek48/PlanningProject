@@ -25,7 +25,6 @@ public class UserService {
     private final GroupRepository groupRepository;
 
 
-//todo обработать ошибку
     @Transactional
     public void addUser(Long groupId, String username) {
         UserEntity addingUser = this.credentialsRepository.getUserByUsername(username)

@@ -64,7 +64,6 @@ public class TaskEntity {
     @Immutable
     private UserEntity userCreator;
 
-    //todo возможно вообще не передавать свзяанные покупки и таски?
     @JsonIgnore
     @OneToMany(mappedBy = "linkedTask", fetch = FetchType.LAZY)
     private List<PurchaseEntity> purchases;

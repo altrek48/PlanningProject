@@ -68,7 +68,6 @@ public class PurchaseEntity {
     @JoinColumn(name = "group_id", insertable = false, updatable = false)
     private GroupEntity group;
 
-    //todo возможно вообще не передавать свзяанные покупки и таски?
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     @JoinColumn(name = "task_id")
