@@ -29,7 +29,7 @@ public class Initializer {
                 .build());
 
         groupService.createGroup(GroupDto.builder()
-                .name("Семья")
+                .name("Family")
                 .build(),
                 "rolik222"
         );
@@ -40,18 +40,18 @@ public class Initializer {
                 .build());
 
         groupService.createGroup(GroupDto.builder()
-                        .name("Коллеги")
+                        .name("Colleagues")
                         .build(),
                 "bobik333"
         );
 
         TaskDto taskDto = TaskDto.builder()
-                .name("На день рождения")
-                .comment("Купить подарке Тане, Ане, Паше")
+                .name("To happy birthday")
+                .comment("Buy a gift for Tanya, Anya, Pasha")
                 .products(Arrays.asList(
-                        ProductInPlaneDto.builder().name("Кукла").completeness(false).build(),
-                        ProductInPlaneDto.builder().name("Машинка").completeness(false).build(),
-                        ProductInPlaneDto.builder().name("Незамерзайка").completeness(false).build()
+                        ProductInPlaneDto.builder().name("Doll").completeness(false).build(),
+                        ProductInPlaneDto.builder().name("Car").completeness(false).build(),
+                        ProductInPlaneDto.builder().name("Anti-freeze").completeness(false).build()
                 ))
                 .build();
 
@@ -59,12 +59,12 @@ public class Initializer {
 
 
         TaskDto taskDto2 = TaskDto.builder()
-                .name("В дорогу на море")
-                .comment("Купить не позднее 12.01.25")
+                .name("On the way to the sea")
+                .comment("Buy no later than 01/12/25")
                 .products(Arrays.asList(
-                        ProductInPlaneDto.builder().name("Сникерсы").completeness(false).build(),
-                        ProductInPlaneDto.builder().name("Воду").completeness(false).build(),
-                        ProductInPlaneDto.builder().name("Парацетамол").completeness(false).build()
+                        ProductInPlaneDto.builder().name("Snickers").completeness(false).build(),
+                        ProductInPlaneDto.builder().name("Water").completeness(false).build(),
+                        ProductInPlaneDto.builder().name("Paracetamol").completeness(false).build()
                 ))
                 .build();
 

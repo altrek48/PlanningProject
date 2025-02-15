@@ -57,14 +57,26 @@ public class KafkaProducer {
     }
 
     private AuditEvent eventBuilder(Object object, String action) {
-        return AuditEvent.builder()
-                .username(SecurityContextHolder.getContext().getAuthentication().getName())
-                .entityClass(object.getClass().getSimpleName())
-                .object(toObjectDto(object))
-                .action(action)
-                .localDateTime(LocalDateTime.now())
-                .serviceName(serviceName)
-                .build();
+        try {
+            return AuditEvent.builder()
+                    .username(SecurityContextHolder.getContext().getAuthentication().getName())
+                    .entityClass(object.getClass().getSimpleName())
+                    .object(toObjectDto(object))
+                    .action(action)
+                    .localDateTime(LocalDateTime.now())
+                    .serviceName(serviceName)
+                    .build();
+        }
+        catch (NullPointerException exception) {
+            return AuditEvent.builder()
+                    .username("initializer")
+                    .entityClass(object.getClass().getSimpleName())
+                    .object(toObjectDto(object))
+                    .action(action)
+                    .localDateTime(LocalDateTime.now())
+                    .serviceName(serviceName)
+                    .build();
+        }
     }
 
     private Object toObjectDto(Object object) {

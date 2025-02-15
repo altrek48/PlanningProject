@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.PlanningProject.controllers.GroupControllerTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2025-02-15T13:17:49" hostname="DESKTOP-BNO4RHE" time="0.756">
+  <properties/>
+  <testcase name="testDeleteGroup(GroupService)" classname="dev.PlanningProject.controllers.GroupControllerTest" time="0.238"/>
+  <testcase name="testIsGroupCreator(GroupService)" classname="dev.PlanningProject.controllers.GroupControllerTest" time="0.154"/>
+  <testcase name="testCreateGroup()" classname="dev.PlanningProject.controllers.GroupControllerTest" time="0.197"/>
+  <testcase name="testGetAllGroups(GroupService)" classname="dev.PlanningProject.controllers.GroupControllerTest" time="0.161"/>
+  <system-out><![CDATA[2025-02-15T16:17:45.740+03:00  INFO 21484 --- [PlanningProject] [    Test worker] tc.postgres:15                           : Creating container for image: postgres:15
+2025-02-15T16:17:45.890+03:00  INFO 21484 --- [PlanningProject] [    Test worker] tc.postgres:15                           : Container postgres:15 is starting: b4722e258a22b25cba7add5795f81948f4b6718ae1acd9904aa0fbc063e451f5
+2025-02-15T16:17:47.739+03:00  INFO 21484 --- [PlanningProject] [    Test worker] tc.postgres:15                           : Container postgres:15 started in PT1.9990169S
+2025-02-15T16:17:47.739+03:00  INFO 21484 --- [PlanningProject] [    Test worker] tc.postgres:15                           : Container is started (JDBC URL: jdbc:postgresql://localhost:64836/test?loggerLevel=OFF)
+2025-02-15T16:17:47.741+03:00  INFO 21484 --- [PlanningProject] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [dev.PlanningProject.controllers.GroupControllerTest]: GroupControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-02-15T16:17:47.747+03:00  INFO 21484 --- [PlanningProject] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration dev.PlanningProject.PlanningProjectApplication for test class dev.PlanningProject.controllers.GroupControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.5)
+
+2025-02-15T16:17:47.767+03:00  INFO 21484 --- [PlanningProject] [    Test worker] d.P.controllers.GroupControllerTest      : Starting GroupControllerTest using Java 21.0.6 with PID 21484 (started by Алексей in C:\Projects\PlanningProject)
+2025-02-15T16:17:47.767+03:00  INFO 21484 --- [PlanningProject] [    Test worker] d.P.controllers.GroupControllerTest      : The following 1 profile is active: "test"
+2025-02-15T16:17:48.049+03:00  INFO 21484 --- [PlanningProject] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-15T16:17:48.080+03:00  INFO 21484 --- [PlanningProject] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 31 ms. Found 6 JPA repository interfaces.
+2025-02-15T16:17:48.207+03:00  INFO 21484 --- [PlanningProject] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-15T16:17:48.207+03:00  INFO 21484 --- [PlanningProject] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-15T16:17:48.207+03:00  INFO 21484 --- [PlanningProject] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-15T16:17:48.222+03:00  INFO 21484 --- [PlanningProject] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2025-02-15T16:17:48.248+03:00  INFO 21484 --- [PlanningProject] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@3c63d57e
+2025-02-15T16:17:48.248+03:00  INFO 21484 --- [PlanningProject] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2025-02-15T16:17:48.493+03:00  INFO 21484 --- [PlanningProject] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-15T16:17:48.501+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.501+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "groups" does not exist, skipping
+2025-02-15T16:17:48.505+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.505+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "products" does not exist, skipping
+2025-02-15T16:17:48.506+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.506+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "products_in_plane" does not exist, skipping
+2025-02-15T16:17:48.509+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.509+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "products_in_plane" does not exist, skipping
+2025-02-15T16:17:48.511+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.511+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "purchases" does not exist, skipping
+2025-02-15T16:17:48.512+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.512+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "purchases" does not exist, skipping
+2025-02-15T16:17:48.514+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.514+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "purchases" does not exist, skipping
+2025-02-15T16:17:48.516+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.516+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "tasks" does not exist, skipping
+2025-02-15T16:17:48.517+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.518+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "tasks" does not exist, skipping
+2025-02-15T16:17:48.519+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.519+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "user_groups" does not exist, skipping
+2025-02-15T16:17:48.521+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.521+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "user_groups" does not exist, skipping
+2025-02-15T16:17:48.522+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.522+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "users" does not exist, skipping
+2025-02-15T16:17:48.524+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.524+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "users_credentials" does not exist, skipping
+2025-02-15T16:17:48.525+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.525+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "groups" does not exist, skipping
+2025-02-15T16:17:48.527+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.527+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "passwords" does not exist, skipping
+2025-02-15T16:17:48.528+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.529+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "products" does not exist, skipping
+2025-02-15T16:17:48.530+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.530+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "products_in_plane" does not exist, skipping
+2025-02-15T16:17:48.531+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.531+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "purchases" does not exist, skipping
+2025-02-15T16:17:48.533+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.533+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "tasks" does not exist, skipping
+2025-02-15T16:17:48.535+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.535+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "user_groups" does not exist, skipping
+2025-02-15T16:17:48.536+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.536+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "users" does not exist, skipping
+2025-02-15T16:17:48.537+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.538+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "users_credentials" does not exist, skipping
+2025-02-15T16:17:48.539+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.539+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : sequence "groups_seq" does not exist, skipping
+2025-02-15T16:17:48.541+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.541+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : sequence "passwords_seq" does not exist, skipping
+2025-02-15T16:17:48.542+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.543+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : sequence "products_in_plane_seq" does not exist, skipping
+2025-02-15T16:17:48.544+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.544+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : sequence "products_seq" does not exist, skipping
+2025-02-15T16:17:48.545+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.546+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : sequence "purchases_seq" does not exist, skipping
+2025-02-15T16:17:48.548+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.548+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : sequence "tasks_seq" does not exist, skipping
+2025-02-15T16:17:48.550+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.550+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : sequence "users_credentials_seq" does not exist, skipping
+2025-02-15T16:17:48.551+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-02-15T16:17:48.551+03:00  WARN 21484 --- [PlanningProject] [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : sequence "users_seq" does not exist, skipping
+2025-02-15T16:17:48.611+03:00  INFO 21484 --- [PlanningProject] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-15T16:17:48.755+03:00  INFO 21484 --- [PlanningProject] [    Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name jwtUserDetailsService
+2025-02-15T16:17:48.787+03:00  WARN 21484 --- [PlanningProject] [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-15T16:17:49.084+03:00  INFO 21484 --- [PlanningProject] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2025-02-15T16:17:49.084+03:00  INFO 21484 --- [PlanningProject] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-02-15T16:17:49.084+03:00  INFO 21484 --- [PlanningProject] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2025-02-15T16:17:49.084+03:00  INFO 21484 --- [PlanningProject] [    Test worker] o.a.k.clients.admin.AdminClientConfig    : AdminClientConfig values: 
+	auto.include.jmx.reporter = true
+	bootstrap.controllers = []
+	bootstrap.servers = [localhost:29092]
+	client.dns.lookup = use_all_dns_ips
+	client.id = PlanningProject-admin-1
+	connections.max.idle.ms = 300000
+	default.api.timeout.ms = 60000
+	enable.metrics.push = true
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.max.ms = 1000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+
+2025-02-15T16:17:49.084+03:00  INFO 21484 --- [PlanningProject] [    Test worker] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 3.7.1
+2025-02-15T16:17:49.084+03:00  INFO 21484 --- [PlanningProject] [    Test worker] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: e2494e6ffb89f828
+2025-02-15T16:17:49.084+03:00  INFO 21484 --- [PlanningProject] [    Test worker] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1739625469084
+2025-02-15T16:17:49.108+03:00  INFO 21484 --- [PlanningProject] [Project-admin-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.admin.client for PlanningProject-admin-1 unregistered
+2025-02-15T16:17:49.110+03:00  INFO 21484 --- [PlanningProject] [Project-admin-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2025-02-15T16:17:49.110+03:00  INFO 21484 --- [PlanningProject] [Project-admin-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2025-02-15T16:17:49.110+03:00  INFO 21484 --- [PlanningProject] [Project-admin-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2025-02-15T16:17:49.114+03:00  INFO 21484 --- [PlanningProject] [    Test worker] d.P.controllers.GroupControllerTest      : Started GroupControllerTest in 1.364 seconds (process running for 23.968)
+2025-02-15T16:17:49.199+03:00  INFO 21484 --- [PlanningProject] [    Test worker] d.P.services.KafkaProducer               : {"entityClass":"UserEntity","action":"PERSIST","localDateTime":"2025-02-15T16:17:49.1975515","object":{"id":1,"email":null,"avatarUrl":null},"username":"userTest","serviceName":"plannerBackend"}
+2025-02-15T16:17:49.200+03:00  INFO 21484 --- [PlanningProject] [    Test worker] o.a.k.clients.producer.ProducerConfig    : ProducerConfig values: 
+	acks = -1
+	auto.include.jmx.reporter = true
+	batch.size = 16384
+	bootstrap.servers = [localhost:29092]
+	buffer.memory = 33554432
+	client.dns.lookup = use_all_dns_ips
+	client.id = PlanningProject-producer-1
+	compression.type = none
+	connections.max.idle.ms = 540000
+	delivery.timeout.ms = 120000
+	enable.idempotence = true
+	enable.metrics.push = true
+	interceptor.classes = []
+	key.serializer = class org.apache.kafka.common.serialization.StringSerializer
+	linger.ms = 0
+	max.block.ms = 60000
+	max.in.flight.requests.per.connection = 5
+	max.request.size = 1048576
+	metadata.max.age.ms = 300000
+	metadata.max.idle.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partitioner.adaptive.partitioning.enable = true
+	partitioner.availability.timeout.ms = 0
+	partitioner.class = null
+	partitioner.ignore.keys = false
+	receive.buffer.bytes = 32768
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.max.ms = 1000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	transaction.timeout.ms = 60000
+	transactional.id = null
+	value.serializer = class org.apache.kafka.common.serialization.StringSerializer
+
+2025-02-15T16:17:49.201+03:00  INFO 21484 --- [PlanningProject] [    Test worker] o.a.k.c.t.i.KafkaMetricsCollector        : initializing Kafka metrics collector
+2025-02-15T16:17:49.201+03:00  INFO 21484 --- [PlanningProject] [    Test worker] o.a.k.clients.producer.KafkaProducer     : [Producer clientId=PlanningProject-producer-1] Instantiated an idempotent producer.
+2025-02-15T16:17:49.205+03:00  INFO 21484 --- [PlanningProject] [    Test worker] o.a.kafka.common.utils.AppInfoParser     : The mbean of App info: [kafka.producer], id: [PlanningProject-producer-1] already exists, so skipping a new mbean creation.
+2025-02-15T16:17:49.212+03:00  INFO 21484 --- [PlanningProject] [ject-producer-1] org.apache.kafka.clients.Metadata        : [Producer clientId=PlanningProject-producer-1] Cluster ID: 6HyOj0RnTOGC-L3k5-V2uQ
+2025-02-15T16:17:49.212+03:00  INFO 21484 --- [PlanningProject] [ject-producer-1] o.a.k.c.p.internals.TransactionManager   : [Producer clientId=PlanningProject-producer-1] ProducerId set to 10004 with epoch 0
+2025-02-15T16:17:49.233+03:00  INFO 21484 --- [PlanningProject] [    Test worker] d.P.services.KafkaProducer               : {"entityClass":"GroupEntity","action":"PERSIST","localDateTime":"2025-02-15T16:17:49.2329373","object":{"id":1,"name":"testGroup"},"username":"userTest","serviceName":"plannerBackend"}
+2025-02-15T16:17:49.319+03:00  INFO 21484 --- [PlanningProject] [    Test worker] d.P.services.KafkaProducer               : {"entityClass":"GroupEntity","action":"REMOVE","localDateTime":"2025-02-15T16:17:49.3185445","object":{"id":1,"name":"testGroup"},"username":"userTest","serviceName":"plannerBackend"}
+2025-02-15T16:17:49.347+03:00  INFO 21484 --- [PlanningProject] [    Test worker] d.P.services.KafkaProducer               : {"entityClass":"UserEntity","action":"REMOVE","localDateTime":"2025-02-15T16:17:49.346985","object":{"id":1,"email":null,"avatarUrl":null},"username":"initializer","serviceName":"plannerBackend"}
+2025-02-15T16:17:49.438+03:00  INFO 21484 --- [PlanningProject] [    Test worker] d.P.services.KafkaProducer               : {"entityClass":"UserEntity","action":"PERSIST","localDateTime":"2025-02-15T16:17:49.4381347","object":{"id":2,"email":null,"avatarUrl":null},"username":"userTest","serviceName":"plannerBackend"}
+2025-02-15T16:17:49.455+03:00  INFO 21484 --- [PlanningProject] [    Test worker] d.P.services.KafkaProducer               : {"entityClass":"GroupEntity","action":"PERSIST","localDateTime":"2025-02-15T16:17:49.4552494","object":{"id":2,"name":"testGroup"},"username":"userTest","serviceName":"plannerBackend"}
+2025-02-15T16:17:49.485+03:00  INFO 21484 --- [PlanningProject] [    Test worker] d.P.services.KafkaProducer               : {"entityClass":"GroupEntity","action":"REMOVE","localDateTime":"2025-02-15T16:17:49.4852214","object":{"id":2,"name":"testGroup"},"username":"initializer","serviceName":"plannerBackend"}
+2025-02-15T16:17:49.503+03:00  INFO 21484 --- [PlanningProject] [    Test worker] d.P.services.KafkaProducer               : {"entityClass":"UserEntity","action":"REMOVE","localDateTime":"2025-02-15T16:17:49.5027934","object":{"id":2,"email":null,"avatarUrl":null},"username":"initializer","serviceName":"plannerBackend"}
+2025-02-15T16:17:49.593+03:00  INFO 21484 --- [PlanningProject] [    Test worker] d.P.services.KafkaProducer               : {"entityClass":"UserEntity","action":"PERSIST","localDateTime":"2025-02-15T16:17:49.5929692","object":{"id":3,"email":null,"avatarUrl":null},"username":"userTest","serviceName":"plannerBackend"}
+2025-02-15T16:17:49.669+03:00  INFO 21484 --- [PlanningProject] [    Test worker] d.P.services.KafkaProducer               : {"entityClass":"GroupEntity","action":"PERSIST","localDateTime":"2025-02-15T16:17:49.6692189","object":{"id":3,"name":"testGroup"},"username":"userTest","serviceName":"plannerBackend"}
+2025-02-15T16:17:49.689+03:00  INFO 21484 --- [PlanningProject] [    Test worker] d.P.services.KafkaProducer               : {"entityClass":"GroupEntity","action":"REMOVE","localDateTime":"2025-02-15T16:17:49.689702","object":{"id":3,"name":"testGroup"},"username":"initializer","serviceName":"plannerBackend"}
+2025-02-15T16:17:49.703+03:00  INFO 21484 --- [PlanningProject] [    Test worker] d.P.services.KafkaProducer               : {"entityClass":"UserEntity","action":"REMOVE","localDateTime":"2025-02-15T16:17:49.7030839","object":{"id":3,"email":null,"avatarUrl":null},"username":"initializer","serviceName":"plannerBackend"}
+2025-02-15T16:17:49.788+03:00  INFO 21484 --- [PlanningProject] [    Test worker] d.P.services.KafkaProducer               : {"entityClass":"UserEntity","action":"PERSIST","localDateTime":"2025-02-15T16:17:49.7879896","object":{"id":4,"email":null,"avatarUrl":null},"username":"userTest","serviceName":"plannerBackend"}
+2025-02-15T16:17:49.806+03:00  INFO 21484 --- [PlanningProject] [    Test worker] d.P.services.KafkaProducer               : {"entityClass":"GroupEntity","action":"PERSIST","localDateTime":"2025-02-15T16:17:49.8063143","object":{"id":4,"name":"testGroup1"},"username":"userTest","serviceName":"plannerBackend"}
+2025-02-15T16:17:49.818+03:00  INFO 21484 --- [PlanningProject] [    Test worker] d.P.services.KafkaProducer               : {"entityClass":"GroupEntity","action":"PERSIST","localDateTime":"2025-02-15T16:17:49.8183179","object":{"id":5,"name":"testGroup2"},"username":"userTest","serviceName":"plannerBackend"}
+2025-02-15T16:17:49.853+03:00  INFO 21484 --- [PlanningProject] [    Test worker] d.P.services.KafkaProducer               : {"entityClass":"GroupEntity","action":"REMOVE","localDateTime":"2025-02-15T16:17:49.8531802","object":{"id":4,"name":"testGroup1"},"username":"initializer","serviceName":"plannerBackend"}
+2025-02-15T16:17:49.855+03:00  INFO 21484 --- [PlanningProject] [    Test worker] d.P.services.KafkaProducer               : {"entityClass":"GroupEntity","action":"REMOVE","localDateTime":"2025-02-15T16:17:49.8559481","object":{"id":5,"name":"testGroup2"},"username":"initializer","serviceName":"plannerBackend"}
+2025-02-15T16:17:49.867+03:00  INFO 21484 --- [PlanningProject] [    Test worker] d.P.services.KafkaProducer               : {"entityClass":"UserEntity","action":"REMOVE","localDateTime":"2025-02-15T16:17:49.8678684","object":{"id":4,"email":null,"avatarUrl":null},"username":"initializer","serviceName":"plannerBackend"}
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
