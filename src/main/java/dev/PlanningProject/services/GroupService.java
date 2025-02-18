@@ -1,5 +1,6 @@
 package dev.PlanningProject.services;
 
+import dev.PlanningProject.annotations.SaveLog;
 import dev.PlanningProject.dtos.GroupDto;
 import dev.PlanningProject.entities.GroupEntity;
 import dev.PlanningProject.entities.UserEntity;
@@ -25,16 +26,16 @@ public class GroupService {
     private final ListGroupMapper listGroupMapper;
     private final CredentialsRepository credentialsRepository;
 
-    @Transactional
+    @SaveLog(action = "PERSIST")
     public GroupDto createGroup(GroupDto group, String username) {
-        UserEntity user = credentialsRepository.getUserByUsername(username)
+        UserEntity user = credentialsRepository.getUserByUsernameWithGroups(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found"));
         GroupEntity newGroup = groupMapper.toGroupEntity(group, user);
         newGroup.addUser(user);
         return groupMapper.toGroupDto(groupRepository.save(newGroup));
     }
 
-
+    @SaveLog(action = "REMOVE", entityClass = "GroupId")
     public Long deleteGroupById(Long id) {
         groupRepository.deleteById(id);
         return id;

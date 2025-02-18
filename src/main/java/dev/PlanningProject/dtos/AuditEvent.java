@@ -16,4 +16,5 @@ public class AuditEvent {
     private Object object;
     private String username;
     private String serviceName;
+    private String exception;
 }

@@ -1,5 +1,6 @@
 package dev.PlanningProject.services;
 
+import dev.PlanningProject.annotations.SaveLog;
 import dev.PlanningProject.dtos.ProductDto;
 import dev.PlanningProject.dtos.PurchaseDto;
 import dev.PlanningProject.dtos.PurchaseShortDto;
@@ -34,6 +35,7 @@ public class PurchaseService {
     private final TaskService taskService;
 
 
+    @SaveLog(action = "PERSIST")
     public PurchaseDto createPurchase(PurchaseDto purchase, Long groupId, String username) {
         UserEntity userPayer = credentialsRepository.getUserByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found"));
@@ -42,6 +44,7 @@ public class PurchaseService {
         return purchaseMapper.toPurchaseDto(purchaseRepository.save(newPurchase));
     }
 
+    @SaveLog(action = "PERSIST")
     public PurchaseDto createPurchaseInTask(PurchaseDto purchase, Long groupId, Long taskId, String username) {
         UserEntity userPayer = credentialsRepository.getUserByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found"));

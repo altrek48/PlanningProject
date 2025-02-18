@@ -1,5 +1,6 @@
 package dev.PlanningProject.services.auth;
 
+import dev.PlanningProject.annotations.SaveLog;
 import dev.PlanningProject.dtos.AuthUser;
 import dev.PlanningProject.dtos.Role;
 import dev.PlanningProject.dtos.auth.SignInRequest;
@@ -37,7 +38,7 @@ public class JwtUserDetailsService implements UserDetailsService {
                 .build();
     }
 
-    @Transactional
+    @SaveLog(action = "PERSIST")
     public CredentialsEntity createUser(SignInRequest request) {
 
             CredentialsEntity entity = CredentialsEntity.builder()

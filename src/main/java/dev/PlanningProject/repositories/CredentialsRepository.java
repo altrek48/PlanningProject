@@ -31,4 +31,6 @@ public interface CredentialsRepository extends CrudRepository<CredentialsEntity,
             "FROM GroupEntity g JOIN g.users u JOIN u.linkedUserCredentials c WHERE g.id = :groupId")
     List<UserProfile> getProfilesByGroupId(@Param("groupId") Long groupId);
 
+    @Query("SELECT u FROM UserEntity u LEFT JOIN FETCH u.groups WHERE u.linkedUserCredentials.username = :username")
+    Optional<UserEntity> getUserByUsernameWithGroups(@Param("username") String username);
 }

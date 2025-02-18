@@ -41,7 +41,7 @@ public class AvatarService {
             return newFileName;
         }
         catch (Exception e) {
-            throw new RuntimeException("upload fail", e);
+            throw new RuntimeException("upload fail ", e);
         }
     }
 

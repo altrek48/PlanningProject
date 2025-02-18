@@ -4,10 +4,12 @@ import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.HashMap;
@@ -18,9 +20,9 @@ public class GlobalExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getFieldErrors().forEach(error -> {
             String field = error.getField();
@@ -28,37 +30,37 @@ public class GlobalExceptionHandler {
             errors.put(field, message);
         });
         logger.error("Validation error occurred: {}", errors);
-        return errors;
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
 
-    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(EntityNotFoundException.class)
-    public Map<String, String> handleEntityNotFoundException(EntityNotFoundException ex) {
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> handleEntityNotFoundException(EntityNotFoundException ex) {
         String errorMessage = ex.getMessage() != null ? ex.getMessage() : "Resource not found";
         logger.error("EntityNotFoundException: {}", errorMessage);
         Map<String, String> errors = new HashMap<>();
         errors.put("error", "Resource not found: " + errorMessage);
-        return errors;
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errors);
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalArgumentException.class)
-    public Map<String, String> handleIllegalArgumentException(IllegalArgumentException ex) {
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> handleIllegalArgumentException(IllegalArgumentException ex) {
         String errorMessage = ex.getMessage() != null ? ex.getMessage() : "Invalid input";
         logger.error("IllegalArgumentException: {}", errorMessage);
         Map<String, String> errors = new HashMap<>();
         errors.put("error", "Invalid input: " + errorMessage);
-        return errors;
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
 
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(UsernameNotFoundException.class)
-    public Map<String, String> handleUsernameNotFoundException(UsernameNotFoundException ex) {
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> handleUsernameNotFoundException(UsernameNotFoundException ex) {
         String errorMessage = ex.getMessage() != null ? ex.getMessage() : "User not found";
         logger.error("UsernameNotFoundException: {}", errorMessage);
         Map<String, String> errors = new HashMap<>();
         errors.put("error", "Authentication failed: " + errorMessage);
-        return errors;
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errors);
     }
 
 //    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

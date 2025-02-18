@@ -40,8 +40,8 @@ public class Initializer {
                 .build());
 
         groupService.createGroup(GroupDto.builder()
-                        .name("Colleagues")
-                        .build(),
+                .name("Colleagues")
+                .build(),
                 "bobik333"
         );
 
@@ -77,7 +77,6 @@ public class Initializer {
                         ProductDto.builder().name("Gorshok").price(BigDecimal.valueOf(2345)).quantity(1L).build()
                 ))
                 .build();
-
 
         purchaseService.createPurchase(purchaseDto1, 1L, "rolik222");
 

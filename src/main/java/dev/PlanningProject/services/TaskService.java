@@ -1,5 +1,6 @@
 package dev.PlanningProject.services;
 
+import dev.PlanningProject.annotations.SaveLog;
 import dev.PlanningProject.dtos.ProductInPlaneDto;
 import dev.PlanningProject.dtos.TaskDto;
 import dev.PlanningProject.dtos.TaskShortDto;
@@ -34,7 +35,7 @@ public class TaskService {
     private final PurchaseRepository purchaseRepository;
     private final ProductRepository productRepository;
 
-
+    @SaveLog(action = "PERSIST")
     public TaskDto createTask(TaskDto task,Long groupId, String username) {
         UserEntity userCreator = credentialsRepository.getUserByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found"));
@@ -45,12 +46,13 @@ public class TaskService {
         return taskMapper.toTaskDto(taskRepository.save(newTask));
     }
 
-
+    @SaveLog(action = "REMOVE", entityClass = "TaskId")
     public Long deleteTask(Long taskId) {
         taskRepository.deleteById(taskId);
         return taskId;
     }
 
+    @SaveLog(action = "UPDATE")
     public TaskDto changeTask(TaskDto task) {
         TaskEntity previousTask = taskRepository.findByIdWithProducts(task.getId())
                 .orElseThrow(() -> new EntityNotFoundException("task с переданным id не найден"));
